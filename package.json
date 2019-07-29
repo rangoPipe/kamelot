@@ -1,0 +1,22 @@
+{
+  "name": "kamelot",
+  "version": "1.0.0",
+  "description": "Software Administrativo KB",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rangoPipe/kamelot.git"
+  },
+  "author": "@rangoPipe",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rangoPipe/kamelot/issues"
+  },
+  "homepage": "https://github.com/rangoPipe/kamelot#readme",
+  "dependencies": {
+    "mongoose": "^5.6.7"
+  }
+}
