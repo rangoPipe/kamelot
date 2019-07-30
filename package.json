@@ -7,7 +7,8 @@
     "ts:node": "ts-node src/app.ts",
     "clean": "rm -rf build",
     "build": "tsc",
-    "start": "node build/src/app.js"
+    "start": "node build/src/app.js",
+    "dev": "nodemon"
   },
   "repository": {
     "type": "git",
@@ -20,7 +21,9 @@
   },
   "homepage": "https://github.com/rangoPipe/kamelot#readme",
   "dependencies": {
+    "@types/express-handlebars": "0.0.32",
     "express": "^4.17.1",
+    "express-handlebars": "^3.1.0",
     "mongoose": "^5.6.7"
   },
   "devDependencies": {
