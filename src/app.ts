@@ -2,6 +2,7 @@ import express from "express";
 import exphbs from "express-handlebars";
 import path from 'path';
 import _routes from "./routes";
+import _rtsBooks from "./routes/books";
 
 //init
 const app = express();
@@ -14,7 +15,8 @@ app.engine('.hbs', exphbs({
     layoutsDir: path.join( app.get('views'), 'layouts'),
     partialsDir: path.join( app.get('views'), 'partials'),
     //helpers: path.join(__dirname, 'common', 'helper')
-    helpers: require('./common/helper')
+    helpers: require('./common/helper'),
+    defaultLayout: 'main'
 }));
 
 app.set('view engine', '.hbs');
@@ -25,6 +27,7 @@ app.use(express.urlencoded({ extended: false }));
 
 //Routes
 app.use( _routes);
+app.use(http://localhost:3000/books/add? _rtsBooks);
 
 //Static files
 app.use(express.static( path.join( __dirname, 'public')));

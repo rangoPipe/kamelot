@@ -6,4 +6,5 @@ const router:Router = Router();
 
 router.get('/', indexController.index);
 
+
 export default router;
