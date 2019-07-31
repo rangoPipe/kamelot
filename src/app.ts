@@ -6,6 +6,7 @@ import _rtsBooks from "./routes/books";
 
 //init
 const app = express();
+import './common/conn'
 
 //settings
 app.set('port', process.env.PORT || 3000);
@@ -27,7 +28,7 @@ app.use(express.urlencoded({ extended: false }));
 
 //Routes
 app.use( _routes);
-app.use(http://localhost:3000/books/add? _rtsBooks);
+app.use( _rtsBooks);
 
 //Static files
 app.use(express.static( path.join( __dirname, 'public')));

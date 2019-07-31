@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import bookModel, { Book } from "../model/book";
 
 class BooksController {
 
@@ -6,21 +7,31 @@ class BooksController {
         
     }
 
-    index( req:Request, res:Response ):void {
+    public async index( req:Request, res:Response ): Promise<void> {
+        const books:Book[] = await bookModel.find();
         res.render('books/index', {
-            title : 'books'
+            title : 'books',
+            books
         });
     }
 
-    addBook( req:Request, res:Response ):void {
+    public addBook( req:Request, res:Response ):void {
         res.render('books/add', {
             title : 'books'
         });
     }
 
-    saveBook( req:Request, res:Response ):void {
-        console.log(req.body);
-        res.send('received');
+    public async saveBook( req:Request, res:Response ) {
+
+        const { title, author, isbn} = req.body;
+        const book:Book = new bookModel({
+            title,
+            author,
+            isbn 
+        });
+
+        await book.save();
+        res.redirect('/books');
     }
 }
 
