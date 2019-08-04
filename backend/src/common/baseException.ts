@@ -1,3 +1,6 @@
+import fs from "fs";
+import path from 'path';
+
 class BaseException {
 
     public status:number = 200;
@@ -6,13 +9,18 @@ class BaseException {
     constructor(status:number, message:string ) {
         this.status = status;
         this.message = message;
+        this.crearLog();
     }
 
     crearLog(){
-        try {
-            
-        } catch (error) {
-            
-        }
+        const message:string = `
+            Status: ${this.status}
+            Message: ${this.message}`;
+        fs.appendFile(path.join('backend', 'src', 'var', 'log', 'log.txt'), message, (err) => {
+            if(err)
+                console.log(err);
+        })
     }
 }
+
+export default BaseException;

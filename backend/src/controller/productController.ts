@@ -1,11 +1,13 @@
 import { Request, Response } from "express";
 import productModel, { Product } from "../model/product";
+import BaseException from "../common/baseException";
+import AppResponse from "../common/appResponse";
+const translation = require('../translation/es.json');
 
 class ProductController {
 
     public index(req: Request, res: Response) {
-        res.render('product/index');
-        
+        res.render('product/index');     
     }
 
     public product(req: Request, res: Response) {
@@ -15,6 +17,7 @@ class ProductController {
     public async saveProduct(req: Request, res:Response) {
 
         try {
+            var response:AppResponse;
             const { nombre, ean, compra, venta} = req.body;
             const product:Product = new productModel({
                 name : nombre,
@@ -24,20 +27,21 @@ class ProductController {
                 dateCreate : new Date()
             });
     
-            const response = await product.save((err, item) => {
-                if(err)
-                    console.log(123);
+            await product.save((err, item) => {
+
+                new BaseException(200, 'probando');
+                if(err){
+                    new BaseException(err.code, err.errmsg);
+                    response = new AppResponse(false, err.errmsg);
+                }
                 else
-                    console.log(item);
-                res.json({
-                    message:'tlasldas'
-                });
+                    response = new AppResponse(true, translation.common.save);
+
+                res.json(response);
             });
         } catch (error) {
-            res.json()
+            res.json( new AppResponse(false, error));
         }
-       
-
     }
 }
 
