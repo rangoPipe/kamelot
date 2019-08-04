@@ -3,6 +3,7 @@ import exphbs from "express-handlebars";
 import path from 'path';
 import _routes from "./routes";
 import _rtsBooks from "./routes/books";
+import _rtsProduct from "./routes/product";
 
 //init
 const app = express();
@@ -28,7 +29,7 @@ app.use(express.urlencoded({ extended: false }));
 
 //Routes
 app.use( _routes);
-app.use( _rtsBooks);
+app.use( _rtsBooks, _rtsProduct);
 
 //Static files
 app.use(express.static( path.join( __dirname, 'public')));
@@ -39,3 +40,4 @@ app.use(express.static( path.join( __dirname, 'public')));
 app.listen(app.get('port'), () => {
     console.log(`corriendo en el puerto ${app.get('port')}`);    
 })
+
