@@ -4,7 +4,7 @@
   "description": "Software Administrativo KB",
   "main": "app.js",
   "scripts": {
-    "ts:node": "ts-node src/app.ts",
+    "ts:node": "ts-node backend/src/app.ts",
     "clean": "rm -rf build",
     "build": "tsc",
     "start": "node build/src/app.js",
