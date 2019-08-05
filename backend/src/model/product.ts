@@ -21,7 +21,10 @@ const schProduct = new mongoose.Schema ({
         required: true
     },
     dateUpdate : Date,
-    active      : Boolean
+    active     : {
+        type : Boolean,
+        default : true
+    }
 });
 
 export interface Product extends mongoose.Document {
