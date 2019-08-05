@@ -1,13 +1,11 @@
 class AppResponse {
 
     public success:Boolean;
-    public message:String;
     public data:any;
 
-    constructor(success:Boolean, message:string, data:any = null) {
+    constructor(success:Boolean, data:any = null) {
         this.success = success;
         this.data = data;
-        this.message = message;
     }
 
     getJson() {
