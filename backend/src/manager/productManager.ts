@@ -1,12 +1,8 @@
-import productModel, { Product } from "../model/product";
+import productModel, { Product } from "../../../model/product";
 import BaseException from "../common/baseException";
 import AppResponse from "../common/appResponse";
 
 class ProductManager {
-
-    constructor() {
-
-    }
 
     public async getAllProducts():Promise<any> {
         try {
@@ -20,7 +16,7 @@ class ProductManager {
 
     public async getOne(model:Product):Promise<any>  {
         try {
-            return await productModel.findOne(model.id);
+            return await productModel.findById(model.id);
 
         } catch (error) {
             new BaseException(500, error);
@@ -62,7 +58,7 @@ class ProductManager {
 
     public async disable(model:Product): Promise<any>  {
         try {
-            return await productModel.findByIdAndUpdate(model.id, { $set: {activo:false}});
+            return await productModel.findByIdAndUpdate(model.id, { $set: { activo:false }});
         } catch (error) {
             new BaseException(500, error);
             return new AppResponse(false, error);

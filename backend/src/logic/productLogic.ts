@@ -1,12 +1,9 @@
-import { Product } from "../model/product";
+import { Product } from "../../../model/product";
 import BaseException from "../common/baseException";
 import AppResponse from "../common/appResponse";
 import { productManager } from "../manager/productManager";
 
 class ProductLogic {
-    constructor() {
-        
-    }
 
     public async getAllProducts():Promise<any> {
         try {
@@ -20,7 +17,7 @@ class ProductLogic {
 
     public async getOne(model:Product):Promise<any>  {
         try {
-            return await productManager.getOne(model.id);
+            return await productManager.getOne(model);
 
         } catch (error) {
             new BaseException(500, error);
