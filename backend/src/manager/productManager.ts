@@ -8,10 +8,9 @@ class ProductManager {
 
     }
 
-    public async getAllProducts():Promise<AppResponse> {
+    public async getAllProducts():Promise<any> {
         try {
-            const products:Product[] = await productModel.find();
-            return new AppResponse(true, products);
+            return await productModel.find();
             
         } catch (error) {
             new BaseException(500, error);
@@ -19,10 +18,9 @@ class ProductManager {
         }    
     }
 
-    public async getOne(model:Product):Promise<AppResponse>  {
+    public async getOne(model:Product):Promise<any>  {
         try {
-            const product:Product|null =  await productModel.findOne(model.id);
-            return new AppResponse(true, product);
+            return await productModel.findOne(model.id);
 
         } catch (error) {
             new BaseException(500, error);
@@ -30,7 +28,7 @@ class ProductManager {
         }
     }
 
-    public async save(product:Product):Promise<AppResponse> {
+    public async save(product:Product):Promise<any> {
 
         try {
             let result = await productModel.findById(product.id);         
@@ -42,10 +40,9 @@ class ProductManager {
         }
     }
 
-    private async saveProduct(product:Product):Promise<AppResponse> {
+    private async saveProduct(product:Product):Promise<any> {
         try {
-            const res = await product.save();
-            return new AppResponse(true, res );
+            return await product.save();
         }
         catch(error){
             new BaseException(500, error);
@@ -53,21 +50,19 @@ class ProductManager {
         }
     }
 
-    private async updateProduct(product:Product): Promise<AppResponse> {
+    private async updateProduct(product:Product): Promise<any> {
         try {
             product.dateUpdate = new Date();
-            const res = productModel.findByIdAndUpdate(product.id, product);
-            return new AppResponse(true, res );
+            return productModel.findByIdAndUpdate(product.id, product);
         } catch (error) {
             new BaseException(500, error);
             return new AppResponse(false, error);
         }
     }
 
-    private async disable(model:Product): Promise<AppResponse>  {
+    public async disable(model:Product): Promise<any>  {
         try {
-            const product:Product|null = await productModel.findByIdAndUpdate(model.id, { $set: {activo:false}});
-            return new AppResponse(true, product );
+            return await productModel.findByIdAndUpdate(model.id, { $set: {activo:false}});
         } catch (error) {
             new BaseException(500, error);
             return new AppResponse(false, error);

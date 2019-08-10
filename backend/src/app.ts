@@ -2,7 +2,6 @@ import express from "express";
 import exphbs from "express-handlebars";
 import path from 'path';
 import _routes from "./routes";
-import _rtsBooks from "./routes/books";
 import _rtsProduct from "./routes/product";
 
 //init
@@ -29,7 +28,7 @@ app.use(express.urlencoded({ extended: false }));
 
 //Routes
 app.use( _routes);
-app.use( _rtsBooks, _rtsProduct);
+app.use( _rtsProduct);
 
 //Static files
 app.use(express.static( path.join( __dirname, 'public')));

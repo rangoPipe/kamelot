@@ -3,6 +3,7 @@ import productModel, { Product } from "../model/product";
 import BaseException from "../common/baseException";
 import AppResponse from "../common/appResponse";
 import { DocumentQuery } from "mongoose";
+import { productLogic } from "../logic/productLogic";
 const translation = require('../translation/es.json');
 
 class ProductController {
@@ -11,11 +12,13 @@ class ProductController {
 
     }
 
-    public allProducts(req: Request, res: Response) {
+    public async allProducts(req: Request, res: Response) {
         try {
-            
+            const result = await productLogic.getAllProducts();
+            res.send(result);
+
         } catch (error) {
-            
+            res.send(error)
         }    
         
         return res.json({});
@@ -39,36 +42,12 @@ class ProductController {
                 dateCreate : new Date()
             });
 
-            let result = await productModel.findById(id);
-            let response:AppResponse = (!result) ? await productController.saveProduct(product) : await productController.updateProduct(product);           
-
+            let response = await productLogic.save(product);
             res.json(response);
             
         } catch (error) {
             new BaseException(500, error); 
             res.json( new AppResponse(false, error));
-        }
-    }
-
-    private async saveProduct(product:Product):Promise<AppResponse> {
-        try {
-            const res = await product.save();
-            return new AppResponse(true, translation.common.save, res );
-        }
-        catch(error){
-            new BaseException(500, error);
-            return new AppResponse(false, error);
-        }
-    }
-
-    private async updateProduct(product:Product): Promise<AppResponse> {
-        try {
-            product.dateUpdate = new Date();
-            const res = productModel.findByIdAndUpdate(product.id, product);
-            return new AppResponse(true, translation.common.save, res );
-        } catch (error) {
-            new BaseException(500, error);
-            return new AppResponse(false, 'Error interno');
         }
     }
 }
