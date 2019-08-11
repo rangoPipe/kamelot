@@ -28,7 +28,7 @@ class PurchaseManager {
 
         try {
             let result = await purchaseModel.findById(model.id);         
-            return (!result) ? await purchaseManager.saveProduct(model) : await purchaseManager.updateProduct(product);
+            return (!result) ? await purchaseManager.save(model) : await purchaseManager.updatePurchase(model);
             
         } catch (error) {
             new BaseException(500, error); 
@@ -36,7 +36,7 @@ class PurchaseManager {
         }
     }
 
-    private async saveProduct(model:Purchase):Promise<any> {
+    private async savePurchase(model:Purchase):Promise<any> {
         try {
             return await model.save();
         }
@@ -46,7 +46,7 @@ class PurchaseManager {
         }
     }
 
-    private async updateProduct(model:Purchase): Promise<any> {
+    private async updatePurchase(model:Purchase): Promise<any> {
         try {
             model.dateUpdate = new Date();
             return purchaseModel.findByIdAndUpdate(model.id, model);

@@ -23,7 +23,7 @@ const schProduct = new mongoose.Schema ({
 export interface Product extends mongoose.Document {
     _id: mongoose.Schema.Types.ObjectId;
     idProvider : mongoose.Schema.Types.ObjectId;
-    TypeMaterial : TypeMaterial;
+    TypeMaterial : Number ;
     name : String;
     ean: String;
     dateCreate : Date;

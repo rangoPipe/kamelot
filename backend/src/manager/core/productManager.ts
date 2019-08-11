@@ -28,7 +28,7 @@ class ProductManager {
 
         try {
             let result = await productModel.findById(model.id);         
-            return (!result) ? await productManager.saveProduct(model) : await productManager.updateProduct(product);
+            return (!result) ? await productManager.saveProduct(model) : await productManager.updateProduct(model);
             
         } catch (error) {
             new BaseException(500, error); 

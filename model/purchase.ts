@@ -28,4 +28,4 @@ export interface Purchase extends mongoose.Document {
     active     : Boolean;
 }
 
-export default mongoose.model<Buy>('Compra', schPurchase);
+export default mongoose.model<Purchase>('Compra', schPurchase);

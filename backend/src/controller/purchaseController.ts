@@ -1,8 +1,6 @@
 import { Request, Response } from "express";
-import productModel, { Product } from "../../../../model/core/product";
-import BaseException from "../../common/baseException";
-import AppResponse from "../../common/appResponse";
-import { productLogic } from "../../logic/core/productLogic";
+import BaseException from "../common/baseException";
+import AppResponse from "../common/appResponse";
 import purchaseModel, { Purchase } from "../../../model/purchase";
 import { purchaseLogic } from "../logic/purchaseLogic";
 
