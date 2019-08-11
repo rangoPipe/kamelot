@@ -9,9 +9,6 @@ const schProduct = new mongoose.Schema ({
         required : true,
         uppercase: true
     },
-    costBuy: Number,
-    costSale: Number,
-    quantity: Number,
     dateCreate : {
         type : Date,
         required: true
@@ -29,9 +26,6 @@ export interface Product extends mongoose.Document {
     TypeMaterial : TypeMaterial;
     name : String;
     ean: String;
-    costBuy: Number;
-    costSale: Number;
-    quantity: Number;
     dateCreate : Date;
     dateUpdate : Date;
     active     : Boolean;

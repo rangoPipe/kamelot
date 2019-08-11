@@ -53,16 +53,14 @@ class ProductController {
     }
 
     private createModel(req: Request): Product {
-        const { id, nombre, ean, compra, venta, idProveedor, idType, cantidad } = req.body;
+        const { id, nombre, ean, idProveedor, idType } = req.body;
 
         const product:Product = new productModel({
+            id : id,
             name : nombre,
             idProvider : idProveedor,
             TypeMaterial : idType,
-            quantity: cantidad,
             ean,
-            costBuy : compra,
-            costSale : venta,
             dateCreate : new Date()
         });
         return product;

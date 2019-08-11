@@ -1,14 +1,16 @@
 import { Request, Response } from "express";
+import productModel, { Product } from "../../../../model/core/product";
 import BaseException from "../../common/baseException";
 import AppResponse from "../../common/appResponse";
-import { tableLogic } from "../../logic/core/tableLogic";
-import tableModel, { Table } from "../../../../model/core/table";
+import { productLogic } from "../../logic/core/productLogic";
+import purchaseModel, { Purchase } from "../../../model/purchase";
+import { purchaseLogic } from "../logic/purchaseLogic";
 
-class TableController {
+class PurchaseController {
 
-    public async allTables(req: Request, res: Response) {
+    public async allPurchases(req: Request, res: Response) {
         try {
-            const result = await tableLogic.getAllTables();
+            const result = await purchaseLogic.getAllPurchases();
             res.send(result);
 
         } catch (error) {
@@ -20,9 +22,8 @@ class TableController {
 
     public async save(req: Request, res:Response):Promise<void> {
         try {
-
-            const model:Table = this.createModel(req);
-            let response = await tableLogic.save(model);
+            const model:Purchase = this.createModel(req);
+            let response = await purchaseLogic.save(model);
             res.json(response);
             
         } catch (error) {
@@ -34,7 +35,7 @@ class TableController {
     public async getOne(req: Request, res: Response) {
         try {
             const model = this.createModel(req);
-            const result = await tableLogic.getOne(model);
+            const result = await purchaseLogic.getOne(model);
             res.send(result);
 
         } catch (error) {
@@ -45,7 +46,7 @@ class TableController {
     public async disable(req: Request, res: Response) {
         try {
             const model = this.createModel(req.body);
-            const result = await tableLogic.disable(model);
+            const result = await purchaseLogic.disable(model);
             res.send(result);
 
         } catch (error) {
@@ -53,17 +54,19 @@ class TableController {
         }
     }
 
-    private createModel(req: Request): Table {
-        const { id, nombre, capacity } = req.body;
+    private createModel(req: Request): Purchase {
+        const { id, compra, venta, idProducto, cantidad } = req.body;
 
-        const model:Table = new tableModel({
-            id: id,
-            name : nombre,
-            capacity: capacity,
+        const model:Purchase = new purchaseModel({
+            id : id,
+            idProduct : idProducto,
+            costBuy: compra,
+            costSale: venta,
+            quantity: cantidad,
             dateCreate : new Date()
         });
         return model;
     }
 }
 
-export const tableController = new TableController();
+export const purchaseController = new PurchaseController();

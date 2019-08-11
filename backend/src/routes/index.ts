@@ -3,6 +3,7 @@ import { indexController } from "../controller/indexController";
 import _rtsProduct from "./product";
 import _rtsProvider from "./provider";
 import _rtsTable from "./table";
+import _rtsPurchase from "./purchase";
 
 const main:Router = Router();
 
@@ -14,5 +15,6 @@ export default [
     main, 
     _rtsProduct,
     _rtsProvider,
-    _rtsTable
+    _rtsTable,
+    _rtsPurchase
 ];
