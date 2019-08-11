@@ -1,7 +1,7 @@
-import { Product } from "../../../model/product";
-import BaseException from "../common/baseException";
-import AppResponse from "../common/appResponse";
-import { productManager } from "../manager/productManager";
+import { Product } from "../../../../model/core/product";
+import BaseException from "../../common/baseException";
+import AppResponse from "../../common/appResponse";
+import { productManager } from "../../manager/core/productManager";
 
 class ProductLogic {
 

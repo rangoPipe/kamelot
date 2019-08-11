@@ -1,6 +1,6 @@
-import productModel, { Product } from "../../../model/product";
-import BaseException from "../common/baseException";
-import AppResponse from "../common/appResponse";
+import productModel, { Product } from "../../../../model/core/product";
+import BaseException from "../../common/baseException";
+import AppResponse from "../../common/appResponse";
 
 class ProductManager {
 
@@ -24,11 +24,11 @@ class ProductManager {
         }
     }
 
-    public async save(product:Product):Promise<any> {
+    public async save(model:Product):Promise<any> {
 
         try {
-            let result = await productModel.findById(product.id);         
-            return (!result) ? await productManager.saveProduct(product) : await productManager.updateProduct(product);
+            let result = await productModel.findById(model.id);         
+            return (!result) ? await productManager.saveProduct(model) : await productManager.updateProduct(product);
             
         } catch (error) {
             new BaseException(500, error); 
@@ -36,9 +36,9 @@ class ProductManager {
         }
     }
 
-    private async saveProduct(product:Product):Promise<any> {
+    private async saveProduct(model:Product):Promise<any> {
         try {
-            return await product.save();
+            return await model.save();
         }
         catch(error){
             new BaseException(500, error);
@@ -46,10 +46,10 @@ class ProductManager {
         }
     }
 
-    private async updateProduct(product:Product): Promise<any> {
+    private async updateProduct(model:Product): Promise<any> {
         try {
-            product.dateUpdate = new Date();
-            return productModel.findByIdAndUpdate(product.id, product);
+            model.dateUpdate = new Date();
+            return productModel.findByIdAndUpdate(model.id, model);
         } catch (error) {
             new BaseException(500, error);
             return new AppResponse(false, error);

@@ -1,10 +1,18 @@
-import { Router, Request, Response} from "express";
+import { Router } from "express";
 import { indexController } from "../controller/indexController";
+import _rtsProduct from "./product";
+import _rtsProvider from "./provider";
+import _rtsTable from "./table";
 
-const router:Router = Router();
+const main:Router = Router();
 
 
-router.get('/', indexController.index);
+main.get('/', indexController.index);
 
 
-export default router;
+export default [
+    main, 
+    _rtsProduct,
+    _rtsProvider,
+    _rtsTable
+];

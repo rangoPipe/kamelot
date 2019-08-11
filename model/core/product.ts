@@ -1,21 +1,17 @@
-import mongoose, { mongo } from "mongoose";
-
+import mongoose from "mongoose";
 
 const schProduct = new mongoose.Schema ({
     id: mongoose.Schema.Types.ObjectId,
-    idProveedor : mongoose.Schema.Types.ObjectId,
+    idProvider : mongoose.Schema.Types.ObjectId,
+    TypeMaterial : Number,
     name : {
         type : String,
         required : true,
         uppercase: true
     },
-    ean  : {
-        type: String,
-        required: true,
-        unique: true
-    },
     costBuy: Number,
     costSale: Number,
+    quantity: Number,
     dateCreate : {
         type : Date,
         required: true
@@ -29,11 +25,13 @@ const schProduct = new mongoose.Schema ({
 
 export interface Product extends mongoose.Document {
     _id: mongoose.Schema.Types.ObjectId;
-    idProveedor : mongoose.Schema.Types.ObjectId;
+    idProvider : mongoose.Schema.Types.ObjectId;
+    TypeMaterial : TypeMaterial;
     name : String;
     ean: String;
     costBuy: Number;
     costSale: Number;
+    quantity: Number;
     dateCreate : Date;
     dateUpdate : Date;
     active     : Boolean;

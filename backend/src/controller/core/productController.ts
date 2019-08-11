@@ -1,11 +1,8 @@
 import { Request, Response } from "express";
-import productModel, { Product } from "../../../model/product";
-import BaseException from "../common/baseException";
-import AppResponse from "../common/appResponse";
-import { DocumentQuery } from "mongoose";
-import { productLogic } from "../logic/productLogic";
-import { create } from "domain";
-const translation = require('../translation/es.json');
+import productModel, { Product } from "../../../../model/core/product";
+import BaseException from "../../common/baseException";
+import AppResponse from "../../common/appResponse";
+import { productLogic } from "../../logic/core/productLogic";
 
 class ProductController {
 
@@ -23,9 +20,8 @@ class ProductController {
 
     public async save(req: Request, res:Response):Promise<void> {
         try {
-
-            const product:Product = this.createModel(req);
-            let response = await productLogic.save(product);
+            const model:Product = this.createModel(req);
+            let response = await productLogic.save(model);
             res.json(response);
             
         } catch (error) {
@@ -57,10 +53,13 @@ class ProductController {
     }
 
     private createModel(req: Request): Product {
-        const { id, nombre, ean, compra, venta } = req.body;
+        const { id, nombre, ean, compra, venta, idProveedor, idType, cantidad } = req.body;
 
         const product:Product = new productModel({
             name : nombre,
+            idProvider : idProveedor,
+            TypeMaterial : idType,
+            quantity: cantidad,
             ean,
             costBuy : compra,
             costSale : venta,
