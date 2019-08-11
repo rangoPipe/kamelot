@@ -56,7 +56,7 @@ class PurchaseController {
         const { id, compra, venta, idProducto, cantidad } = req.body;
 
         const model:Purchase = new purchaseModel({
-            id : id,
+            _id : id,
             idProduct : idProducto,
             costBuy: compra,
             costSale: venta,

@@ -1,14 +1,14 @@
 import { Request, Response } from "express";
 import BaseException from "../../common/baseException";
 import AppResponse from "../../common/appResponse";
-import { tableLogic } from "../../logic/core/tableLogic";
-import tableModel, { Table } from "../../../../model/core/table";
+import { parameterLogic } from "../../logic/core/parameterLogic";
+import parameterModel, { Parameter } from "../../../../model/core/parameter";
 
-class TableController {
+class ParameterController {
 
-    public async allTables(req: Request, res: Response) {
+    public async allParameters(req: Request, res: Response) {
         try {
-            const result = await tableLogic.getAllTables();
+            const result = await parameterLogic.getAllParameters();
             res.send(result);
 
         } catch (error) {
@@ -21,8 +21,8 @@ class TableController {
     public async save(req: Request, res:Response):Promise<void> {
         try {
 
-            const model:Table = this.createModel(req);
-            let response = await tableLogic.save(model);
+            const model:Parameter = this.createModel(req);
+            let response = await parameterLogic.save(model);
             res.json(response);
             
         } catch (error) {
@@ -34,7 +34,7 @@ class TableController {
     public async getOne(req: Request, res: Response) {
         try {
             const model = this.createModel(req);
-            const result = await tableLogic.getOne(model);
+            const result = await parameterLogic.getOne(model);
             res.send(result);
 
         } catch (error) {
@@ -45,7 +45,7 @@ class TableController {
     public async disable(req: Request, res: Response) {
         try {
             const model = this.createModel(req.body);
-            const result = await tableLogic.disable(model);
+            const result = await parameterLogic.disable(model);
             res.send(result);
 
         } catch (error) {
@@ -53,17 +53,17 @@ class TableController {
         }
     }
 
-    private createModel(req: Request): Table {
-        const { id, nombre, capacity } = req.body;
+    private createModel(req: Request): Parameter {
+        const { id, nombre, valor } = req.body;
 
-        const model:Table = new tableModel({
+        const model:Parameter = new parameterModel({
             _id: id,
-            name : nombre,
-            capacity: capacity,
+            key : nombre,
+            value: valor,
             dateCreate : new Date()
         });
         return model;
     }
 }
 
-export const tableController = new TableController();
+export const parameterController = new ParameterController();

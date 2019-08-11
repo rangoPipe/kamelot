@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const schProduct = new mongoose.Schema ({
-    id: mongoose.Schema.Types.ObjectId,
+    _id: mongoose.Schema.Types.ObjectId,
     idProvider : mongoose.Schema.Types.ObjectId,
     TypeMaterial : Number,
     name : {

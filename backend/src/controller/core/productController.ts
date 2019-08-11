@@ -56,7 +56,7 @@ class ProductController {
         const { id, nombre, ean, idProveedor, idType } = req.body;
 
         const product:Product = new productModel({
-            id : id,
+            _id : id,
             name : nombre,
             idProvider : idProveedor,
             TypeMaterial : idType,

@@ -1,13 +1,17 @@
 import mongoose from "mongoose";
 
-const schTable = new mongoose.Schema ({
+const schParameter = new mongoose.Schema ({
     _id: mongoose.Schema.Types.ObjectId,
-    name : {
+    key : {
         type : String,
         required : true,
         uppercase: true
     },
-    capacity: Number,
+    value : {
+        type : String,
+        required : true,
+        lowercase: true
+    },
     dateCreate : {
         type : Date,
         required: true
@@ -19,13 +23,13 @@ const schTable = new mongoose.Schema ({
     }
 });
 
-export interface Table extends mongoose.Document {
+export interface Parameter extends mongoose.Document {
     _id: mongoose.Schema.Types.ObjectId;
-    name       : String;
-    capacity   : Number;
+    key       : String;
+    value     : String;
     dateCreate : Date;
     dateUpdate : Date;
     active     : Boolean;
 }
 
-export default mongoose.model<Table>('Mesa', schTable);
+export default mongoose.model<Parameter>('parametro', schParameter);

@@ -1,14 +1,14 @@
 import { Request, Response } from "express";
 import BaseException from "../../common/baseException";
 import AppResponse from "../../common/appResponse";
-import { tableLogic } from "../../logic/core/tableLogic";
-import tableModel, { Table } from "../../../../model/core/table";
+import { empleoyeeLogic } from "../../logic/core/empleoyeeLogic";
+import empleoyeeModel, { Employee } from "../../../../model/core/employee";
 
-class TableController {
+class EmpleoyeeController {
 
-    public async allTables(req: Request, res: Response) {
+    public async allEmpleoyees(req: Request, res: Response) {
         try {
-            const result = await tableLogic.getAllTables();
+            const result = await empleoyeeLogic.getAllEmpleoyees();
             res.send(result);
 
         } catch (error) {
@@ -20,9 +20,8 @@ class TableController {
 
     public async save(req: Request, res:Response):Promise<void> {
         try {
-
-            const model:Table = this.createModel(req);
-            let response = await tableLogic.save(model);
+            const model:Employee = this.createModel(req);
+            let response = await empleoyeeLogic.save(model);
             res.json(response);
             
         } catch (error) {
@@ -34,7 +33,7 @@ class TableController {
     public async getOne(req: Request, res: Response) {
         try {
             const model = this.createModel(req);
-            const result = await tableLogic.getOne(model);
+            const result = await empleoyeeLogic.getOne(model);
             res.send(result);
 
         } catch (error) {
@@ -45,7 +44,7 @@ class TableController {
     public async disable(req: Request, res: Response) {
         try {
             const model = this.createModel(req.body);
-            const result = await tableLogic.disable(model);
+            const result = await empleoyeeLogic.disable(model);
             res.send(result);
 
         } catch (error) {
@@ -53,17 +52,17 @@ class TableController {
         }
     }
 
-    private createModel(req: Request): Table {
-        const { id, nombre, capacity } = req.body;
+    private createModel(req: Request): Employee {
+        const { id, idCargo, salario } = req.body;
 
-        const model:Table = new tableModel({
+        const model:Employee = new empleoyeeModel({
             _id: id,
-            name : nombre,
-            capacity: capacity,
-            dateCreate : new Date()
+            idHierarchy : idCargo,
+            salary      : salario,
+            dateCreate  : new Date()
         });
         return model;
     }
 }
 
-export const tableController = new TableController();
+export const empleoyeeController = new EmpleoyeeController();

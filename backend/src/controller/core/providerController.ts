@@ -57,7 +57,7 @@ class ProviderController {
         const { id, nombre, fechaCreacion } = req.body;
 
         const provider:Provider = new providerModel({
-            id : id,
+            _id : id,
             name : nombre,
             dateContract: fechaCreacion,
             dateCreate : new Date()
