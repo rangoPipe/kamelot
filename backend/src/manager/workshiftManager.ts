@@ -1,12 +1,12 @@
 import BaseException from "../common/baseException";
 import AppResponse from "../common/appResponse";
-import purchaseModel, { Purchase } from "../../../model/purchase";
+import workshiftModel, { Workshift } from "../../../model/workshift";
 
-class PurchaseManager {
+class WorkshiftManager {
 
-    public async getAllPurchases():Promise<any> {
+    public async getAllWorkshifts():Promise<any> {
         try {
-            return await purchaseModel.find();
+            return await workshiftModel.find();
             
         } catch (error) {
             new BaseException(500, error);
@@ -14,9 +14,9 @@ class PurchaseManager {
         }    
     }
 
-    public async getOne(model:Purchase):Promise<any>  {
+    public async getOne(model:Workshift):Promise<any>  {
         try {
-            return await purchaseModel.findById(model.id);
+            return await workshiftModel.findById(model.id);
 
         } catch (error) {
             new BaseException(500, error);
@@ -24,11 +24,11 @@ class PurchaseManager {
         }
     }
 
-    public async save(model:Purchase):Promise<any> {
+    public async save(model:Workshift):Promise<any> {
 
         try {
-            let result = await purchaseModel.findById(model.id);         
-            return (!result) ? await purchaseManager.savePurchase(model) : await purchaseManager.updatePurchase(model);
+            let result = await workshiftModel.findById(model.id);         
+            return (!result) ? await workshiftManager.saveWorkshift(model) : await workshiftManager.updateWorkshift(model);
             
         } catch (error) {
             new BaseException(500, error); 
@@ -36,7 +36,7 @@ class PurchaseManager {
         }
     }
 
-    private async savePurchase(model:Purchase):Promise<any> {
+    private async saveWorkshift(model:Workshift):Promise<any> {
         try {
             return await model.save();
         }
@@ -46,19 +46,19 @@ class PurchaseManager {
         }
     }
 
-    private async updatePurchase(model:Purchase): Promise<any> {
+    private async updateWorkshift(model:Workshift): Promise<any> {
         try {
             model.dateUpdate = new Date();
-            return purchaseModel.findByIdAndUpdate(model.id, model);
+            return workshiftModel.findByIdAndUpdate(model.id, model);
         } catch (error) {
             new BaseException(500, error);
             return new AppResponse(false, error);
         }
     }
 
-    public async disable(model:Purchase): Promise<any>  {
+    public async disable(model:Workshift): Promise<any>  {
         try {
-            return await purchaseModel.findByIdAndUpdate(model.id, { $set: { activo:false }});
+            return await workshiftModel.findByIdAndUpdate(model.id, { $set: { activo:false }});
         } catch (error) {
             new BaseException(500, error);
             return new AppResponse(false, error);
@@ -66,4 +66,4 @@ class PurchaseManager {
     }
 }
 
-export const purchaseManager = new PurchaseManager();
+export const workshiftManager = new WorkshiftManager();

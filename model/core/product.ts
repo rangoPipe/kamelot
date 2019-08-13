@@ -31,4 +31,4 @@ export interface Product extends mongoose.Document {
     active     : Boolean;
 }
 
-export default mongoose.model<Product>('Producto', schProduct);
+export default mongoose.model<Product>('producto', schProduct);

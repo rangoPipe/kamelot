@@ -1,13 +1,9 @@
 import mongoose from "mongoose";
 
-const schProvider = new mongoose.Schema ({
+const schWorkshift = new mongoose.Schema ({
     _id: mongoose.Schema.Types.ObjectId,
-    name : {
-        type : String,
-        required : true,
-        uppercase: true
-    },
-    dateContract: Date,
+    idEmpleoyee: mongoose.Schema.Types.ObjectId,
+    idSchedule: mongoose.Schema.Types.ObjectId,
     dateCreate : {
         type : Date,
         required: true
@@ -19,13 +15,13 @@ const schProvider = new mongoose.Schema ({
     }
 });
 
-export interface Provider extends mongoose.Document {
+export interface Workshift extends mongoose.Document {
     _id: mongoose.Schema.Types.ObjectId;
-    name : String;
-    dateContract:Date;
+    idEmpleoyee: mongoose.Schema.Types.ObjectId;
+    idSchedule : mongoose.Schema.Types.ObjectId;
     dateCreate : Date;
     dateUpdate : Date;
     active     : Boolean;
 }
 
-export default mongoose.model<Provider>('proveedor', schProvider);
+export default mongoose.model<Workshift>('turno', schWorkshift);

@@ -28,4 +28,4 @@ export interface Table extends mongoose.Document {
     active     : Boolean;
 }
 
-export default mongoose.model<Table>('Mesa', schTable);
+export default mongoose.model<Table>('mesa', schTable);
