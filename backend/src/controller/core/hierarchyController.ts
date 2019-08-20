@@ -1,14 +1,14 @@
 import { Request, Response } from "express";
 import BaseException from "../../common/baseException";
 import AppResponse from "../../common/appResponse";
-import providerModel, { Provider } from "../../../../model/core/provider";
-import { providerLogic } from "../../logic/core/providerLogic";
+import { hieararchyLogic } from "../../logic/core/hierarchyLogic";
+import hierarchyModel, { Hierarchy } from "../../../../model/core/hierarchy";
 
-class ProviderController {
+class HierarchyController {
 
-    public async allProviders(req: Request, res: Response) {
+    public async allHieararchies(req: Request, res: Response) {
         try {
-            const result = await providerLogic.getAllProviders();
+            const result = await hieararchyLogic.getAllHiearchies();
             res.send(result);
 
         } catch (error) {
@@ -21,8 +21,8 @@ class ProviderController {
     public async save(req: Request, res:Response):Promise<void> {
         try {
 
-            const provider:Provider = this.createModel(req);
-            let response = await providerLogic.save(provider);
+            const provider:Hierarchy = this.createModel(req);
+            let response = await hieararchyLogic.save(provider);
             res.json(response);
             
         } catch (error) {
@@ -34,7 +34,7 @@ class ProviderController {
     public async getOne(req: Request, res: Response) {
         try {
             const model = this.createModel(req);
-            const result = await providerLogic.getOne(model);
+            const result = await hieararchyLogic.getOne(model);
             res.send(result);
 
         } catch (error) {
@@ -45,7 +45,7 @@ class ProviderController {
     public async disable(req: Request, res: Response) {
         try {
             const model = this.createModel(req.body);
-            const result = await providerLogic.disable(model);
+            const result = await hieararchyLogic.disable(model);
             res.send(result);
 
         } catch (error) {
@@ -53,17 +53,16 @@ class ProviderController {
         }
     }
 
-    private createModel(req: Request): Provider {
-        const { id, nombre, fechaCreacion } = req.body;
+    private createModel(req: Request): Hierarchy {
+        const { id, nombre } = req.body;
 
-        const model:Provider = new providerModel({
+        const model:Hierarchy = new hierarchyModel({
             _id : id,
             name : nombre,
-            dateContract: fechaCreacion,
             dateCreate : new Date()
         });
         return model;
     }
 }
 
-export const providerController = new ProviderController();
+export const hierarchyController = new HierarchyController();
