@@ -1,11 +1,12 @@
 import mongoose from "mongoose";
 
-const schPurchase = new mongoose.Schema ({
+const schSale = new mongoose.Schema ({
     id: mongoose.Schema.Types.ObjectId,
     idProduct : mongoose.Schema.Types.ObjectId,
-    costBuy: Number,
-    costSale: Number,
+    idBill : mongoose.Schema.Types.ObjectId,
     quantity: Number,
+    discount: Number,
+    total: Number,
     dateCreate : {
         type : Date,
         required: true
@@ -17,15 +18,16 @@ const schPurchase = new mongoose.Schema ({
     }
 });
 
-export interface Purchase extends mongoose.Document {
+export interface Sale extends mongoose.Document {
     _id: mongoose.Schema.Types.ObjectId;
+    idBill : mongoose.Schema.Types.ObjectId;
     idProduct : mongoose.Schema.Types.ObjectId;
-    costBuy: Number;
-    costSale: Number;
+    total: Number;
+    discount: Number;
     quantity: Number;
     dateCreate : Date;
     dateUpdate : Date;
     active     : Boolean;
 }
 
-export default mongoose.model<Purchase>('compra', schPurchase);
+export default mongoose.model<Sale>('venta', schSale);
