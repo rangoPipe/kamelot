@@ -1,8 +1,13 @@
-import mongoose from "mongoose";
+import { Schema, model, Document } from "mongoose";
 import { typeDay } from "../../backend/src/common/enum/typeDay";
+import { modelName as workshiftName, Workshift } from "../workshift";
 
-const schSchedule = new mongoose.Schema ({
-    _id: mongoose.Schema.Types.ObjectId,
+const schSchedule = new Schema ({
+    _id: Schema.Types.ObjectId,
+    workshift: {
+        type: Schema.Types.ObjectId,
+        ref: workshiftName
+    },
     name : {
         type : String,
         required : true,
@@ -31,8 +36,9 @@ const schSchedule = new mongoose.Schema ({
     }
 });
 
-export interface Schedule extends mongoose.Document {
-    _id: mongoose.Schema.Types.ObjectId;
+export interface Schedule extends Document {
+    _id: Schema.Types.ObjectId;
+    workshift? : Workshift[];
     name       : String;
     dateBegin  : Date;
     dateEnd    : Date;
@@ -42,4 +48,5 @@ export interface Schedule extends mongoose.Document {
     active     : Boolean;
 }
 
-export default mongoose.model<Schedule>('jornada', schSchedule);
+export const modelName = 'jornada';
+export default model<Schedule>(modelName, schSchedule);

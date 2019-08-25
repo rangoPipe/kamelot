@@ -1,9 +1,22 @@
-import mongoose from "mongoose";
+import { Schema, model, Document } from "mongoose";
+import { Workshift, modelName as workshiftName } from "../workshift";
+import { Person, modelName as personName } from "./person";
+import { Hierarchy, modelName as hierarchyName } from "./hierarchy";
 
-const schEmployee = new mongoose.Schema ({
-    _id: mongoose.Schema.Types.ObjectId,
-    idPerson: mongoose.Schema.Types.ObjectId,
-    idHierarchy: mongoose.Schema.Types.ObjectId,
+const schEmployee = new Schema ({
+    _id: Schema.Types.ObjectId,
+    person: {
+        type: Schema.Types.ObjectId,
+        ref: personName
+    },
+    hierarchy: {
+        tyoe: Schema.Types.ObjectId,
+        ref: hierarchyName
+    },
+    workshift: {
+        type: Schema.Types.ObjectId,
+        ref: workshiftName
+    },
     salary : {
         type : Number,
         required : true
@@ -19,14 +32,16 @@ const schEmployee = new mongoose.Schema ({
     }
 });
 
-export interface Employee extends mongoose.Document {
-    _id: mongoose.Schema.Types.ObjectId;
-    idPerson: mongoose.Schema.Types.ObjectId;
-    idHierarchy:  mongoose.Schema.Types.ObjectId;
+export interface Employee extends Document {
+    _id: Schema.Types.ObjectId;
+    workshift? : Workshift 
+    person     : Person;
+    hierarchy  : Hierarchy;
     salary     : Number;
     dateCreate : Date;
     dateUpdate : Date;
     active     : Boolean;
 }
 
-export default mongoose.model<Employee>('empleado', schEmployee);
+export const modelName = 'empleado';
+export default model<Employee>(modelName, schEmployee);

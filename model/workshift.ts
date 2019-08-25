@@ -1,9 +1,17 @@
-import mongoose from "mongoose";
+import { Schema, Document, model } from "mongoose";
+import { modelName as scheduleName, Schedule } from "./core/schedule";
+import { modelName as empleoyeeName, Employee } from "./core/employee";
 
-const schWorkshift = new mongoose.Schema ({
-    _id: mongoose.Schema.Types.ObjectId,
-    idEmpleoyee: mongoose.Schema.Types.ObjectId,
-    idSchedule: mongoose.Schema.Types.ObjectId,
+const schWorkshift = new Schema ({
+    _id: Schema.Types.ObjectId,
+    empleoyee: [{
+        type : Schema.Types.DocumentArray,
+        ref  : empleoyeeName
+    }],
+    schedule: {
+        type: Schema.Types.ObjectId,
+        ref : scheduleName
+    },
     dateCreate : {
         type : Date,
         required: true
@@ -15,13 +23,14 @@ const schWorkshift = new mongoose.Schema ({
     }
 });
 
-export interface Workshift extends mongoose.Document {
-    _id: mongoose.Schema.Types.ObjectId;
-    idEmpleoyee: mongoose.Schema.Types.ObjectId;
-    idSchedule : mongoose.Schema.Types.ObjectId;
+export interface Workshift extends Document {
+    _id: Schema.Types.ObjectId;
+    empleoyee  : Employee[];
+    Schedule   : Schedule;
     dateCreate : Date;
     dateUpdate : Date;
     active     : Boolean;
 }
 
-export default mongoose.model<Workshift>('turno', schWorkshift);
+export const modelName = 'turno';
+export default model<Workshift>(modelName, schWorkshift);

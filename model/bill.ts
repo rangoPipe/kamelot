@@ -1,9 +1,27 @@
-import mongoose from "mongoose";
+import { Schema, model, Document } from "mongoose";
+import { Client, modelName as clientName } from "./core/client";
+import { Employee, modelName as empleoyeeName } from "./core/employee";
+import { Sale, modelName as saleName } from "./sale";
+import { Fidelity, modelName as fidelityName } from "./fidelity";
 
-const schBill= new mongoose.Schema ({
-    _id: mongoose.Schema.Types.ObjectId,
-    idClient: mongoose.Schema.Types.ObjectId,
-    idEmpleoyee: mongoose.Schema.Types.ObjectId,
+const schBill= new Schema ({
+    _id: Schema.Types.ObjectId,
+    client: {
+        type:   Schema.Types.ObjectId,
+        ref: clientName
+    },
+    empleoyee: {
+        type:   Schema.Types.ObjectId,
+        ref:    empleoyeeName
+    },
+    sale: [{
+        type:   Schema.Types.ObjectId,
+        ref:    saleName
+    }],
+    fidelity: [{
+        type:   Schema.Types.ObjectId,
+        ref:    fidelityName
+    }],
     numberBill : {
         type: String,
         required : true
@@ -21,11 +39,13 @@ const schBill= new mongoose.Schema ({
     }
 });
 
-export interface Bill extends mongoose.Document {
-    _id: mongoose.Schema.Types.ObjectId;
-    idClient:  mongoose.Schema.Types.ObjectId;
-    idEmpleoyee:  mongoose.Schema.Types.ObjectId;
+export interface Bill extends Document {
+    _id: Schema.Types.ObjectId;
+    client:  Client;
+    empleoyee:  Employee;
+    fidelity?: Fidelity;
     numberBill:  String;
+    sale?:  Sale;
     state:  Number;
     total:  Number;
     dateCreate : Date;
@@ -33,4 +53,5 @@ export interface Bill extends mongoose.Document {
     active     : Boolean;
 }
 
-export default mongoose.model<Bill>('factura', schBill);
+export const modelName = 'factura';
+export default model<Bill>(modelName, schBill);

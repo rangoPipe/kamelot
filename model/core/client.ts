@@ -1,8 +1,12 @@
-import mongoose from "mongoose";
+import  { Schema, Document, model } from "mongoose";
+import { Person, modelName as personName} from "./person";
 
-const schClient = new mongoose.Schema ({
-    _id: mongoose.Schema.Types.ObjectId,
-    idPerson: mongoose.Schema.Types.ObjectId,
+const schClient = new Schema ({
+    _id: Schema.Types.ObjectId,
+    person: {
+        type: Schema.Types.ObjectId,
+        ref: personName
+    },
     dateCreate : {
         type : Date,
         required: true
@@ -14,13 +18,13 @@ const schClient = new mongoose.Schema ({
     }
 });
 
-export interface Client extends mongoose.Document {
-    _id: mongoose.Schema.Types.ObjectId;
-    idPerson:  mongoose.Schema.Types.ObjectId;
-    idHierarchy:  mongoose.Schema.Types.ObjectId;
+export interface Client extends Document {
+    _id: Schema.Types.ObjectId;
+    person: Person;
     dateCreate : Date;
     dateUpdate : Date;
     active     : Boolean;
 }
 
-export default mongoose.model<Client>('cliente', schClient);
+export const modelName = 'cliente';
+export default model<Client>(modelName, schClient);

@@ -1,9 +1,17 @@
-import mongoose from "mongoose";
+import { Schema, Document, model } from "mongoose";
+import { Product, nameModel as productName } from "./core/product";
+import { Bill, modelName as billName } from "./bill";
 
-const schSale = new mongoose.Schema ({
-    id: mongoose.Schema.Types.ObjectId,
-    idProduct : mongoose.Schema.Types.ObjectId,
-    idBill : mongoose.Schema.Types.ObjectId,
+const schSale = new Schema ({
+    id: Schema.Types.ObjectId,
+    product : {
+        type:   Schema.Types.ObjectId,
+        ref: productName
+    },
+    bill : {
+        type:   Schema.Types.ObjectId,
+        ref:    billName
+    },
     quantity: Number,
     discount: Number,
     total: Number,
@@ -18,10 +26,10 @@ const schSale = new mongoose.Schema ({
     }
 });
 
-export interface Sale extends mongoose.Document {
-    _id: mongoose.Schema.Types.ObjectId;
-    idBill : mongoose.Schema.Types.ObjectId;
-    idProduct : mongoose.Schema.Types.ObjectId;
+export interface Sale extends Document {
+    _id: Schema.Types.ObjectId;
+    bill : Bill;
+    product : Product
     total: Number;
     discount: Number;
     quantity: Number;
@@ -30,4 +38,5 @@ export interface Sale extends mongoose.Document {
     active     : Boolean;
 }
 
-export default mongoose.model<Sale>('venta', schSale);
+export const modelName = 'venda';
+export default model<Sale>(modelName, schSale);

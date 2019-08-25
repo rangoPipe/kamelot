@@ -1,10 +1,22 @@
-import mongoose from "mongoose";
+import { Schema, Document, model } from "mongoose";
+import { Client, modelName as clientName } from "./core/client";
+import { Point, modelName as pointName } from "./core/point";
+import { Bill, modelName as billName } from "./bill";
 
-const schFidelity = new mongoose.Schema ({
-    id: mongoose.Schema.Types.ObjectId,
-    idClient: mongoose.Schema.Types.ObjectId,
-    idSale: mongoose.Schema.Types.ObjectId,
-    idPoint: mongoose.Schema.Types.ObjectId,
+const schFidelity = new Schema ({
+    id: Schema.Types.ObjectId,
+    client: [{
+        type: Schema.Types.ObjectId,
+        ref: clientName
+    }],
+    bill: [{
+        type: Schema.Types.ObjectId,
+        ref: billName
+    }],
+    point: [{ 
+        type: Schema.Types.ObjectId,
+        ref: pointName
+    }],
     dateCreate : {
         type : Date,
         required: true
@@ -16,14 +28,15 @@ const schFidelity = new mongoose.Schema ({
     }
 });
 
-export interface Fidelity extends mongoose.Document {
-    _id: mongoose.Schema.Types.ObjectId;
-    idClient : mongoose.Schema.Types.ObjectId;
-    idSale : mongoose.Schema.Types.ObjectId;
-    idPoint : mongoose.Schema.Types.ObjectId;
+export interface Fidelity extends Document {
+    _id: Schema.Types.ObjectId;
+    bill   : Bill;
+    client : Client[];
+    point : Point[];
     dateCreate : Date;
     dateUpdate : Date;
     active     : Boolean;
 }
 
-export default mongoose.model<Fidelity>('Fidelidad', schFidelity);
+export const modelName = 'fidelidad';
+export default model<Fidelity>(modelName, schFidelity);

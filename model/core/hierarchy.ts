@@ -1,7 +1,12 @@
-import mongoose from "mongoose";
+import { Schema, Document, model } from "mongoose";
+import { Employee, modelName as empleoyeeName } from "./employee";
 
-const schHierarchy = new mongoose.Schema ({
-    _id: mongoose.Schema.Types.ObjectId,
+const schHierarchy = new Schema ({
+    _id: Schema.Types.ObjectId,
+    empleoyee: [{
+        type: Schema.Types.ObjectId,
+        ref: empleoyeeName
+    }],
     name : {
         type : String,
         required : true,
@@ -18,12 +23,14 @@ const schHierarchy = new mongoose.Schema ({
     }
 });
 
-export interface Hierarchy extends mongoose.Document {
-    _id: mongoose.Schema.Types.ObjectId;
-    name     : String;
+export interface Hierarchy extends Document {
+    _id: Schema.Types.ObjectId;
+    empleoyee? : Employee[];
+    name       : String;
     dateCreate : Date;
     dateUpdate : Date;
     active     : Boolean;
 }
 
-export default mongoose.model<Hierarchy>('jerarquia', schHierarchy);
+export const modelName = 'jerarquia';
+export default model<Hierarchy>(modelName, schHierarchy);

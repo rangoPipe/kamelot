@@ -1,7 +1,9 @@
-import mongoose from "mongoose";
+import { Schema, Document, model } from "mongoose";
+import { nameModel as nameProduct, Product } from './product';
 
-const schProvider = new mongoose.Schema ({
-    _id: mongoose.Schema.Types.ObjectId,
+const schProvider = new Schema ({
+    _id: Schema.Types.ObjectId,
+    product : [{ type: Schema.Types.ObjectId, ref: nameProduct}],
     name : {
         type : String,
         required : true,
@@ -19,8 +21,9 @@ const schProvider = new mongoose.Schema ({
     }
 });
 
-export interface Provider extends mongoose.Document {
-    _id: mongoose.Schema.Types.ObjectId;
+export interface Provider extends Document {
+    _id: Schema.Types.ObjectId;
+    product?: Product[];
     name : String;
     dateContract:Date;
     dateCreate : Date;
@@ -28,4 +31,5 @@ export interface Provider extends mongoose.Document {
     active     : Boolean;
 }
 
-export default mongoose.model<Provider>('proveedor', schProvider);
+export const nameModel = 'proveedor';
+export default model<Provider>(nameModel, schProvider);

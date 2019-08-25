@@ -1,8 +1,18 @@
-import mongoose from "mongoose";
+import { Schema, model, Document } from "mongoose";
 import { typeDocument } from "../../backend/src/common/enum/typeDocument";
+import { Client, modelName as clientName } from "./client";
+import { Employee, modelName as empleoyeeName } from "./employee";
 
-const schPerson = new mongoose.Schema ({
-    _id: mongoose.Schema.Types.ObjectId,
+const schPerson = new Schema ({
+    _id: Schema.Types.ObjectId,
+    empleoyee: {
+        type: Schema.Types.ObjectId,
+        ref: empleoyeeName
+    },
+    client: {
+        type: Schema.Types.ObjectId,
+        ref: clientName
+    },
     typeDocument : {
         type: String,
         required: true
@@ -54,8 +64,10 @@ const schPerson = new mongoose.Schema ({
     }
 });
 
-export interface Person extends mongoose.Document {
-    _id: mongoose.Schema.Types.ObjectId;
+export interface Person extends Document {
+    _id: Schema.Types.ObjectId;
+    client?:          Client;
+    empleoyee?:       Employee;
     typeDocument    : typeDocument;
     number_document : String;
     first_name      : String;
@@ -70,4 +82,5 @@ export interface Person extends mongoose.Document {
     active          : Boolean;
 }
 
-export default mongoose.model<Person>('persona', schPerson);
+export const modelName = 'persona';
+export default model<Person>(modelName, schPerson);

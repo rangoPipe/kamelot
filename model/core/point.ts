@@ -1,7 +1,12 @@
-import mongoose from "mongoose";
+import  { Schema, Document, model } from "mongoose";
+import { Fidelity, modelName as fidelityName } from "../fidelity";
 
-const schPoint = new mongoose.Schema ({
-    _id: mongoose.Schema.Types.ObjectId,
+const schPoint = new Schema ({
+    _id: Schema.Types.ObjectId,
+    fidelity: [{
+        type: Schema.Types.ObjectId,
+        ref: fidelityName
+    }],
     key: {
         type: Number,
         required: true
@@ -21,8 +26,9 @@ const schPoint = new mongoose.Schema ({
     }
 });
 
-export interface Point extends mongoose.Document {
-    _id: mongoose.Schema.Types.ObjectId;
+export interface Point extends Document {
+    _id: Schema.Types.ObjectId;
+    fidelity?: Fidelity[],
     key:  Number;
     value:  Number;
     dateCreate : Date;
@@ -30,4 +36,5 @@ export interface Point extends mongoose.Document {
     active     : Boolean;
 }
 
-export default mongoose.model<Point>('punto', schPoint);
+export const modelName = 'punto';
+export default model<Point>(modelName, schPoint);

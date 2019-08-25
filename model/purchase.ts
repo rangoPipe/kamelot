@@ -1,8 +1,12 @@
-import mongoose from "mongoose";
+import { Schema, Document, model } from "mongoose";
+import { Product, nameModel as productName } from "./core/product";
 
-const schPurchase = new mongoose.Schema ({
-    id: mongoose.Schema.Types.ObjectId,
-    idProduct : mongoose.Schema.Types.ObjectId,
+const schPurchase = new Schema ({
+    id: Schema.Types.ObjectId,
+    product : [{
+        type:   Schema.Types.ObjectId,
+        ref:    productName
+    }],
     costBuy: Number,
     costSale: Number,
     quantity: Number,
@@ -17,9 +21,9 @@ const schPurchase = new mongoose.Schema ({
     }
 });
 
-export interface Purchase extends mongoose.Document {
-    _id: mongoose.Schema.Types.ObjectId;
-    idProduct : mongoose.Schema.Types.ObjectId;
+export interface Purchase extends Document {
+    _id: Schema.Types.ObjectId;
+    product : Product[];
     costBuy: Number;
     costSale: Number;
     quantity: Number;
@@ -28,4 +32,5 @@ export interface Purchase extends mongoose.Document {
     active     : Boolean;
 }
 
-export default mongoose.model<Purchase>('compra', schPurchase);
+export const modelName = 'compra';
+export default model<Purchase>(modelName, schPurchase);
