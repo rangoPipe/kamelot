@@ -1,11 +1,12 @@
-import  { Schema, Document, model } from "mongoose";
-import { Fidelity, modelName as fidelityName } from "../fidelity";
+import { Schema, Document, model } from "mongoose";
+import { Fidelity } from "../fidelity";
+import { tableName } from "../../backend/src/common/enum/tableName";
 
 const schPoint = new Schema ({
     _id: Schema.Types.ObjectId,
     fidelity: [{
         type: Schema.Types.ObjectId,
-        ref: fidelityName
+        ref: tableName.FIDELITY
     }],
     key: {
         type: Number,
@@ -36,5 +37,4 @@ export interface Point extends Document {
     active     : Boolean;
 }
 
-export const modelName = 'punto';
-export default model<Point>(modelName, schPoint);
+export default model<Point>(tableName.POINT, schPoint);

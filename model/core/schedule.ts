@@ -1,12 +1,13 @@
 import { Schema, model, Document } from "mongoose";
 import { typeDay } from "../../backend/src/common/enum/typeDay";
-import { modelName as workshiftName, Workshift } from "../workshift";
+import { Workshift } from "../workshift";
+import { tableName } from "../../backend/src/common/enum/tableName";
 
 const schSchedule = new Schema ({
     _id: Schema.Types.ObjectId,
     workshift: {
         type: Schema.Types.ObjectId,
-        ref: workshiftName
+        ref: tableName.WORKSHIFT
     },
     name : {
         type : String,
@@ -48,5 +49,4 @@ export interface Schedule extends Document {
     active     : Boolean;
 }
 
-export const modelName = 'jornada';
-export default model<Schedule>(modelName, schSchedule);
+export default model<Schedule>(tableName.SCHEDULE, schSchedule);

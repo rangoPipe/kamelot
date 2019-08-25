@@ -57,7 +57,7 @@ class PurchaseController {
 
         const model:Purchase = new purchaseModel({
             _id : id,
-            idProduct : idProducto,
+            product : idProducto,
             costBuy: compra,
             costSale: venta,
             quantity: cantidad,

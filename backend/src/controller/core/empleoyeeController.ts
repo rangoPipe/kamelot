@@ -57,7 +57,7 @@ class EmpleoyeeController {
 
         const model:Employee = new empleoyeeModel({
             _id: id,
-            idHierarchy : idCargo,
+            hierarchy : idCargo,
             salary      : salario,
             dateCreate  : new Date()
         });

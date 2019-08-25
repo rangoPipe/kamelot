@@ -1,16 +1,17 @@
 import { Schema, Document, model } from "mongoose";
-import { Product, nameModel as productName } from "./core/product";
-import { Bill, modelName as billName } from "./bill";
+import { Product } from "./core/product";
+import { Bill } from "./bill";
+import { tableName } from "../backend/src/common/enum/tableName";
 
 const schSale = new Schema ({
     id: Schema.Types.ObjectId,
     product : {
         type:   Schema.Types.ObjectId,
-        ref: productName
+        ref: tableName.PRODUCT
     },
     bill : {
         type:   Schema.Types.ObjectId,
-        ref:    billName
+        ref:    tableName.BILL
     },
     quantity: Number,
     discount: Number,
@@ -38,5 +39,4 @@ export interface Sale extends Document {
     active     : Boolean;
 }
 
-export const modelName = 'venda';
-export default model<Sale>(modelName, schSale);
+export default model<Sale>(tableName.SALE, schSale);

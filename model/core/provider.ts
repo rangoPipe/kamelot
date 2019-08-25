@@ -1,9 +1,12 @@
 import { Schema, Document, model } from "mongoose";
-import { nameModel as nameProduct, Product } from './product';
+import { Product } from './product';
+import { tableName } from "../../backend/src/common/enum/tableName";
 
 const schProvider = new Schema ({
     _id: Schema.Types.ObjectId,
-    product : [{ type: Schema.Types.ObjectId, ref: nameProduct}],
+    product : [{ type: Schema.Types.ObjectId, 
+        ref: tableName.PRODUCT
+    }],
     name : {
         type : String,
         required : true,
@@ -31,5 +34,4 @@ export interface Provider extends Document {
     active     : Boolean;
 }
 
-export const nameModel = 'proveedor';
-export default model<Provider>(nameModel, schProvider);
+export default model<Provider>(tableName.PROVIDER, schProvider);

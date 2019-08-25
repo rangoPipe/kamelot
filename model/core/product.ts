@@ -1,21 +1,22 @@
 import { Document, model, Schema } from "mongoose";
-import { nameModel as namePrvovicer, Provider } from "./provider";
-import { Purchase, modelName as purchaseName } from "../purchase";
-import { Sale, modelName as saleName } from "../sale";
+import { Provider } from "./provider";
+import { Purchase } from "../purchase";
+import { Sale } from "../sale";
+import { tableName } from "../../backend/src/common/enum/tableName";
 
 const schProduct = new Schema ({
     _id: Schema.Types.ObjectId,
     provider : {
         type: Schema.Types.ObjectId,
-        ref: namePrvovicer
+        ref: tableName.PROVIDER
     },
     purcharse: [{
         type: Schema.Types.ObjectId,
-        ref: purchaseName
+        ref: tableName.PURCHASE
     }],
     sale: [{
         type: Schema.Types.ObjectId,
-        ref: saleName
+        ref: tableName.SALE
     }],
     TypeMaterial : Number,
     name : {
@@ -46,5 +47,5 @@ export interface Product extends Document {
     dateUpdate : Date;
     active     : Boolean;
 }
-export const nameModel = 'producto';
-export default model<Product>(nameModel, schProduct);
+
+export default model<Product>(tableName.PRODUCT, schProduct);

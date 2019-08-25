@@ -1,16 +1,17 @@
 import { Schema, Document, model } from "mongoose";
-import { modelName as scheduleName, Schedule } from "./core/schedule";
-import { modelName as empleoyeeName, Employee } from "./core/employee";
+import { Schedule } from "./core/schedule";
+import { Employee } from "./core/employee";
+import { tableName } from "../backend/src/common/enum/tableName";
 
 const schWorkshift = new Schema ({
     _id: Schema.Types.ObjectId,
     empleoyee: [{
         type : Schema.Types.DocumentArray,
-        ref  : empleoyeeName
+        ref  : tableName.EMPLOYEE
     }],
     schedule: {
         type: Schema.Types.ObjectId,
-        ref : scheduleName
+        ref : tableName.SCHEDULE
     },
     dateCreate : {
         type : Date,
@@ -26,11 +27,10 @@ const schWorkshift = new Schema ({
 export interface Workshift extends Document {
     _id: Schema.Types.ObjectId;
     empleoyee  : Employee[];
-    Schedule   : Schedule;
+    schedule   : Schedule;
     dateCreate : Date;
     dateUpdate : Date;
     active     : Boolean;
 }
 
-export const modelName = 'turno';
-export default model<Workshift>(modelName, schWorkshift);
+export default model<Workshift>(tableName.WORKSHIFT, schWorkshift);

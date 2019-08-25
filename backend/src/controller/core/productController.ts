@@ -58,7 +58,7 @@ class ProductController {
         const product:Product = new productModel({
             _id : id,
             name : nombre,
-            idProvider : idProveedor,
+            provider : idProveedor,
             TypeMaterial : idType,
             ean,
             dateCreate : new Date()

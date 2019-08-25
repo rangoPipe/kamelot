@@ -1,26 +1,27 @@
 import { Schema, model, Document } from "mongoose";
-import { Client, modelName as clientName } from "./core/client";
-import { Employee, modelName as empleoyeeName } from "./core/employee";
-import { Sale, modelName as saleName } from "./sale";
-import { Fidelity, modelName as fidelityName } from "./fidelity";
+import { Client } from "./core/client";
+import { Employee } from "./core/employee";
+import { Sale } from "./sale";
+import { Fidelity } from "./fidelity";
+import { tableName } from "../backend/src/common/enum/tableName";
 
 const schBill= new Schema ({
     _id: Schema.Types.ObjectId,
     client: {
         type:   Schema.Types.ObjectId,
-        ref: clientName
+        ref: tableName.CLIENT
     },
     empleoyee: {
         type:   Schema.Types.ObjectId,
-        ref:    empleoyeeName
+        ref:    tableName.EMPLOYEE
     },
     sale: [{
         type:   Schema.Types.ObjectId,
-        ref:    saleName
+        ref:    tableName.SALE
     }],
     fidelity: [{
         type:   Schema.Types.ObjectId,
-        ref:    fidelityName
+        ref:    tableName.FIDELITY
     }],
     numberBill : {
         type: String,
@@ -53,5 +54,4 @@ export interface Bill extends Document {
     active     : Boolean;
 }
 
-export const modelName = 'factura';
-export default model<Bill>(modelName, schBill);
+export default model<Bill>(tableName.BILL, schBill);

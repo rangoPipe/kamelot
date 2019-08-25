@@ -57,8 +57,8 @@ class WorkshiftController {
 
         const model:Workshift = new workshiftModel({
             _id : id,
-            idEmpleoyee : idEmpleado,
-            idSchedule: idTurno,
+            empleoyee : idEmpleado,
+            schedule: idTurno,
             dateCreate : new Date()
         });
         return model;

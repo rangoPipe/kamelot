@@ -1,21 +1,22 @@
 import { Schema, Document, model } from "mongoose";
-import { Client, modelName as clientName } from "./core/client";
-import { Point, modelName as pointName } from "./core/point";
-import { Bill, modelName as billName } from "./bill";
+import { Client } from "./core/client";
+import { Point  } from "./core/point";
+import { Bill  } from "./bill";
+import { tableName } from "../backend/src/common/enum/tableName";
 
 const schFidelity = new Schema ({
     id: Schema.Types.ObjectId,
     client: [{
         type: Schema.Types.ObjectId,
-        ref: clientName
+        ref: tableName.CLIENT
     }],
     bill: [{
         type: Schema.Types.ObjectId,
-        ref: billName
+        ref: tableName.BILL
     }],
     point: [{ 
         type: Schema.Types.ObjectId,
-        ref: pointName
+        ref: tableName.POINT
     }],
     dateCreate : {
         type : Date,
@@ -38,5 +39,4 @@ export interface Fidelity extends Document {
     active     : Boolean;
 }
 
-export const modelName = 'fidelidad';
-export default model<Fidelity>(modelName, schFidelity);
+export default model<Fidelity>(tableName.FIDELITY, schFidelity);

@@ -1,11 +1,12 @@
 import  { Schema, Document, model } from "mongoose";
-import { Person, modelName as personName} from "./person";
+import { Person } from "./person";
+import { tableName } from "../../backend/src/common/enum/tableName";
 
 const schClient = new Schema ({
     _id: Schema.Types.ObjectId,
     person: {
         type: Schema.Types.ObjectId,
-        ref: personName
+        ref: tableName.PERSON
     },
     dateCreate : {
         type : Date,
@@ -26,5 +27,4 @@ export interface Client extends Document {
     active     : Boolean;
 }
 
-export const modelName = 'cliente';
-export default model<Client>(modelName, schClient);
+export default model<Client>(tableName.CLIENT, schClient);

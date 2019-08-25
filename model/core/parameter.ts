@@ -1,7 +1,8 @@
-import mongoose from "mongoose";
+import { Schema, Document, model } from "mongoose";
+import { tableName } from "../../backend/src/common/enum/tableName";
 
-const schParameter = new mongoose.Schema ({
-    _id: mongoose.Schema.Types.ObjectId,
+const schParameter = new Schema ({
+    _id: Schema.Types.ObjectId,
     key : {
         type : String,
         required : true,
@@ -23,8 +24,8 @@ const schParameter = new mongoose.Schema ({
     }
 });
 
-export interface Parameter extends mongoose.Document {
-    _id: mongoose.Schema.Types.ObjectId;
+export interface Parameter extends Document {
+    _id: Schema.Types.ObjectId;
     key       : String;
     value     : String;
     dateCreate : Date;
@@ -32,4 +33,4 @@ export interface Parameter extends mongoose.Document {
     active     : Boolean;
 }
 
-export default mongoose.model<Parameter>('parametro', schParameter);
+export default model<Parameter>(tableName.PARAMETER, schParameter);

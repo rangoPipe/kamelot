@@ -1,7 +1,7 @@
-import mongoose from "mongoose";
+import { Schema, model, Document } from "mongoose";
 
-const schTable = new mongoose.Schema ({
-    _id: mongoose.Schema.Types.ObjectId,
+const schTable = new Schema ({
+    _id: Schema.Types.ObjectId,
     name : {
         type : String,
         required : true,
@@ -19,8 +19,8 @@ const schTable = new mongoose.Schema ({
     }
 });
 
-export interface Table extends mongoose.Document {
-    _id: mongoose.Schema.Types.ObjectId;
+export interface Table extends Document {
+    _id: Schema.Types.ObjectId;
     name       : String;
     capacity   : Number;
     dateCreate : Date;
@@ -28,4 +28,4 @@ export interface Table extends mongoose.Document {
     active     : Boolean;
 }
 
-export default mongoose.model<Table>('mesa', schTable);
+export default model<Table>('mesa', schTable);

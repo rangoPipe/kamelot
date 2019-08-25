@@ -1,21 +1,22 @@
 import { Schema, model, Document } from "mongoose";
-import { Workshift, modelName as workshiftName } from "../workshift";
-import { Person, modelName as personName } from "./person";
-import { Hierarchy, modelName as hierarchyName } from "./hierarchy";
+import { Workshift} from "../workshift";
+import { Person } from "./person";
+import { Hierarchy } from "./hierarchy";
+import { tableName } from "../../backend/src/common/enum/tableName";
 
 const schEmployee = new Schema ({
     _id: Schema.Types.ObjectId,
     person: {
         type: Schema.Types.ObjectId,
-        ref: personName
+        ref: tableName.PERSON
     },
     hierarchy: {
         tyoe: Schema.Types.ObjectId,
-        ref: hierarchyName
+        ref: tableName.HIERARCHY
     },
     workshift: {
         type: Schema.Types.ObjectId,
-        ref: workshiftName
+        ref: tableName.EMPLOYEE
     },
     salary : {
         type : Number,
@@ -43,5 +44,4 @@ export interface Employee extends Document {
     active     : Boolean;
 }
 
-export const modelName = 'empleado';
-export default model<Employee>(modelName, schEmployee);
+export default model<Employee>(tableName.EMPLOYEE, schEmployee);
