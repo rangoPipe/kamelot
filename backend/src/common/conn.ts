@@ -1,8 +1,9 @@
 import mongoose from 'mongoose';
 import { constantes } from './constants';
 
-mongoose.connect(constantes.urlDB,{
-    useNewUrlParser: true
+mongoose.connect(constantes.urlDB, {
+    useNewUrlParser: true,
+    useFindAndModify: false
 })
 .then(db => {
     console.log('is connected');

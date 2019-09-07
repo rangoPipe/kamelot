@@ -1,13 +1,13 @@
 import { Schema, model, Document } from "mongoose";
 import { typeDay } from "../../backend/src/common/enum/typeDay";
 import { Workshift } from "../workshift";
-import { tableName } from "../../backend/src/common/enum/tableName";
+import { collectioneName } from "../../backend/src/common/enum/collectionName";
 
 const schSchedule = new Schema ({
     _id: Schema.Types.ObjectId,
     workshift: {
         type: Schema.Types.ObjectId,
-        ref: tableName.WORKSHIFT
+        ref: collectioneName.WORKSHIFT
     },
     name : {
         type : String,

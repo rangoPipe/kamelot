@@ -1,12 +1,12 @@
 import { Schema, Document, model } from "mongoose";
 import { Employee } from "./employee";
-import { tableName } from "../../backend/src/common/enum/tableName";
+import { collectioneName } from "../../backend/src/common/enum/collectionName";
 
 const schHierarchy = new Schema ({
     _id: Schema.Types.ObjectId,
     empleoyee: [{
         type: Schema.Types.ObjectId,
-        ref: tableName.EMPLOYEE
+        ref: collectioneName.EMPLOYEE
     }],
     name : {
         type : String,
@@ -33,4 +33,4 @@ export interface Hierarchy extends Document {
     active     : Boolean;
 }
 
-export default model<Hierarchy>(tableName.HIERARCHY, schHierarchy);
+export default model<Hierarchy>(collectioneName.HIERARCHY, schHierarchy);

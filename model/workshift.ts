@@ -1,17 +1,17 @@
 import { Schema, Document, model } from "mongoose";
 import { Schedule } from "./core/schedule";
 import { Employee } from "./core/employee";
-import { tableName } from "../backend/src/common/enum/tableName";
+import { collectioneName } from "../backend/src/common/enum/collectionName";
 
 const schWorkshift = new Schema ({
     _id: Schema.Types.ObjectId,
     empleoyee: [{
         type : Schema.Types.DocumentArray,
-        ref  : tableName.EMPLOYEE
+        ref  : collectioneName.EMPLOYEE
     }],
     schedule: {
         type: Schema.Types.ObjectId,
-        ref : tableName.SCHEDULE
+        ref : collectioneName.SCHEDULE
     },
     dateCreate : {
         type : Date,
@@ -33,4 +33,4 @@ export interface Workshift extends Document {
     active     : Boolean;
 }
 
-export default model<Workshift>(tableName.WORKSHIFT, schWorkshift);
+export default model<Workshift>(collectioneName.WORKSHIFT, schWorkshift);

@@ -13,10 +13,14 @@ class BaseException {
     }
 
     crearLog(){
+        const dir:string = path.join('backend','var','log');
         const message:string = `
             Status: ${this.status}
             Message: ${this.message}`;
-        fs.appendFile(path.join('backend', 'src', 'var', 'log', 'log.txt'), message, (err) => {
+        if (!fs.existsSync(dir)){
+            fs.mkdirSync(dir);
+        }
+        fs.appendFile(path.join(dir, 'log.txt'), message, (err) => {
             if(err)
                 console.log(err);
         })

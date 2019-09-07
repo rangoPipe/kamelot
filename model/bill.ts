@@ -3,25 +3,25 @@ import { Client } from "./core/client";
 import { Employee } from "./core/employee";
 import { Sale } from "./sale";
 import { Fidelity } from "./fidelity";
-import { tableName } from "../backend/src/common/enum/tableName";
+import { collectioneName } from "../backend/src/common/enum/collectionName";
 
 const schBill= new Schema ({
     _id: Schema.Types.ObjectId,
     client: {
         type:   Schema.Types.ObjectId,
-        ref: tableName.CLIENT
+        ref: collectioneName.CLIENT
     },
     empleoyee: {
         type:   Schema.Types.ObjectId,
-        ref:    tableName.EMPLOYEE
+        ref:    collectioneName.EMPLOYEE
     },
     sale: [{
         type:   Schema.Types.ObjectId,
-        ref:    tableName.SALE
+        ref:    collectioneName.SALE
     }],
     fidelity: [{
         type:   Schema.Types.ObjectId,
-        ref:    tableName.FIDELITY
+        ref:    collectioneName.FIDELITY
     }],
     numberBill : {
         type: String,
@@ -54,4 +54,4 @@ export interface Bill extends Document {
     active     : Boolean;
 }
 
-export default model<Bill>(tableName.BILL, schBill);
+export default model<Bill>(collectioneName.BILL, schBill);

@@ -1,11 +1,10 @@
 import { Schema, Document, model } from "mongoose";
 import { Product } from './product';
-import { tableName } from "../../backend/src/common/enum/tableName";
+import { collectioneName } from "../../backend/src/common/enum/collectionName";
 
 const schProvider = new Schema ({
-    _id: Schema.Types.ObjectId,
     product : [{ type: Schema.Types.ObjectId, 
-        ref: tableName.PRODUCT
+        ref: collectioneName.PRODUCT
     }],
     name : {
         type : String,
@@ -26,7 +25,7 @@ const schProvider = new Schema ({
 
 export interface Provider extends Document {
     _id: Schema.Types.ObjectId;
-    product?: Product[];
+    product: Product[];
     name : String;
     dateContract:Date;
     dateCreate : Date;
@@ -34,4 +33,4 @@ export interface Provider extends Document {
     active     : Boolean;
 }
 
-export default model<Provider>(tableName.PROVIDER, schProvider);
+export default model<Provider>(collectioneName.PROVIDER, schProvider);

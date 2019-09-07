@@ -1,5 +1,5 @@
 import { Schema, Document, model } from "mongoose";
-import { tableName } from "../../backend/src/common/enum/tableName";
+import { collectioneName } from "../../backend/src/common/enum/collectionName";
 
 const schParameter = new Schema ({
     _id: Schema.Types.ObjectId,
@@ -33,4 +33,4 @@ export interface Parameter extends Document {
     active     : Boolean;
 }
 
-export default model<Parameter>(tableName.PARAMETER, schParameter);
+export default model<Parameter>(collectioneName.PARAMETER, schParameter);

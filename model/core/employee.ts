@@ -2,21 +2,21 @@ import { Schema, model, Document } from "mongoose";
 import { Workshift} from "../workshift";
 import { Person } from "./person";
 import { Hierarchy } from "./hierarchy";
-import { tableName } from "../../backend/src/common/enum/tableName";
+import { collectioneName } from "../../backend/src/common/enum/collectionName";
 
 const schEmployee = new Schema ({
     _id: Schema.Types.ObjectId,
     person: {
         type: Schema.Types.ObjectId,
-        ref: tableName.PERSON
+        ref: collectioneName.PERSON
     },
     hierarchy: {
         tyoe: Schema.Types.ObjectId,
-        ref: tableName.HIERARCHY
+        ref: collectioneName.HIERARCHY
     },
     workshift: {
         type: Schema.Types.ObjectId,
-        ref: tableName.EMPLOYEE
+        ref: collectioneName.EMPLOYEE
     },
     salary : {
         type : Number,
@@ -44,4 +44,4 @@ export interface Employee extends Document {
     active     : Boolean;
 }
 
-export default model<Employee>(tableName.EMPLOYEE, schEmployee);
+export default model<Employee>(collectioneName.EMPLOYEE, schEmployee);

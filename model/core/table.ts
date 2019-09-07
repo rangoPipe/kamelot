@@ -1,4 +1,5 @@
 import { Schema, model, Document } from "mongoose";
+import { collectioneName } from "../../backend/src/common/enum/collectionName";
 
 const schTable = new Schema ({
     _id: Schema.Types.ObjectId,
@@ -28,4 +29,4 @@ export interface Table extends Document {
     active     : Boolean;
 }
 
-export default model<Table>('mesa', schTable);
+export default model<Table>(collectioneName.TABLE, schTable);

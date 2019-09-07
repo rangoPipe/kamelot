@@ -1,12 +1,12 @@
 import { Schema, Document, model } from "mongoose";
 import { Product } from "./core/product";
-import { tableName } from "../backend/src/common/enum/tableName";
+import { collectioneName } from "../backend/src/common/enum/collectionName";
 
 const schPurchase = new Schema ({
     id: Schema.Types.ObjectId,
     product : [{
         type:   Schema.Types.ObjectId,
-        ref:    tableName.PRODUCT
+        ref:    collectioneName.PRODUCT
     }],
     costBuy: Number,
     costSale: Number,
@@ -33,4 +33,4 @@ export interface Purchase extends Document {
     active     : Boolean;
 }
 
-export default model<Purchase>(tableName.PURCHASE, schPurchase);
+export default model<Purchase>(collectioneName.PURCHASE, schPurchase);

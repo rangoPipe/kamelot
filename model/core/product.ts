@@ -2,21 +2,20 @@ import { Document, model, Schema } from "mongoose";
 import { Provider } from "./provider";
 import { Purchase } from "../purchase";
 import { Sale } from "../sale";
-import { tableName } from "../../backend/src/common/enum/tableName";
+import { collectioneName } from "../../backend/src/common/enum/collectionName";
 
 const schProduct = new Schema ({
-    _id: Schema.Types.ObjectId,
     provider : {
         type: Schema.Types.ObjectId,
-        ref: tableName.PROVIDER
+        ref: collectioneName.PROVIDER
     },
     purcharse: [{
         type: Schema.Types.ObjectId,
-        ref: tableName.PURCHASE
+        ref: collectioneName.PURCHASE
     }],
     sale: [{
         type: Schema.Types.ObjectId,
-        ref: tableName.SALE
+        ref: collectioneName.SALE
     }],
     TypeMaterial : Number,
     name : {
@@ -48,4 +47,4 @@ export interface Product extends Document {
     active     : Boolean;
 }
 
-export default model<Product>(tableName.PRODUCT, schProduct);
+export default model<Product>(collectioneName.PRODUCT, schProduct);

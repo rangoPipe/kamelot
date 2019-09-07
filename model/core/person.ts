@@ -2,17 +2,17 @@ import { Schema, model, Document } from "mongoose";
 import { typeDocument } from "../../backend/src/common/enum/typeDocument";
 import { Client } from "./client";
 import { Employee} from "./employee";
-import { tableName } from "../../backend/src/common/enum/tableName";
+import { collectioneName } from "../../backend/src/common/enum/collectionName";
 
 const schPerson = new Schema ({
     _id: Schema.Types.ObjectId,
     empleoyee: {
         type: Schema.Types.ObjectId,
-        ref: tableName.EMPLOYEE
+        ref: collectioneName.EMPLOYEE
     },
     client: {
         type: Schema.Types.ObjectId,
-        ref: tableName.CLIENT
+        ref: collectioneName.CLIENT
     },
     typeDocument : {
         type: String,
@@ -83,4 +83,4 @@ export interface Person extends Document {
     active          : Boolean;
 }
 
-export default model<Person>(tableName.PERSON, schPerson);
+export default model<Person>(collectioneName.PERSON, schPerson);
