@@ -14,14 +14,11 @@ class ProviderController {
         } catch (error) {
             res.send(error)
         }    
-        
-        return res.json({});
     }
 
     public async save(req: Request, res:Response):Promise<void> {
         try {
-
-            const provider:Provider = this.createModel(req);
+            const provider:Provider = providerController.createModel(req);
             let response = await providerLogic.save(provider);
             res.json(response);
             
@@ -33,8 +30,9 @@ class ProviderController {
 
     public async getOne(req: Request, res: Response) {
         try {
-            const model = this.createModel(req);
+            const model = providerController.createModel(req);   
             const result = await providerLogic.getOne(model);
+            
             res.send(result);
 
         } catch (error) {
@@ -44,7 +42,7 @@ class ProviderController {
 
     public async disable(req: Request, res: Response) {
         try {
-            const model = this.createModel(req.body);
+            const model = providerController.createModel(req);        
             const result = await providerLogic.disable(model);
             res.send(result);
 
@@ -54,8 +52,7 @@ class ProviderController {
     }
 
     private createModel(req: Request): Provider {
-        const { id, nombre, fechaCreacion } = req.body;
-
+        const { id, nombre, fechaCreacion } = (Object.keys(req.body).length > 0) ? req.body : req.params;
         const model:Provider = new providerModel({
             _id : id,
             name : nombre,

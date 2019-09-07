@@ -1,12 +1,13 @@
 import productModel, { Product } from "../../../../model/core/product";
 import BaseException from "../../common/baseException";
 import AppResponse from "../../common/appResponse";
+import { collectioneName } from "../../common/enum/collectionName";
 
 class ProductManager {
 
     public async getAllProducts():Promise<any> {
         try {
-            return await productModel.find();
+            return await productModel.find().populate(collectioneName.PROVIDER).exec();
             
         } catch (error) {
             new BaseException(500, error);
@@ -16,7 +17,7 @@ class ProductManager {
 
     public async getOne(model:Product):Promise<any>  {
         try {
-            return await productModel.findById(model.id);
+            return await productModel.findOne({ _id: model.id}).populate(collectioneName.PROVIDER);
 
         } catch (error) {
             new BaseException(500, error);
@@ -58,7 +59,7 @@ class ProductManager {
 
     public async disable(model:Product): Promise<any>  {
         try {
-            return await productModel.findByIdAndUpdate(model.id, { $set: { activo:false }});
+            return await productModel.findByIdAndUpdate(model.id, { $set: { active:false }});
         } catch (error) {
             new BaseException(500, error);
             return new AppResponse(false, error);

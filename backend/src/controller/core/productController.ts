@@ -14,13 +14,11 @@ class ProductController {
         } catch (error) {
             res.send(error)
         }    
-        
-        return res.json({});
     }
 
     public async save(req: Request, res:Response):Promise<void> {
         try {
-            const model:Product = this.createModel(req);
+            const model:Product = productController.createModel(req);
             let response = await productLogic.save(model);
             res.json(response);
             
@@ -31,9 +29,9 @@ class ProductController {
     }
 
     public async getOne(req: Request, res: Response) {
-        try {
-            const model = this.createModel(req);
-            const result = await productLogic.getOne(model);
+        try { 
+            const model = productController.createModel(req);
+            const result = await productLogic.getOne(model);            
             res.send(result);
 
         } catch (error) {
@@ -43,7 +41,7 @@ class ProductController {
 
     public async disable(req: Request, res: Response) {
         try {
-            const model = this.createModel(req.body);
+            const model = productController.createModel(req.body);
             const result = await productLogic.disable(model);
             res.send(result);
 
@@ -53,7 +51,7 @@ class ProductController {
     }
 
     private createModel(req: Request): Product {
-        const { id, nombre, ean, idProveedor, idType } = req.body;
+        const { id, nombre, ean, idProveedor, idType } = (Object.keys(req.body).length > 0) ? req.body : req.params;
 
         const product:Product = new productModel({
             _id : id,

@@ -2,6 +2,8 @@ import { Product } from "../../../../model/core/product";
 import BaseException from "../../common/baseException";
 import AppResponse from "../../common/appResponse";
 import { productManager } from "../../manager/core/productManager";
+import { providerLogic } from "./providerLogic";
+import providerModel, { Provider } from "../../../../model/core/provider";
 
 class ProductLogic {
 
@@ -28,7 +30,14 @@ class ProductLogic {
     public async save(model:Product):Promise<any> {
 
         try {
-            return await productManager.save(model);        
+            let proveedor:Provider = new providerModel({
+                _id: model.provider
+            });
+            model.provider = await  providerLogic.getOne(proveedor);
+            const product = await productManager.save(model);   
+            proveedor.product.push(product._id);
+            providerLogic.save(proveedor);
+            return product;
             
         } catch (error) {
             new BaseException(500, error); 
