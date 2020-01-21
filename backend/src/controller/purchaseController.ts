@@ -14,13 +14,11 @@ class PurchaseController {
         } catch (error) {
             res.send(error)
         }    
-        
-        return res.json({});
     }
 
     public async save(req: Request, res:Response):Promise<void> {
         try {
-            const model:Purchase = this.createModel(req);
+            const model:Purchase = purchaseController.createModel(req);
             let response = await purchaseLogic.save(model);
             res.json(response);
             
@@ -32,7 +30,7 @@ class PurchaseController {
 
     public async getOne(req: Request, res: Response) {
         try {
-            const model = this.createModel(req);
+            const model = purchaseController.createModel(req);
             const result = await purchaseLogic.getOne(model);
             res.send(result);
 
@@ -43,7 +41,7 @@ class PurchaseController {
 
     public async disable(req: Request, res: Response) {
         try {
-            const model = this.createModel(req.body);
+            const model = purchaseController.createModel(req.body);
             const result = await purchaseLogic.disable(model);
             res.send(result);
 
@@ -53,7 +51,7 @@ class PurchaseController {
     }
 
     private createModel(req: Request): Purchase {
-        const { id, compra, venta, idProducto, cantidad } = req.body;
+        const { id, compra, venta, idProducto, cantidad } = (Object.keys(req.body).length > 0) ? req.body : req.params;
 
         const model:Purchase = new purchaseModel({
             _id : id,

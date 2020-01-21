@@ -14,13 +14,11 @@ class EmpleoyeeController {
         } catch (error) {
             res.send(error)
         }    
-        
-        return res.json({});
     }
 
     public async save(req: Request, res:Response):Promise<void> {
         try {
-            const model:Employee = this.createModel(req);
+            const model:Employee = empleoyeeController.createModel(req);
             let response = await empleoyeeLogic.save(model);
             res.json(response);
             
@@ -32,7 +30,7 @@ class EmpleoyeeController {
 
     public async getOne(req: Request, res: Response) {
         try {
-            const model = this.createModel(req);
+            const model = empleoyeeController.createModel(req);
             const result = await empleoyeeLogic.getOne(model);
             res.send(result);
 
@@ -43,7 +41,7 @@ class EmpleoyeeController {
 
     public async disable(req: Request, res: Response) {
         try {
-            const model = this.createModel(req.body);
+            const model = empleoyeeController.createModel(req.body);
             const result = await empleoyeeLogic.disable(model);
             res.send(result);
 
@@ -53,10 +51,11 @@ class EmpleoyeeController {
     }
 
     private createModel(req: Request): Employee {
-        const { id, idCargo, salario } = req.body;
+        const { id, idCargo, salario, idPersona } = (Object.keys(req.body).length > 0) ? req.body : req.params;
 
         const model:Employee = new empleoyeeModel({
             _id: id,
+            person : idPersona,
             hierarchy : idCargo,
             salary      : salario,
             dateCreate  : new Date()

@@ -4,10 +4,10 @@ import { collectioneName } from "../backend/src/common/enum/collectionName";
 
 const schPurchase = new Schema ({
     id: Schema.Types.ObjectId,
-    product : [{
+    product : {
         type:   Schema.Types.ObjectId,
         ref:    collectioneName.PRODUCT
-    }],
+    },
     costBuy: Number,
     costSale: Number,
     quantity: Number,
@@ -24,7 +24,7 @@ const schPurchase = new Schema ({
 
 export interface Purchase extends Document {
     _id: Schema.Types.ObjectId;
-    product : Product[];
+    product : Product;
     costBuy: Number;
     costSale: Number;
     quantity: Number;

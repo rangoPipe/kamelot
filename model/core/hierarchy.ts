@@ -3,7 +3,6 @@ import { Employee } from "./employee";
 import { collectioneName } from "../../backend/src/common/enum/collectionName";
 
 const schHierarchy = new Schema ({
-    _id: Schema.Types.ObjectId,
     empleoyee: [{
         type: Schema.Types.ObjectId,
         ref: collectioneName.EMPLOYEE
@@ -26,7 +25,7 @@ const schHierarchy = new Schema ({
 
 export interface Hierarchy extends Document {
     _id: Schema.Types.ObjectId;
-    empleoyee? : Employee[];
+    empleoyee  : Employee[];
     name       : String;
     dateCreate : Date;
     dateUpdate : Date;

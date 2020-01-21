@@ -14,14 +14,11 @@ class HierarchyController {
         } catch (error) {
             res.send(error)
         }    
-        
-        return res.json({});
     }
 
     public async save(req: Request, res:Response):Promise<void> {
         try {
-
-            const provider:Hierarchy = this.createModel(req);
+            const provider:Hierarchy = hierarchyController.createModel(req);
             let response = await hieararchyLogic.save(provider);
             res.json(response);
             
@@ -33,7 +30,7 @@ class HierarchyController {
 
     public async getOne(req: Request, res: Response) {
         try {
-            const model = this.createModel(req);
+            const model = hierarchyController.createModel(req);
             const result = await hieararchyLogic.getOne(model);
             res.send(result);
 
@@ -44,7 +41,7 @@ class HierarchyController {
 
     public async disable(req: Request, res: Response) {
         try {
-            const model = this.createModel(req.body);
+            const model = hierarchyController.createModel(req.body);
             const result = await hieararchyLogic.disable(model);
             res.send(result);
 
@@ -54,7 +51,7 @@ class HierarchyController {
     }
 
     private createModel(req: Request): Hierarchy {
-        const { id, nombre } = req.body;
+        const { id, nombre } = (Object.keys(req.body).length > 0) ? req.body : req.params;
 
         const model:Hierarchy = new hierarchyModel({
             _id : id,

@@ -1,12 +1,13 @@
 import BaseException from "../common/baseException";
 import AppResponse from "../common/appResponse";
 import purchaseModel, { Purchase } from "../../../model/purchase";
+import { collectioneName } from "../common/enum/collectionName";
 
 class PurchaseManager {
 
     public async getAllPurchases():Promise<any> {
         try {
-            return await purchaseModel.find();
+            return await purchaseModel.find().populate(collectioneName.PRODUCT).exec();
             
         } catch (error) {
             new BaseException(500, error);
@@ -16,7 +17,7 @@ class PurchaseManager {
 
     public async getOne(model:Purchase):Promise<any>  {
         try {
-            return await purchaseModel.findById(model.id);
+            return await purchaseModel.findById(model.id).populate(collectioneName.PRODUCT).exec();
 
         } catch (error) {
             new BaseException(500, error);

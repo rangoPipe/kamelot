@@ -5,13 +5,12 @@ import { Hierarchy } from "./hierarchy";
 import { collectioneName } from "../../backend/src/common/enum/collectionName";
 
 const schEmployee = new Schema ({
-    _id: Schema.Types.ObjectId,
     person: {
         type: Schema.Types.ObjectId,
         ref: collectioneName.PERSON
     },
     hierarchy: {
-        tyoe: Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: collectioneName.HIERARCHY
     },
     workshift: {

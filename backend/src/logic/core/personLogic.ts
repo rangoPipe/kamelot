@@ -26,7 +26,6 @@ class PersonLogic {
     }
 
     public async save(model:Person):Promise<any> {
-
         try {
             return await personManager.save(model);        
             

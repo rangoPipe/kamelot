@@ -28,17 +28,21 @@ class ProductLogic {
     }
 
     public async save(model:Product):Promise<any> {
-
         try {
-            let proveedor:Provider = new providerModel({
+            let schemaProvider:Provider = new providerModel({
                 _id: model.provider
             });
-            model.provider = await  providerLogic.getOne(proveedor);
-            const product = await productManager.save(model);   
-            proveedor.product.push(product._id);
-            providerLogic.save(proveedor);
+            const objProvider = model.provider = await providerLogic.getOne(schemaProvider);
+            const product = await productManager.save(model); 
+
+            if(!objProvider.product.includes(product._id)) {
+                schemaProvider.product = objProvider.product;                
+                schemaProvider.product.push(product._id);
+                await providerLogic.save(schemaProvider);
+                
+            } 
             return product;
-            
+
         } catch (error) {
             new BaseException(500, error); 
             return new AppResponse(false, error);

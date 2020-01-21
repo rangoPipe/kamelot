@@ -9,7 +9,7 @@ const schProduct = new Schema ({
         type: Schema.Types.ObjectId,
         ref: collectioneName.PROVIDER
     },
-    purcharse: [{
+    purchase: [{
         type: Schema.Types.ObjectId,
         ref: collectioneName.PURCHASE
     }],
@@ -37,7 +37,7 @@ const schProduct = new Schema ({
 export interface Product extends Document {
     _id: Schema.Types.ObjectId;
     provider : Provider;
-    purchase?: Purchase[];
+    purchase: Purchase[];
     sale?:     Sale[];
     TypeMaterial : Number ;
     name : String;

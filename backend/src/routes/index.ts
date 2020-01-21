@@ -4,6 +4,9 @@ import _rtsProduct from "./product";
 import _rtsProvider from "./provider";
 import _rtsTable from "./table";
 import _rtsPurchase from "./purchase";
+import _rtsPerson from './person';
+import _rtsEmpleoyee from './empleoyee';
+import _rtsHierarchy from './hierarchy';
 
 const main:Router = Router();
 
@@ -16,5 +19,8 @@ export default [
     _rtsProduct,
     _rtsProvider,
     _rtsTable,
-    _rtsPurchase
+    _rtsPurchase,
+    _rtsPerson,
+    _rtsEmpleoyee,
+    _rtsHierarchy
 ];

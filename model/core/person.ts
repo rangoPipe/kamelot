@@ -5,7 +5,6 @@ import { Employee} from "./employee";
 import { collectioneName } from "../../backend/src/common/enum/collectionName";
 
 const schPerson = new Schema ({
-    _id: Schema.Types.ObjectId,
     empleoyee: {
         type: Schema.Types.ObjectId,
         ref: collectioneName.EMPLOYEE
@@ -47,7 +46,6 @@ const schPerson = new Schema ({
     },
     email : {
         type : String,
-        required : true,
         lowercase: true
     },
     birthdate : {

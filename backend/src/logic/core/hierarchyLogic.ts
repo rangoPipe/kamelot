@@ -26,7 +26,6 @@ class HieararchyLogic {
     }
 
     public async save(model:Hierarchy):Promise<any> {
-
         try {
             return await hierarchyManager.save(model);        
             

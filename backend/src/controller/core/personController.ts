@@ -14,13 +14,11 @@ class PersonController {
         } catch (error) {
             res.send(error)
         }    
-        
-        return res.json({});
     }
 
     public async save(req: Request, res:Response):Promise<void> {
         try {
-            const model:Person = this.createModel(req);
+            const model:Person = personController.createModel(req);
             let response = await personLogic.save(model);
             res.json(response);
             
@@ -32,7 +30,7 @@ class PersonController {
 
     public async getOne(req: Request, res: Response) {
         try {
-            const model = this.createModel(req);
+            const model = personController.createModel(req);
             const result = await personLogic.getOne(model);
             res.send(result);
 
@@ -43,7 +41,7 @@ class PersonController {
 
     public async disable(req: Request, res: Response) {
         try {
-            const model = this.createModel(req.body);
+            const model = personController.createModel(req.body);
             const result = await personLogic.disable(model);
             res.send(result);
 
@@ -53,7 +51,7 @@ class PersonController {
     }
 
     private createModel(req: Request): Person {
-        const { id, pNombre, sNombre, pApellido, sApellido, telefono, idType, numDoc, correo, fNacimiento } = req.body;
+        const { id, pNombre, sNombre, pApellido, sApellido, telefono, idType, numDoc, correo, fNacimiento } = (Object.keys(req.body).length > 0) ? req.body : req.params;
 
         const model:Person = new personModel({
             _id: id,

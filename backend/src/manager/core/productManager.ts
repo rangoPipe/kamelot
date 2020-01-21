@@ -17,7 +17,7 @@ class ProductManager {
 
     public async getOne(model:Product):Promise<any>  {
         try {
-            return await productModel.findOne({ _id: model.id}).populate(collectioneName.PROVIDER);
+            return await productModel.findOne({ _id: model.id}).populate(collectioneName.PROVIDER).exec();
 
         } catch (error) {
             new BaseException(500, error);
@@ -26,9 +26,8 @@ class ProductManager {
     }
 
     public async save(model:Product):Promise<any> {
-
         try {
-            let result = await productModel.findById(model.id);         
+            let result = await productModel.findById(model.id);             
             return (!result) ? await productManager.saveProduct(model) : await productManager.updateProduct(model);
             
         } catch (error) {
