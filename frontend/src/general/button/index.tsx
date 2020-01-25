@@ -5,11 +5,6 @@ import { MainStore } from "../../redux/namespace";
 import Page from "./page";
 
 export class ButtonClass extends React.Component<IButtonProps, IButtonState> {
-
-  constructor(props:IButtonProps) {
-    super(props);
-    console.log(props);
-  }
   
     render():JSX.Element {
       const { button } = this.props;

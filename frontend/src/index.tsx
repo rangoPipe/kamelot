@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import 'antd/dist/antd.css';
 
 import store from './redux/store';
-import Button from './general/button';
+import Button from './general/card';
 
 const page = (
     <Provider store={store}>
