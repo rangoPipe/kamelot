@@ -4,11 +4,11 @@ import { Provider } from 'react-redux'
 import 'antd/dist/antd.css';
 
 import store from './redux/store';
-import Button from './general/card';
+import Main from './components/main';
 
 const page = (
     <Provider store={store}>
-        <Button/>
+        <Main/>
     </Provider>
     );
 

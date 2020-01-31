@@ -4,6 +4,7 @@ import { ISelect } from "./reducer/general/select/ISelect";
 import { ITable } from "./reducer/general/table/ITable";
 import { IMessage } from "./reducer/general/message/IMessage";
 import { ICard } from "./reducer/general/card/ICard";
+import { IDrawer } from "./reducer/general/drawer/IDrawer";
 
 export interface StoreGeneral {
     /**
@@ -35,9 +36,18 @@ export interface StoreGeneral {
      * Almacena las propiedades nativas y genericas para el componente general de card
      */
     card:ICard;
+
+    /**
+     * Almacena las propiedades nativas y genericas para el componente general de drawer
+     */
+    drawer:IDrawer;
 }
 
 export interface MainStore extends StoreGeneral {
+
+    //Product
+    tableProduct: ITable;
+    drawerProduct: IDrawer;
     
 }
 
@@ -50,5 +60,5 @@ export interface IAction {
     /**
      * Suministra el valor a tratar por el reducer
      */
-    payload?:any;
+    payload:any;
 }

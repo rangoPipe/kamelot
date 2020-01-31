@@ -9,7 +9,7 @@ const defaultState:IButton = {
     onChange: () => { }
 };
 
-function reducer(state = defaultState, { type, payload }:IAction) : IButton {    
+function reducer(state = defaultState, { type = "", payload = { } }:IAction) : IButton {    
     switch(type) {
         case createButton: {                                  
             return {
