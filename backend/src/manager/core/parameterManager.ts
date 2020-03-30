@@ -1,6 +1,6 @@
 import BaseException from "../../common/baseException";
 import AppResponse from "../../common/appResponse";
-import parameterModel, { Parameter } from "../../../../model/core/parameter";
+import parameterModel, { Parameter } from "../../model/core/parameter";
 
 class ParameterManager {
 

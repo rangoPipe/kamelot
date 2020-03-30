@@ -1,6 +1,6 @@
 import BaseException from "../common/baseException";
 import AppResponse from "../common/appResponse";
-import workshiftModel, { Workshift } from "../../../model/workshift";
+import workshiftModel, { Workshift } from "../model/workshift";
 
 class WorkshiftManager {
 

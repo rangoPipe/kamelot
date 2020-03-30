@@ -1,9 +1,9 @@
 import BaseException from "../common/baseException";
 import AppResponse from "../common/appResponse";
 import { purchaseManager } from "../manager/purchaseManager";
-import { Purchase } from "../../../model/purchase";
+import { Purchase } from "../model/purchase";
 import { workshiftManager } from "../manager/workshiftManager";
-import { Workshift } from "../../../model/workshift";
+import { Workshift } from "../model/workshift";
 
 class WorkshiftLogic {
 

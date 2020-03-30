@@ -5,6 +5,7 @@ import { IAction } from "../../../namespace";
 const defaultState:IDrawer = {
     body: null,
     title: undefined,
+    width:'100%',
     placement: "right",
     closable: true,
     onClose: () => {},

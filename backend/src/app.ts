@@ -2,13 +2,14 @@ import express from "express";
 import exphbs from "express-handlebars";
 import path from 'path';
 import _routes from "./routes";
+import cors from "cors";
 
 //init
 const app = express();
 import './common/conn'
 
 //settings
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 3001);
 app.set('views', path.join(__dirname, 'views'));
 app.engine('.hbs', exphbs({
     extname: '.hbs',
@@ -18,6 +19,8 @@ app.engine('.hbs', exphbs({
     helpers: require('./common/helper'),
     defaultLayout: 'main'
 }));
+
+app.use(cors());
 
 app.set('view engine', '.hbs');
 

@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import BaseException from "../../common/baseException";
 import AppResponse from "../../common/appResponse";
 import { personLogic } from "../../logic/core/personLogic";
-import personModel, { Person } from "../../../../model/core/person";
+import personModel, { Person } from "../../model/core/person";
 
 class PersonController {
 

@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import BaseException from "../common/baseException";
 import AppResponse from "../common/appResponse";
-import purchaseModel, { Purchase } from "../../../model/purchase";
+import purchaseModel, { Purchase } from "../model/purchase";
 import { purchaseLogic } from "../logic/purchaseLogic";
 
 class PurchaseController {

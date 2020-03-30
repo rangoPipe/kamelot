@@ -1,8 +1,8 @@
 import BaseException from "../common/baseException";
 import AppResponse from "../common/appResponse";
 import { purchaseManager } from "../manager/purchaseManager";
-import { Purchase } from "../../../model/purchase";
-import ProductModel, { Product } from "../../../model/core/product";
+import { Purchase } from "../model/purchase";
+import ProductModel, { Product } from "../model/core/product";
 import { productLogic } from "./core/productLogic";
 
 class PurchaseLogic {

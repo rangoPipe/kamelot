@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import BaseException from "../../common/baseException";
 import AppResponse from "../../common/appResponse";
-import providerModel, { Provider } from "../../../../model/core/provider";
+import providerModel, { Provider } from "../../model/core/provider";
 import { providerLogic } from "../../logic/core/providerLogic";
 
 class ProviderController {

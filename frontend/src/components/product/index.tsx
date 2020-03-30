@@ -4,6 +4,7 @@ import { subspace } from "redux-subspace";
 import { MainStore } from "../../redux/namespace";
 import { IProductState, IProductProps } from "./IProduct";
 import Page from "./page";
+import Formulario from "./form/page";
 import { ProductNamespace } from "../../common/enum/product/enumProduct";
 
 
@@ -23,7 +24,9 @@ export class ProductMain extends React.Component<IProductProps, IProductState> {
 
         this._drawerController.dispatch({ type: createDrawer, payload: {
           title: "Producto",
-          onClose: () => this._hideDrawer
+          onClose: () => this._hideDrawer(),
+          width: '700px',
+          body: <Formulario />
         }})
     }
     

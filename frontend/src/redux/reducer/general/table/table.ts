@@ -1,4 +1,4 @@
-import { createTable } from "../../../action/general/table/_actionName";
+import { createTable, loadDataTable } from "../../../action/general/table/_actionName";
 import { ITable } from "./ITable";
 import { IAction } from "../../../namespace";
 
@@ -13,6 +13,12 @@ function reducer(state = defaultState, { type, payload }:IAction) : ITable {
             return {
                 ...state,
                 ...payload
+            };
+        }
+        case loadDataTable: {                                  
+            return {
+                ...state,
+                dataSource: payload
             };
         }
         default:

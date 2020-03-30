@@ -8,16 +8,22 @@ import { collectioneName } from "../../common/enum/collectionName";
 
 
 import Product from "../product";
+import Employee from "../employee";
 import Provider from "../provider";
+import Person from "../person";
 
 const { Content, Footer, Sider } = Layout;
 
 function getContent(content:collectioneName | null | undefined) {
     switch(content) {
+        case collectioneName.EMPLOYEE:
+            return <Employee />;
         case collectioneName.PRODUCT:
             return <Product />;
         case collectioneName.PROVIDER:
-            return <Provider />;
+                return <Provider />;
+        case collectioneName.PERSON:
+            return <Person />;
         default:
             return <div></div>;
     }

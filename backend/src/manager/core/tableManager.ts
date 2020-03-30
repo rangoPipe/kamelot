@@ -1,6 +1,6 @@
 import BaseException from "../../common/baseException";
 import AppResponse from "../../common/appResponse";
-import tableModel, { Table } from "../../../../model/core/table";
+import tableModel, { Table } from "../../model/core/table";
 
 class TableManager {
 

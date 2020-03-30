@@ -1,6 +1,6 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { IInputProps, IInputState } from "./ICard";
+import { IInputProps, IInputState } from "./IInput";
 import { MainStore } from "../../redux/namespace";
 import Page from "./page";
 

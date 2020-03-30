@@ -48,6 +48,18 @@ export interface MainStore extends StoreGeneral {
     //Product
     tableProduct: ITable;
     drawerProduct: IDrawer;
+
+    //Person
+    tablePerson: ITable;
+    drawerPerson: IDrawer;
+    hierarchyInputPerson: IInput;
+    salaryInputPerson: IInput;
+
+    //Employee
+    tableEmployee: ITable;
+    drawerEmployee: IDrawer;
+    hierarchyInputEmployee: IInput;
+    salaryInputEmployee: IInput;
     
 }
 

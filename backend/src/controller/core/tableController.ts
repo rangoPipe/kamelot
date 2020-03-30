@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import BaseException from "../../common/baseException";
 import AppResponse from "../../common/appResponse";
 import { tableLogic } from "../../logic/core/tableLogic";
-import tableModel, { Table } from "../../../../model/core/table";
+import tableModel, { Table } from "../../model/core/table";
 
 class TableController {
 

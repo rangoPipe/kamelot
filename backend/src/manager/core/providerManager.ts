@@ -1,6 +1,6 @@
 import BaseException from "../../common/baseException";
 import AppResponse from "../../common/appResponse";
-import providerModel, { Provider } from "../../../../model/core/provider";
+import providerModel, { Provider } from "../../model/core/provider";
 import { collectioneName } from "../../common/enum/collectionName";
 
 class ProviderManager {

@@ -1,6 +1,6 @@
 import BaseException from "../../common/baseException";
 import AppResponse from "../../common/appResponse";
-import empleoyeeModel, { Employee } from "../../../../model/core/employee";
+import empleoyeeModel, { Employee } from "../../model/core/employee";
 
 class EmpleoyeeManager {
 

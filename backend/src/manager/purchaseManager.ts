@@ -1,6 +1,6 @@
 import BaseException from "../common/baseException";
 import AppResponse from "../common/appResponse";
-import purchaseModel, { Purchase } from "../../../model/purchase";
+import purchaseModel, { Purchase } from "../model/purchase";
 import { collectioneName } from "../common/enum/collectionName";
 
 class PurchaseManager {

@@ -1,7 +1,7 @@
 import BaseException from "../../common/baseException";
 import AppResponse from "../../common/appResponse";
 import { parameterManager } from "../../manager/core/parameterManager";
-import { Parameter } from "../../../../model/core/parameter";
+import { Parameter } from "../../model/core/parameter";
 
 class ParameterLogic {
 

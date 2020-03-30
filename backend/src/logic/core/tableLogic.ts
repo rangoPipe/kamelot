@@ -1,7 +1,7 @@
 import BaseException from "../../common/baseException";
 import AppResponse from "../../common/appResponse";
 import { tableManager } from "../../manager/core/tableManager";
-import { Table } from "../../../../model/core/table";
+import { Table } from "../../model/core/table";
 
 class TableLogic {
 

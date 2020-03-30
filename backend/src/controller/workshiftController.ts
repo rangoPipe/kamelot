@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import BaseException from "../common/baseException";
 import AppResponse from "../common/appResponse";
 import { workshiftLogic } from "../logic/workshiftLogic";
-import workshiftModel, { Workshift } from "../../../model/workshift";
+import workshiftModel, { Workshift } from "../model/workshift";
 
 class WorkshiftController {
 

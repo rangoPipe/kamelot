@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import BaseException from "../../common/baseException";
 import AppResponse from "../../common/appResponse";
 import { hieararchyLogic } from "../../logic/core/hierarchyLogic";
-import hierarchyModel, { Hierarchy } from "../../../../model/core/hierarchy";
+import hierarchyModel, { Hierarchy } from "../../model/core/hierarchy";
 
 class HierarchyController {
 

@@ -12,6 +12,7 @@ export default function Page(props:IDrawerProps) {
             closable={ drawer.closable }
             onClose={ drawer.onClose }
             visible = { drawer.visible }
+            width = { drawer.width }
         >
             { drawer.body }
         </Drawer>);

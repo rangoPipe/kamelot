@@ -1,7 +1,7 @@
 import BaseException from "../../common/baseException";
 import AppResponse from "../../common/appResponse";
 import { personManager } from "../../manager/core/personManager";
-import { Person } from "../../../../model/core/person";
+import { Person } from "../../model/core/person";
 
 class PersonLogic {
 

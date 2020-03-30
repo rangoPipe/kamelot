@@ -1,11 +1,13 @@
-import { createInput } from "../../../action/general/input/_actionName";
+import { createInput, changeValue } from "../../../action/general/input/_actionName";
 import { IInput } from "./IInput";
 import { IAction } from "../../../namespace";
 
 const defaultState:IInput = {
     type: undefined,
-    placeholder:"",
-    onChange: () => { }
+    placeholder: "",
+    value: "",
+    onChange: () => { },
+    label: null
 };
 
 function reducer(state = defaultState, { type, payload }:IAction) : IInput {    
@@ -14,6 +16,12 @@ function reducer(state = defaultState, { type, payload }:IAction) : IInput {
             return {
                 ...state,
                 ...payload
+            };
+        }
+        case changeValue: {                                  
+            return {
+                ...state,
+                value: payload
             };
         }
         default:

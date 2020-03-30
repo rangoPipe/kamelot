@@ -1,9 +1,9 @@
-import { Product } from "../../../../model/core/product";
+import { Product } from "../../model/core/product";
 import BaseException from "../../common/baseException";
 import AppResponse from "../../common/appResponse";
 import { productManager } from "../../manager/core/productManager";
 import { providerLogic } from "./providerLogic";
-import providerModel, { Provider } from "../../../../model/core/provider";
+import providerModel, { Provider } from "../../model/core/provider";
 
 class ProductLogic {
 

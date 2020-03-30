@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import BaseException from "../../common/baseException";
 import AppResponse from "../../common/appResponse";
 import { empleoyeeLogic } from "../../logic/core/empleoyeeLogic";
-import empleoyeeModel, { Employee } from "../../../../model/core/employee";
+import empleoyeeModel, { Employee } from "../../model/core/employee";
 
 class EmpleoyeeController {
 

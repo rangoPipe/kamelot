@@ -1,7 +1,7 @@
 import BaseException from "../../common/baseException";
 import AppResponse from "../../common/appResponse";
 import { providerManager } from "../../manager/core/providerManager";
-import { Provider } from "../../../../model/core/provider";
+import { Provider } from "../../model/core/provider";
 
 class ProviderLogic {
 

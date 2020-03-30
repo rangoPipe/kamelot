@@ -1,6 +1,6 @@
 import BaseException from "../../common/baseException";
 import AppResponse from "../../common/appResponse";
-import scheduleModel, { Schedule } from "../../../../model/core/schedule";
+import scheduleModel, { Schedule } from "../../model/core/schedule";
 
 class ScheduleManager {
 

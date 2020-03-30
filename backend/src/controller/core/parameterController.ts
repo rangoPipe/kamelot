@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import BaseException from "../../common/baseException";
 import AppResponse from "../../common/appResponse";
 import { parameterLogic } from "../../logic/core/parameterLogic";
-import parameterModel, { Parameter } from "../../../../model/core/parameter";
+import parameterModel, { Parameter } from "../../model/core/parameter";
 
 class ParameterController {
 

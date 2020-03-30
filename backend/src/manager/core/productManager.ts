@@ -1,4 +1,4 @@
-import productModel, { Product } from "../../../../model/core/product";
+import productModel, { Product } from "../../model/core/product";
 import BaseException from "../../common/baseException";
 import AppResponse from "../../common/appResponse";
 import { collectioneName } from "../../common/enum/collectionName";

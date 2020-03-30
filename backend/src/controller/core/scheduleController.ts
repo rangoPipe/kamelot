@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import BaseException from "../../common/baseException";
 import AppResponse from "../../common/appResponse";
 import { scheduleLogic } from "../../logic/core/scheduleLogic";
-import scheduleModel,{ Schedule } from "../../../../model/core/schedule";
+import scheduleModel,{ Schedule } from "../../model/core/schedule";
 
 class ScheduleController {
 

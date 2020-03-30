@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import productModel, { Product } from "../../../../model/core/product";
+import productModel, { Product } from "../../model/core/product";
 import BaseException from "../../common/baseException";
 import AppResponse from "../../common/appResponse";
 import { productLogic } from "../../logic/core/productLogic";

@@ -1,6 +1,6 @@
 import BaseException from "../../common/baseException";
 import AppResponse from "../../common/appResponse";
-import hierarchyModel, { Hierarchy } from "../../../../model/core/hierarchy";
+import hierarchyModel, { Hierarchy } from "../../model/core/hierarchy";
 
 
 class HierarchyManager {

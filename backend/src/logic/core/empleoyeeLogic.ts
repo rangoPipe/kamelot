@@ -1,8 +1,8 @@
 import BaseException from "../../common/baseException";
 import AppResponse from "../../common/appResponse";
-import { Employee } from "../../../../model/core/employee";
+import { Employee } from "../../model/core/employee";
 import { empleoyeeManager } from "../../manager/core/empleoyeeManager";
-import personModel, { Person } from "../../../../model/core/person";
+import personModel, { Person } from "../../model/core/person";
 import { personLogic } from "./personLogic";
 
 class EmpleoyeeLogic {
