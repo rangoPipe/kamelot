@@ -32,7 +32,18 @@ export default function Page(props:IPersonProps) {
                     </SubspaceProvider>
                 </Col>
             </Row>
-            <SubspaceProvider mapState={(state: MainStore) => {  return { drawer: state.drawerPerson, salaryInputPerson: state.salaryInputPerson, hierarchyInputPerson : state.hierarchyInputPerson };  }} >
+            <SubspaceProvider mapState={(state: MainStore) => {  return { 
+                drawer: state.drawerPerson,
+                idInputPerson: state.idInputPerson,
+                typeDocumentInputPerson: state.typeDocumentInputPerson, 
+                numberDocumentInputPerson : state.numberDocumentInputPerson, 
+                firstNameInputPerson : state.firstNameInputPerson, 
+                secondNameInputPerson : state.secondNameInputPerson, 
+                firstLastnameInputPerson : state.firstLastnameInputPerson, 
+                secondLastnameInputPerson : state.secondLastnameInputPerson, 
+                birthdayInputPerson : state.birthdayInputPerson, 
+                telephoneInputPerson : state.telephoneInputPerson, 
+                emailInputPerson : state.emailInputPerson,  };  }} >
                 <Drawer />
             </SubspaceProvider>
 

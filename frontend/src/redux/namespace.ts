@@ -52,8 +52,18 @@ export interface MainStore extends StoreGeneral {
     //Person
     tablePerson: ITable;
     drawerPerson: IDrawer;
-    hierarchyInputPerson: IInput;
-    salaryInputPerson: IInput;
+    idInputPerson: IInput;
+    typeDocumentInputPerson: IInput;
+    numberDocumentInputPerson: IInput;
+    firstNameInputPerson: IInput;
+    secondNameInputPerson: IInput;
+    firstLastnameInputPerson: IInput;
+    secondLastnameInputPerson: IInput;
+    telephoneInputPerson: IInput;
+    emailInputPerson: IInput;
+    birthdayInputPerson: IInput;
+    clientInputPerson: IInput;
+    empleoyeeInputPerson: IInput;
 
     //Employee
     tableEmployee: ITable;

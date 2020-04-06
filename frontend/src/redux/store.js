@@ -28,8 +28,18 @@ const reducer = combineReducers({
     //Person
     tablePerson: namespaced(PersonNamespace.table)(table),
     drawerPerson: namespaced(PersonNamespace.drawer)(drawer),
-    hierarchyInputPerson: namespaced(PersonNamespace.hierarchy)(input),
-    salaryInputPerson: namespaced(PersonNamespace.salary)(input),
+    idInputPerson: namespaced(PersonNamespace.id)(input),
+    typeDocumentInputPerson: namespaced(PersonNamespace.typeDocument)(input),
+    numberDocumentInputPerson: namespaced(PersonNamespace.numberDocument)(input),
+    firstNameInputPerson: namespaced(PersonNamespace.firstName)(input),
+    secondNameInputPerson: namespaced(PersonNamespace.secondName)(input),
+    firstLastnameInputPerson: namespaced(PersonNamespace.firstLastname)(input),
+    secondLastnameInputPerson: namespaced(PersonNamespace.secondLastname)(input),
+    telephoneInputPerson: namespaced(PersonNamespace.telephone)(input),
+    emailInputPerson: namespaced(PersonNamespace.email)(input),
+    birthdayInputPerson: namespaced(PersonNamespace.birthday)(input),
+    clientInputPerson: namespaced(PersonNamespace.client)(input),
+    empleoyeeInputPerson: namespaced(PersonNamespace.empleoyee)(input),
 
     //Employee
     tableEmployee: namespaced(EmployeeNamespace.table)(table),

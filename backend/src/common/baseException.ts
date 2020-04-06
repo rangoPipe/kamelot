@@ -13,7 +13,7 @@ class BaseException {
     }
 
     crearLog(){
-        const dir:string = path.join('backend','var','log');
+        const dir:string = path.join('var','log');
         const message:string = `
             Status: ${this.status}
             Message: ${this.message}`;

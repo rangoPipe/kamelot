@@ -27,7 +27,7 @@ class PersonManager {
     public async save(model:Person):Promise<any> {
 
         try {
-            let result = await personModel.findById(model.id);         
+            let result = await personModel.findById(model.id);            
             return (!result) ? await personManager.savePerson(model) : await personManager.updatePerson(model);
             
         } catch (error) {
@@ -58,7 +58,7 @@ class PersonManager {
 
     public async disable(model:Person): Promise<any>  {
         try {
-            return await personModel.findByIdAndUpdate(model.id, { $set: { activo:false }});
+            return await personModel.findByIdAndUpdate(model.id, { $set: { active: false }});
         } catch (error) {
             new BaseException(500, error);
             return new AppResponse(false, error);

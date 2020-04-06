@@ -16,6 +16,17 @@ class PersonController {
         }    
     }
 
+    public async allPersonsActive(req: Request, res: Response) {
+        try {
+            const result:Person[] = await personLogic.getAllPersons();
+            let response = result.filter( x => x.active);
+            res.send(response);
+
+        } catch (error) {
+            res.send(error)
+        }    
+    }
+
     public async save(req: Request, res:Response):Promise<void> {
         try {
             const model:Person = personController.createModel(req);
@@ -41,7 +52,7 @@ class PersonController {
 
     public async disable(req: Request, res: Response) {
         try {
-            const model = personController.createModel(req.body);
+            const model = personController.createModel(req);            
             const result = await personLogic.disable(model);
             res.send(result);
 
@@ -51,19 +62,11 @@ class PersonController {
     }
 
     private createModel(req: Request): Person {
-        const { id, pNombre, sNombre, pApellido, sApellido, telefono, idType, numDoc, correo, fNacimiento } = (Object.keys(req.body).length > 0) ? req.body : req.params;
+        const params = (Object.keys(req.body).length > 0) ? req.body : req.params;
 
         const model:Person = new personModel({
-            _id: id,
-            typeDocument    : idType,
-            number_document : numDoc,
-            first_name      : pNombre,
-            second_name     : sNombre,
-            first_lastname  : pApellido,
-            second_lastname : sApellido,
-            telephone       : telefono,
-            email           : correo,
-            birthdate       : fNacimiento,
+            _id: params.id,
+            ...params,
             dateCreate      : new Date()
         });
         return model;
