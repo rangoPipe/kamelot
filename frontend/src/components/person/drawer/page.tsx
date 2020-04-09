@@ -5,7 +5,8 @@ import { SubspaceProvider } from "react-redux-subspace";
 import { ButtonClass as Button } from "../../../general/button";
 import { IPersonProps } from "../IPerson";
 
-import Input from "../../../general/input"
+import Input from "../../../general/input";
+import Datepicker from "../../../general/datepicker";
 import { MainStore } from "../../../redux/namespace";
 
 export default function Page(props:IPersonProps) {
@@ -58,8 +59,8 @@ export default function Page(props:IPersonProps) {
                     </SubspaceProvider>
                 </Col>
                 <Col span = { 24 } sm = {24} md = {12}>
-                    <SubspaceProvider mapState={(state: MainStore) => {  return { input: state.birthdayInputPerson };  }} >
-                        <Input />
+                    <SubspaceProvider mapState={(state: MainStore) => {  return { datepicker: state.birthdayDatepickerPerson };  }} >
+                        <Datepicker />
                     </SubspaceProvider>
                 </Col>
             </Row>

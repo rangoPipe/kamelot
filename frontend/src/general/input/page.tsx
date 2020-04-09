@@ -15,6 +15,8 @@ export default function Page(props:IInputProps) {
                 type = { input.type } 
                 placeholder = { input.placeholder }
                 value = { input.value } 
+                allowClear
+                required = { input.required }
                 onChange = { input.onChange }
                 />
         </div>

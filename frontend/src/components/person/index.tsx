@@ -17,6 +17,8 @@ import { PersonNamespace } from "../../common/enum/person/enumPerson";
 
 import store from "../../redux/store";
 import { createInput, changeValue } from "../../redux/action/general/input/_actionName";
+import { createDatepicker, changeValue as changeDatepicker } from "../../redux/action/general/datepicker/_actionName";
+
 import { Person } from "../../../../backend/src/model/core/person";
 import { BaseService, IBaseService } from "../../common/baseService";
 import { Button } from "antd";
@@ -32,11 +34,12 @@ export class PersonClass extends React.Component<IPersonProps, IPersonState> {
   private _secondNameController = subspace( (state: MainStore) => state.secondNameInputPerson, PersonNamespace.secondName )(store);
   private _firstLastnameController = subspace( (state: MainStore) => state.firstLastnameInputPerson, PersonNamespace.firstLastname )(store);
   private _secondLastnameController = subspace( (state: MainStore) => state.secondLastnameInputPerson, PersonNamespace.secondLastname )(store);
-  private _birthdayController = subspace( (state: MainStore) => state.birthdayInputPerson, PersonNamespace.birthday )(store);
+  private _birthdayController = subspace( (state: MainStore) => state.birthdayDatepickerPerson, PersonNamespace.birthday )(store);
   private _emailController = subspace( (state: MainStore) => state.emailInputPerson, PersonNamespace.email )(store);
   private _telephoneController = subspace( (state: MainStore) => state.telephoneInputPerson, PersonNamespace.telephone )(store);
 
   private _httpController:string = "persona";
+  private _formateDate: string = "DD/MM/YYYY";
 
     constructor(props:IPersonProps) {
         super(props);
@@ -114,18 +117,16 @@ export class PersonClass extends React.Component<IPersonProps, IPersonState> {
             onChange: (e:React.ChangeEvent<HTMLInputElement>) =>  this._emailController.dispatch({ type: changeValue, payload: e.target.value })
         }});
 
-        this._birthdayController.dispatch({ type: createInput, payload: {
-            type: "text",
-            placeholder: "Fecha cumpleaños",
+        this._birthdayController.dispatch({ type: createDatepicker, payload: {
             label: "Fecha cumpleaños",
-            onChange: (e:React.ChangeEvent<HTMLInputElement>) =>  this._birthdayController.dispatch({ type: changeValue, payload: e.target.value })
+            format: this._formateDate,
+            onChange: (e:React.ChangeEvent<HTMLInputElement>) =>  this._birthdayController.dispatch({ type: changeDatepicker, payload: e })
         }});
 
         this._LoadAllPerson()
     }
     
     private _createColumns = ():ColumnProps<Person>[] => {
-      const dateFormat = "DD/MM/YYYY";
         return [
             {
                 title: 'First name',
@@ -161,7 +162,7 @@ export class PersonClass extends React.Component<IPersonProps, IPersonState> {
                 title: 'Birthdate',
                 dataIndex: 'birthdate',
                 key: 'birthdate',
-                render: (text,item) => <span>{ moment(text).format(dateFormat) }</span>
+                render: (text,item) => <span>{ moment(text).format(this._formateDate) }</span>
               },
               {
                 title: '',
@@ -233,7 +234,7 @@ export class PersonClass extends React.Component<IPersonProps, IPersonState> {
       this._secondLastnameController.dispatch({ type: changeValue, payload: item.second_lastname });
       this._telephoneController.dispatch({ type: changeValue, payload: item.telephone });
       this._emailController.dispatch({ type: changeValue, payload: item.email });
-      this._birthdayController.dispatch({ type: changeValue, payload: item.birthdate });
+      this._birthdayController.dispatch({ type: changeDatepicker, payload: moment(item.birthdate) });
       
     }
 
@@ -260,7 +261,7 @@ export class PersonClass extends React.Component<IPersonProps, IPersonState> {
       this._secondLastnameController.dispatch({ type: changeValue, payload: null });
       this._telephoneController.dispatch({ type: changeValue, payload: null });
       this._emailController.dispatch({ type: changeValue, payload: null });
-      this._birthdayController.dispatch({ type: changeValue, payload: null });
+      this._birthdayController.dispatch({ type: changeDatepicker, payload: null });
     }
 
     public render(){

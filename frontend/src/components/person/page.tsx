@@ -32,7 +32,8 @@ export default function Page(props:IPersonProps) {
                     </SubspaceProvider>
                 </Col>
             </Row>
-            <SubspaceProvider mapState={(state: MainStore) => {  return { 
+            <SubspaceProvider mapState={(state: MainStore) => { 
+             return { 
                 drawer: state.drawerPerson,
                 idInputPerson: state.idInputPerson,
                 typeDocumentInputPerson: state.typeDocumentInputPerson, 
@@ -41,7 +42,7 @@ export default function Page(props:IPersonProps) {
                 secondNameInputPerson : state.secondNameInputPerson, 
                 firstLastnameInputPerson : state.firstLastnameInputPerson, 
                 secondLastnameInputPerson : state.secondLastnameInputPerson, 
-                birthdayInputPerson : state.birthdayInputPerson, 
+                birthdayDatepickerPerson : state.birthdayDatepickerPerson, 
                 telephoneInputPerson : state.telephoneInputPerson, 
                 emailInputPerson : state.emailInputPerson,  };  }} >
                 <Drawer />

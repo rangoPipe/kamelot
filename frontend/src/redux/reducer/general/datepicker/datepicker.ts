@@ -1,19 +1,17 @@
-import { createInput, changeValue } from "../../../action/general/input/_actionName";
-import { IInput } from "./IInput";
+import { createDatepicker, changeValue } from "../../../action/general/datepicker/_actionName";
+import { IDatepicker } from "./IDatepicker";
 import { IAction } from "../../../namespace";
 
-const defaultState:IInput = {
-    type: undefined,
-    placeholder: "",
-    value: "",
+const defaultState:IDatepicker = {
     onChange: () => { },
     label: null,
-    required: false
+    value: null,
+    format: "DD/MM/YYYY"
 };
 
-function reducer(state = defaultState, { type, payload }:IAction) : IInput {    
+function reducer(state = defaultState, { type, payload }:IAction) : IDatepicker {    
     switch(type) {
-        case createInput: {                                  
+        case createDatepicker: {                                  
             return {
                 ...state,
                 ...payload

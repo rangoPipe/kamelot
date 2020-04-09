@@ -18,7 +18,7 @@ class ProviderController {
 
     public async save(req: Request, res:Response):Promise<void> {
         try {
-            const provider:Provider = providerController.createModel(req);
+            const provider:Provider = providerController.createModel(req);            
             let response = await providerLogic.save(provider);
             res.json(response);
             
@@ -52,11 +52,10 @@ class ProviderController {
     }
 
     private createModel(req: Request): Provider {
-        const { id, nombre, fechaCreacion } = (Object.keys(req.body).length > 0) ? req.body : req.params;
+        const params = (Object.keys(req.body).length > 0) ? req.body : req.params;
         const model:Provider = new providerModel({
-            _id : id,
-            name : nombre,
-            dateContract: fechaCreacion,
+            _id : params.id,
+            ...params,
             dateCreate : new Date()
         });
         return model;

@@ -5,6 +5,7 @@ import { ITable } from "./reducer/general/table/ITable";
 import { IMessage } from "./reducer/general/message/IMessage";
 import { ICard } from "./reducer/general/card/ICard";
 import { IDrawer } from "./reducer/general/drawer/IDrawer";
+import { IDatepicker } from "./reducer/general/datepicker/IDatepicker";
 
 export interface StoreGeneral {
     /**
@@ -41,6 +42,11 @@ export interface StoreGeneral {
      * Almacena las propiedades nativas y genericas para el componente general de drawer
      */
     drawer:IDrawer;
+
+    /**
+     * Almacena las propiedades nativas y genericas para el componente general de datepicker
+     */
+    datepicker:IDatepicker;
 }
 
 export interface MainStore extends StoreGeneral {
@@ -61,9 +67,16 @@ export interface MainStore extends StoreGeneral {
     secondLastnameInputPerson: IInput;
     telephoneInputPerson: IInput;
     emailInputPerson: IInput;
-    birthdayInputPerson: IInput;
+    birthdayDatepickerPerson: IDatepicker;
     clientInputPerson: IInput;
     empleoyeeInputPerson: IInput;
+
+    //Provider
+    tableProvider: ITable;
+    drawerProvider: IDrawer;
+    idInputProvider: IInput;
+    nameInputProvider: IInput;
+    dateContractDatepickerProvider: IDatepicker;
 
     //Employee
     tableEmployee: ITable;
