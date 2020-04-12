@@ -1,5 +1,5 @@
 import * as React from "react";
-import { IProductProps } from "./IProduct";
+import { ITableProps } from "./ITable";
 import { Row, Col, PageHeader, Button, Icon } from "antd";
 import { SubspaceProvider } from "react-redux-subspace";
 import { MainStore } from "../../redux/namespace";
@@ -7,7 +7,8 @@ import { MainStore } from "../../redux/namespace";
 import Table from "../../general/table";
 import Drawer from "../../general/drawer";
 
-export default function Page(props:IProductProps) {
+
+export default function Page(props:ITableProps) {
 
     const { showDrawer } = props;
     return (
@@ -16,7 +17,7 @@ export default function Page(props:IProductProps) {
                 <Col span = { 24 }>
                 <PageHeader
                     ghost={false}
-                    title="Productos"
+                    title="Mesas"
                     extra={[
                         <Button key="1" type="primary" onClick = { showDrawer }><Icon type="plus" /> Agregar </Button>,
                     ]}
@@ -26,22 +27,17 @@ export default function Page(props:IProductProps) {
             </Row>
             <Row>
                 <Col span = { 24 }>
-                    <SubspaceProvider mapState={(state: MainStore) => {  return { table: state.tableProduct };  }} >
+                    <SubspaceProvider mapState={(state: MainStore) => {  return { table: state.tableTable };  }} >
                         <Table />
                     </SubspaceProvider>
                 </Col>
             </Row>
             <SubspaceProvider mapState={(state: MainStore) => {
-            
              return { 
-                drawer: state.drawerProduct,
-                idInputProduct: state.idInputProduct,
-                nameInputProduct: state.nameInputProduct, 
-                eanInputProduct : state.eanInputProduct,  
-                purchaseInputProduct : state.purchaseInputProduct,  
-                saleInputProduct : state.saleInputProduct,  
-                typeMaterialInputProduct : state.typeMaterialInputProduct,
-                providerSelectProduct: state.providerSelectProduct };  }} >
+                drawer: state.drawerTable,
+                idInputTable: state.idInputTable,
+                nameInputTable: state.nameInputTable, 
+                capacityInputTable : state.capacityInputTable,  };  }} >
                 <Drawer />
             </SubspaceProvider>
 

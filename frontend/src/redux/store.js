@@ -13,6 +13,7 @@ import { ProductNamespace } from "../common/enum/product/enumProduct";
 import { EmployeeNamespace } from "../common/enum/employee/enumEmployee";
 import { PersonNamespace } from "../common/enum/person/enumPerson";
 import { ProviderNamespace } from "../common/enum/provider/enumProvider";
+import { TableNamespace } from "../common/enum/table/enumTable";
 
 const reducer = combineReducers({
     button: namespaced("namespace.contextNs")(button),
@@ -27,6 +28,13 @@ const reducer = combineReducers({
     //Product
     tableProduct: namespaced(ProductNamespace.table)(table),
     drawerProduct: namespaced(ProductNamespace.drawer)(drawer),
+    idInputProduct: namespaced(ProductNamespace.id)(input),
+    nameInputProduct: namespaced(ProductNamespace.name)(input),
+    purchaseInputProduct: namespaced(ProductNamespace.purchase)(input),
+    saleInputProduct: namespaced(ProductNamespace.sale)(input),
+    typeMaterialInputProduct: namespaced(ProductNamespace.typeMaterial)(input),
+    eanInputProduct: namespaced(ProductNamespace.ean)(input),
+    providerSelectProduct: namespaced(ProductNamespace.provider)(select),
 
     //Person
     tablePerson: namespaced(PersonNamespace.table)(table),
@@ -50,6 +58,13 @@ const reducer = combineReducers({
     idInputProvider: namespaced(ProviderNamespace.id)(input),
     nameInputProvider: namespaced(ProviderNamespace.name)(input),
     dateContractDatepickerProvider: namespaced(ProviderNamespace.dateContract)(datepicker),
+
+    //Table
+    tableTable: namespaced(TableNamespace.table)(table),
+    drawerTable: namespaced(TableNamespace.drawer)(drawer),
+    idInputTable: namespaced(TableNamespace.id)(input),
+    nameInputTable: namespaced(TableNamespace.name)(input),
+    capacityInputTable: namespaced(TableNamespace.capacity)(input),
 
     //Employee
     tableEmployee: namespaced(EmployeeNamespace.table)(table),

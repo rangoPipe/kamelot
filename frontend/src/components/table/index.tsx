@@ -1,9 +1,8 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import moment, { Moment } from "moment";
 
-import { IProviderProps, IProviderState } from "./IProvider";
+import { ITableProps, ITableState } from "./ITable";
 
 import { MainStore } from "../../redux/namespace";
 
@@ -11,29 +10,27 @@ import Page from "./page";
 import DrawerPage from "./drawer/page";
 import { showDrawer, createDrawer } from "../../redux/action/general/drawer/_actionName";
 import { createTable, loadDataTable } from "../../redux/action/general/table/_actionName";
-import { createDatepicker, changeValue as changeDate } from "../../redux/action/general/datepicker/_actionName";
 import { ColumnProps } from "antd/lib/table";
 import { subspace } from "redux-subspace";
-import { ProviderNamespace } from "../../common/enum/provider/enumProvider";
+import { TableNamespace } from "../../common/enum/table/enumTable";
 
 import store from "../../redux/store";
 import { createInput, changeValue } from "../../redux/action/general/input/_actionName";
-import { Provider } from "../../../../backend/src/model/core/provider";
+import { Table } from "../../../../backend/src/model/core/Table";
 import { BaseService, IBaseService } from "../../common/baseService";
 import { Button } from "antd";
 
-export class ProviderClass extends React.Component<IProviderProps, IProviderState> {
+export class TableClass extends React.Component<ITableProps, ITableState> {
 
-  private _tableController = subspace( (state: MainStore) => state.tableProvider, ProviderNamespace.table )(store);
-  private _drawerController = subspace( (state: MainStore) => state.drawerProvider, ProviderNamespace.drawer )(store);
-  private _idProviderController = subspace( (state: MainStore) => state.idInputProvider, ProviderNamespace.id )(store);
-  private _nameController = subspace( (state: MainStore) => state.nameInputProvider, ProviderNamespace.name )(store);
-  private _dateContractController = subspace( (state: MainStore) => state.dateContractDatepickerProvider, ProviderNamespace.dateContract )(store);
+  private _tableController = subspace( (state: MainStore) => state.tableTable, TableNamespace.table )(store);
+  private _drawerController = subspace( (state: MainStore) => state.drawerTable, TableNamespace.drawer )(store);
+  private _idTableController = subspace( (state: MainStore) => state.idInputTable, TableNamespace.id )(store);
+  private _nameController = subspace( (state: MainStore) => state.nameInputTable, TableNamespace.name )(store);
+  private _capacityController = subspace( (state: MainStore) => state.capacityInputTable, TableNamespace.capacity )(store);
 
-  private _httpController:string = "proveedor";
-  private _formateDate:string = "DD/MM/YYYY";
+  private _httpController:string = "mesa";
 
-    constructor(props:IProviderProps) {
+    constructor(props:ITableProps) {
         super(props);
 
         this._tableController.dispatch({ type: createTable, payload: {
@@ -41,13 +38,13 @@ export class ProviderClass extends React.Component<IProviderProps, IProviderStat
         }});
 
         this._drawerController.dispatch({ type: createDrawer, payload: {
-          title: "Proveedor",
+          title: "Mesa",
           onClose: () => this._hideDrawer(),
           width: '700px',
-          body: <DrawerPage onAccept = { this._SaveProvider } hideDrawer = { this._hideDrawer } />
+          body: <DrawerPage onAccept = { this._SaveTable } hideDrawer = { this._hideDrawer } />
         }});
 
-        this._idProviderController.dispatch({ type: createInput, payload: {
+        this._idTableController.dispatch({ type: createInput, payload: {
           type: "hidden",
           value: null
         }});
@@ -55,21 +52,22 @@ export class ProviderClass extends React.Component<IProviderProps, IProviderStat
         this._nameController.dispatch({ type: createInput, payload: {
           type: "text",
           placeholder: "Nombre",
-          label: "Nombre del proveedor",
+          label: "Nombre de la mesa",
           onChange: (e:React.ChangeEvent<HTMLInputElement>) =>  this._nameController.dispatch({ type: changeValue, payload: e.target.value })
         }});
 
-        this._dateContractController.dispatch({ type: createDatepicker, payload: {
-            label: "Fecha inicial",
-            format: this._formateDate,
-            onChange: (e:Moment) =>  this._dateContractController.dispatch({ type: changeDate, payload: e })
+        this._capacityController.dispatch({ type: createInput, payload: {
+          type: "number",
+          placeholder: "Capacidad",
+          label: "Capacidad de personas",
+            onChange: (e:React.ChangeEvent<HTMLInputElement>) =>  this._capacityController.dispatch({ type: changeValue, payload: e.target.value })
             
         }});
 
-        this._LoadAllProvider()
+        this._LoadAllTable()
     }
     
-    private _createColumns = ():ColumnProps<Provider>[] => {
+    private _createColumns = ():ColumnProps<Table>[] => {
         return [
             {
                 title: 'Nombre',
@@ -77,10 +75,9 @@ export class ProviderClass extends React.Component<IProviderProps, IProviderStat
                 key: 'name',
               },
               {
-                title: 'Fecha inicio',
-                dataIndex: 'dateContract',
-                key: 'dateContract',
-                render: (text,item) => <span>{ moment(text).format(this._formateDate) }</span>
+                title: 'Capacidad',
+                dataIndex: 'capacity',
+                key: 'capacity',
               },
               {
                 title: '',
@@ -88,8 +85,8 @@ export class ProviderClass extends React.Component<IProviderProps, IProviderStat
                 fixed: 'right',
                 width: 100,
                 render: (text, item) => <div>
-                  <Button onClick={ () => { this._LoadProvider(item); } }><EditOutlined /></Button>
-                  <Button onClick={ () => { this._DeleteProvider(item); } }><DeleteOutlined /></Button>
+                  <Button onClick={ () => { this._LoadTable(item); } }><EditOutlined /></Button>
+                  <Button onClick={ () => { this._DeleteTable(item); } }><DeleteOutlined /></Button>
                 </div>
               },
         ];
@@ -102,10 +99,10 @@ export class ProviderClass extends React.Component<IProviderProps, IProviderStat
 
     private _hideDrawer = () => {
       this._drawerController.dispatch({ type: showDrawer, payload: false });
-      this._idProviderController.dispatch({ type: changeValue, payload: null });
+      this._idTableController.dispatch({ type: changeValue, payload: null });
     }
 
-    private _LoadAllProvider = async() => {
+    private _LoadAllTable = async() => {
       const parameters:IBaseService = { controller: this._httpController, method: "GET" }
       const response = await (new BaseService().HttpRequest(parameters));
       
@@ -118,30 +115,30 @@ export class ProviderClass extends React.Component<IProviderProps, IProviderStat
       }
     }
 
-    private _SaveProvider = async () => {
+    private _SaveTable = async () => {
       let parameters:IBaseService = { controller: `${this._httpController }/save`, method: "POST" }
 
       parameters.body = {
-        id              : this._idProviderController.getState().value,
+        id              : this._idTableController.getState().value,
         name            : this._nameController.getState().value,
-        dateContract    : this._dateContractController.getState().value,
+        capacity        : this._capacityController.getState().value,
       };
 
       const response = await (new BaseService().HttpRequest(parameters));
       if(response.success){
-        this._LoadAllProvider();
+        this._LoadAllTable();
         this._hideDrawer();
       }
     }
 
-    private _LoadProvider = async (item:Provider) => {
+    private _LoadTable = async (item:Table) => {
       this._showDrawer();
-      this._idProviderController.dispatch({ type: changeValue, payload: item._id });
+      this._idTableController.dispatch({ type: changeValue, payload: item._id });
       this._nameController.dispatch({ type: changeValue, payload: item.name });
-      this._dateContractController.dispatch({ type: changeDate, payload: moment(item.dateContract)});
+      this._capacityController.dispatch({ type: changeValue, payload: item.capacity });
     }
 
-    private _DeleteProvider = async (item:Provider) => {
+    private _DeleteTable = async (item:Table) => {
       let parameters:IBaseService = { controller: `${this._httpController }/disable`, method: "POST" }
 
       parameters.body = {
@@ -150,14 +147,14 @@ export class ProviderClass extends React.Component<IProviderProps, IProviderStat
 
       const response = await (new BaseService().HttpRequest(parameters));
       if(response.success){
-        this._LoadAllProvider();
+        this._LoadAllTable();
       }
     }
 
     private _ClearInputs = () => {
-      this._idProviderController.dispatch({ type: changeValue, payload: null });
+      this._idTableController.dispatch({ type: changeValue, payload: null });
       this._nameController.dispatch({ type: changeValue, payload: null });
-      this._dateContractController.dispatch({ type: changeDate, payload: null });
+      this._capacityController.dispatch({ type: changeValue, payload: null });
     }
 
     public render(){
@@ -172,4 +169,4 @@ const mapStateToProps = (state: MainStore) => {
   
 const mapDispatchToProps = {};
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProviderClass);
+export default connect(mapStateToProps, mapDispatchToProps)(TableClass);

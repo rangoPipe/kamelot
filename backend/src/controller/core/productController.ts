@@ -16,6 +16,17 @@ class ProductController {
         }    
     }
 
+    public async allProductsActive(req: Request, res: Response) {
+        try {
+            const result:Product[] = await productLogic.getAllProducts();
+            let response = result.filter( x => x.active);
+            res.send(response);
+
+        } catch (error) {
+            res.send(error)
+        }    
+    }
+
     public async save(req: Request, res:Response):Promise<void> {
         try {
             const model:Product = productController.createModel(req);
@@ -41,7 +52,7 @@ class ProductController {
 
     public async disable(req: Request, res: Response) {
         try {
-            const model = productController.createModel(req.body);
+            const model = productController.createModel(req);
             const result = await productLogic.disable(model);
             res.send(result);
 
@@ -51,17 +62,13 @@ class ProductController {
     }
 
     private createModel(req: Request): Product {
-        const { id, nombre, ean, idProveedor, idType } = (Object.keys(req.body).length > 0) ? req.body : req.params;
-
-        const product:Product = new productModel({
-            _id : id,
-            name : nombre,
-            provider : idProveedor,
-            TypeMaterial : idType,
-            ean,
+        const params = (Object.keys(req.body).length > 0) ? req.body : req.params;
+        const model:Product = new productModel({
+            _id : params.id,
+            ...params,
             dateCreate : new Date()
         });
-        return product;
+        return model;
     }
 }
 

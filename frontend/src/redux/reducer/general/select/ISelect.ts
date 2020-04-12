@@ -7,4 +7,5 @@ export interface IOption {
 
 export interface ISelect extends SelectProps {
     option?:IOption[];
+    label?: string;
 }

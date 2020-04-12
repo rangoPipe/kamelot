@@ -18,10 +18,20 @@ class TableController {
         return res.json({});
     }
 
+    public async allPersonsActive(req: Request, res: Response) {
+        try {
+            const result:Table[] = await tableLogic.getAllTables();
+            let response = result.filter( x => x.active);
+            res.send(response);
+
+        } catch (error) {
+            res.send(error)
+        }    
+    }
+
     public async save(req: Request, res:Response):Promise<void> {
         try {
-
-            const model:Table = this.createModel(req);
+            const model:Table = tableController.createModel(req);
             let response = await tableLogic.save(model);
             res.json(response);
             
@@ -44,7 +54,7 @@ class TableController {
 
     public async disable(req: Request, res: Response) {
         try {
-            const model = this.createModel(req.body);
+            const model = tableController.createModel(req);
             const result = await tableLogic.disable(model);
             res.send(result);
 
@@ -54,12 +64,10 @@ class TableController {
     }
 
     private createModel(req: Request): Table {
-        const { id, nombre, capacity } = req.body;
-
+        const params = (Object.keys(req.body).length > 0) ? req.body : req.params;
         const model:Table = new tableModel({
-            _id: id,
-            name : nombre,
-            capacity: capacity,
+            _id : params.id,
+            ...params,
             dateCreate : new Date()
         });
         return model;

@@ -8,7 +8,10 @@ const schTable = new Schema ({
         required : true,
         uppercase: true
     },
-    capacity: Number,
+    capacity: {
+        type: Number,
+        default: 1
+    },
     dateCreate : {
         type : Date,
         required: true

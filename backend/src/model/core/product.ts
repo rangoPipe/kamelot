@@ -9,15 +9,13 @@ const schProduct = new Schema ({
         type: Schema.Types.ObjectId,
         ref: collectioneName.PROVIDER
     },
-    purchase: [{
-        type: Schema.Types.ObjectId,
-        ref: collectioneName.PURCHASE
-    }],
-    sale: [{
-        type: Schema.Types.ObjectId,
-        ref: collectioneName.SALE
-    }],
-    TypeMaterial : Number,
+    ean: String,
+    purchase: Number,
+    sale: {
+        type: Number,
+        required: true
+    },
+    typeMaterial : Number,
     name : {
         type : String,
         required : true,
@@ -37,9 +35,9 @@ const schProduct = new Schema ({
 export interface Product extends Document {
     _id: Schema.Types.ObjectId;
     provider : Provider;
-    purchase: Purchase[];
-    sale?:     Sale[];
-    TypeMaterial : Number ;
+    purchase: Number;
+    sale?:     Number;
+    typeMaterial : Number ;
     name : String;
     ean: String;
     dateCreate : Date;

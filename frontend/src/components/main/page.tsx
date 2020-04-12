@@ -11,6 +11,7 @@ import Product from "../product";
 import Employee from "../employee";
 import Provider from "../provider";
 import Person from "../person";
+import Table from "../table";
 
 const { Content, Footer, Sider } = Layout;
 
@@ -21,9 +22,11 @@ function getContent(content:collectioneName | null | undefined) {
         case collectioneName.PRODUCT:
             return <Product />;
         case collectioneName.PROVIDER:
-                return <Provider />;
+            return <Provider />;
         case collectioneName.PERSON:
             return <Person />;
+        case collectioneName.TABLE:
+            return <Table />;
         default:
             return <div></div>;
     }

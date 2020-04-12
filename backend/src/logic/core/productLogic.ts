@@ -40,7 +40,7 @@ class ProductLogic {
                 schemaProvider.product.push(product._id);
                 await providerLogic.save(schemaProvider);
                 
-            } 
+            }
             return product;
 
         } catch (error) {

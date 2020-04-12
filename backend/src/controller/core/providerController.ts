@@ -16,6 +16,17 @@ class ProviderController {
         }    
     }
 
+    public async allPersonsActive(req: Request, res: Response) {
+        try {
+            const result:Provider[] = await providerLogic.getAllProviders();
+            let response = result.filter( x => x.active);
+            res.send(response);
+
+        } catch (error) {
+            res.send(error)
+        }    
+    }
+
     public async save(req: Request, res:Response):Promise<void> {
         try {
             const provider:Provider = providerController.createModel(req);            
@@ -42,7 +53,7 @@ class ProviderController {
 
     public async disable(req: Request, res: Response) {
         try {
-            const model = providerController.createModel(req);        
+            const model = providerController.createModel(req);
             const result = await providerLogic.disable(model);
             res.send(result);
 

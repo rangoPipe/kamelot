@@ -37,7 +37,7 @@ class PurchaseLogic {
             
             if(!objProduct.purchase.includes(purchase._id)) {
                 schemaProduct.purchase = objProduct.purchase;
-                schemaProduct.purchase.push(purchase._id);
+                //schemaProduct.purchase.push(purchase._id);
                 await productLogic.save(schemaProduct);
             }
             return purchase;       

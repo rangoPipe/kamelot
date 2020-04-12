@@ -58,7 +58,7 @@ class TableManager {
 
     public async disable(model:Table): Promise<any>  {
         try {
-            return await tableModel.findByIdAndUpdate(model.id, { $set: { activo:false }});
+            return await tableModel.findByIdAndUpdate(model.id, { active:false });
         } catch (error) {
             new BaseException(500, error);
             return new AppResponse(false, error);

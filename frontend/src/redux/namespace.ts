@@ -54,6 +54,13 @@ export interface MainStore extends StoreGeneral {
     //Product
     tableProduct: ITable;
     drawerProduct: IDrawer;
+    idInputProduct: IInput;
+    nameInputProduct: IInput;
+    eanInputProduct: IInput;
+    purchaseInputProduct: IInput;
+    saleInputProduct: IInput;
+    typeMaterialInputProduct: IInput;
+    providerSelectProduct: ISelect;
 
     //Person
     tablePerson: ITable;
@@ -77,6 +84,13 @@ export interface MainStore extends StoreGeneral {
     idInputProvider: IInput;
     nameInputProvider: IInput;
     dateContractDatepickerProvider: IDatepicker;
+
+    //Table
+    tableTable: ITable;
+    drawerTable: IDrawer;
+    idInputTable: IInput;
+    nameInputTable: IInput;
+    capacityInputTable: IInput;
 
     //Employee
     tableEmployee: ITable;
