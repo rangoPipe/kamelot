@@ -14,6 +14,7 @@ import { EmployeeNamespace } from "../common/enum/employee/enumEmployee";
 import { PersonNamespace } from "../common/enum/person/enumPerson";
 import { ProviderNamespace } from "../common/enum/provider/enumProvider";
 import { TableNamespace } from "../common/enum/table/enumTable";
+import { PurchaseNamespace } from "../common/enum/purchase/enumPurchase";
 
 const reducer = combineReducers({
     button: namespaced("namespace.contextNs")(button),
@@ -58,6 +59,15 @@ const reducer = combineReducers({
     idInputProvider: namespaced(ProviderNamespace.id)(input),
     nameInputProvider: namespaced(ProviderNamespace.name)(input),
     dateContractDatepickerProvider: namespaced(ProviderNamespace.dateContract)(datepicker),
+
+    //Purchase
+    tablePurchase: namespaced(PurchaseNamespace.table)(table),
+    drawerPurchase: namespaced(PurchaseNamespace.drawer)(drawer),
+    idInputPurchase: namespaced(PurchaseNamespace.id)(input),
+    costbuyInputPurchase: namespaced(PurchaseNamespace.costBuy)(input),
+    costsaleInputPurchase: namespaced(PurchaseNamespace.costSale)(input),
+    quantityInputPurchase: namespaced(PurchaseNamespace.quantity)(input),
+    productSelectPurchase: namespaced(PurchaseNamespace.product)(select),
 
     //Table
     tableTable: namespaced(TableNamespace.table)(table),

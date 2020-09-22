@@ -4,11 +4,11 @@
   "description": "Software Administrativo KB",
   "main": "app.js",
   "scripts": {
-    "ts:node": "ts-node src/app.ts",
+    "ts:node": "USERDB=farango PASSDB=Estacion23 CLUSTERDB=clusterfarangomongo.t1ibo.azure.mongodb.net DBNAME=kamelot  ts-node src/app.ts",
     "clean": "rm -rf build",
     "build": "tsc",
     "start": "node src/app.js",
-    "dev": "nodemon"
+    "dev": " nodemon"
   },
   "repository": {
     "type": "git",

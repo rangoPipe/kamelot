@@ -85,6 +85,15 @@ export interface MainStore extends StoreGeneral {
     nameInputProvider: IInput;
     dateContractDatepickerProvider: IDatepicker;
 
+    //Purchase
+    tablePurchase: ITable;
+    drawerPurchase: IDrawer;
+    idInputPurchase: IInput;
+    costbuyInputPurchase: IInput;
+    costsaleInputPurchase: IInput;
+    quantityInputPurchase: IInput;
+    productSelectPurchase: ISelect;
+
     //Table
     tableTable: ITable;
     drawerTable: IDrawer;

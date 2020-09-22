@@ -16,6 +16,17 @@ class PurchaseController {
         }    
     }
 
+    public async allProductsActive(req: Request, res: Response) {
+        try {
+            const result:Purchase[] = await purchaseLogic.getAllPurchases();
+            let response = result.filter( x => x.active);
+            res.send(response);
+
+        } catch (error) {
+            res.send(error)
+        }    
+    }
+
     public async save(req: Request, res:Response):Promise<void> {
         try {
             const model:Purchase = purchaseController.createModel(req);
@@ -41,7 +52,7 @@ class PurchaseController {
 
     public async disable(req: Request, res: Response) {
         try {
-            const model = purchaseController.createModel(req.body);
+            const model = purchaseController.createModel(req);
             const result = await purchaseLogic.disable(model);
             res.send(result);
 
@@ -51,14 +62,10 @@ class PurchaseController {
     }
 
     private createModel(req: Request): Purchase {
-        const { id, compra, venta, idProducto, cantidad } = (Object.keys(req.body).length > 0) ? req.body : req.params;
-
+        const params = (Object.keys(req.body).length > 0) ? req.body : req.params;
         const model:Purchase = new purchaseModel({
-            _id : id,
-            product : idProducto,
-            costBuy: compra,
-            costSale: venta,
-            quantity: cantidad,
+            _id : params.id,
+            ...params,
             dateCreate : new Date()
         });
         return model;
