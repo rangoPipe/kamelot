@@ -9,7 +9,5 @@ mongoose.connect(constantes.urlDB, {
     console.log('is connected');
 })
 .catch(err => {
-    console.log('error to connect');
-    console.log(process.env);
-    
+    console.log('error to connect');    
 })
