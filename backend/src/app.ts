@@ -1,28 +1,17 @@
 import express from "express";
-import exphbs from "express-handlebars";
 import path from 'path';
 import _routes from "./routes";
 import cors from "cors";
+import dotenv from "dotenv";
+dotenv.config();
 
 //init
 const app = express();
-import './common/conn'
+import './lib/conn';
 
 //settings
 app.set('port', process.env.PORT || 3001);
-app.set('views', path.join(__dirname, 'views'));
-app.engine('.hbs', exphbs({
-    extname: '.hbs',
-    layoutsDir: path.join( app.get('views'), 'layouts'),
-    partialsDir: path.join( app.get('views'), 'partials'),
-    //helpers: path.join(__dirname, 'common', 'helper')
-    helpers: require('./common/helper'),
-    defaultLayout: 'main'
-}));
-
 app.use(cors());
-
-app.set('view engine', '.hbs');
 
 //Middlewares
 app.use(express.json());

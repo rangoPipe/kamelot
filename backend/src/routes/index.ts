@@ -1,18 +1,13 @@
 import { Router } from "express";
-import { indexController } from "../controller/indexController";
-import _rtsProduct from "./product";
-import _rtsProvider from "./provider";
-import _rtsTable from "./table";
-import _rtsPurchase from "./purchase";
-import _rtsPerson from './person';
-import _rtsEmpleoyee from './empleoyee';
-import _rtsHierarchy from './hierarchy';
+import _rtsProduct from "./common/product";
+import _rtsProvider from "./common/provider";
+import _rtsTable from "./common/table";
+import _rtsPurchase from "./core/purchase";
+import _rtsPerson from './common/person';
+import _rtsEmpleoyee from './common/empleoyee';
+import _rtsHierarchy from './common/hierarchy';
 
 const main:Router = Router();
-
-
-main.get('/', indexController.index);
-
 
 export default [
     main, 
