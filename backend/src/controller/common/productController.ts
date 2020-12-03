@@ -3,12 +3,13 @@ import Model, { IProduct, createModel } from "../../model/common/product";
 import BaseException from "../../lib/baseException";
 import AppResponse from "../../lib/appResponse";
 import { mainController } from "../mainController";
+import { collectioneName } from "../../lib/enum/collectionName";
 
 class ProductController {
 
     public async allProductsActive(req: Request, res: Response) {
         try {
-            const result:IProduct[] = await mainController.getAllActive(Model);
+            const result:IProduct[] = await Model.find().populate(collectioneName.PROVIDER).exec();
             let response = result.filter( x => x.active);
             res.send(response);
 
@@ -19,7 +20,7 @@ class ProductController {
 
     public async getOne(req: Request, res: Response) {
         try { 
-            const result:IProduct | null = await mainController.getOne(Model, req.params.id);            
+            const result:IProduct | null = await Model.findOne({ _id: req.params.id}).populate(collectioneName.PROVIDER).exec();          
             res.json(result);
 
         } catch (error) {

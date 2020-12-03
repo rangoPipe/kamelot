@@ -1,8 +1,6 @@
 import { Request } from "express";
 import { Document, model, Schema, Types } from "mongoose";
-import { Provider } from "./provider";
-import { IPurchase } from "../core/purchase";
-import { Sale } from "../core/sale";
+import { IProvider } from "./provider";
 import { collectioneName } from "../../lib/enum/collectionName";
 
 const schProduct = new Schema ({
@@ -22,10 +20,7 @@ const schProduct = new Schema ({
         required : true,
         uppercase: true
     },
-    dateCreate : {
-        type : Date,
-        required: true
-    },
+    dateCreate : Date,
     dateUpdate : Date,
     active     : {
         type : Boolean,
@@ -43,14 +38,14 @@ schProduct.pre('save', function() {
 
 export interface IProduct extends Document {
     _id: Schema.Types.ObjectId;
-    provider : Provider;
+    provider : IProvider;
     purchase: Number;
     sale?:     Number;
     typeMaterial : Number ;
     name : String;
     ean: String;
-    dateCreate : Date;
-    dateUpdate : Date;
+    dateCreate? : Date;
+    dateUpdate? : Date;
     active     : Boolean;
 }
 

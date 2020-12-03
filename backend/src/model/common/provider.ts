@@ -1,6 +1,6 @@
 import { Request } from "express";
 import { Document, model, Schema, Types } from "mongoose";
-import { Product } from './product';
+import { IProduct } from './product';
 import { collectioneName } from "../../lib/enum/collectionName";
 
 const schProvider = new Schema ({
@@ -13,10 +13,7 @@ const schProvider = new Schema ({
         uppercase: true
     },
     dateContract: Date,
-    dateCreate : {
-        type : Date,
-        required: true
-    },
+    dateCreate : Date,
     dateUpdate : Date,
     active     : {
         type : Boolean,
@@ -24,25 +21,32 @@ const schProvider = new Schema ({
     }
 });
 
-export interface Provider extends Document {
+schProvider.pre('updateOne', function() {
+    this.set({ dateUpdate: new Date() });
+});
+
+schProvider.pre('save', function() {
+    this.set({ dateCreate: new Date() });
+});
+
+export interface IProvider extends Document {
     _id: Schema.Types.ObjectId;
-    product: Product[];
+    product: IProduct[];
     name : String;
     dateContract:Date;
-    dateCreate : Date;
-    dateUpdate : Date;
+    dateCreate? : Date;
+    dateUpdate? : Date;
     active     : Boolean;
 }
 
-export const createModel = (req: Request): Provider => {
+export const createModel = (req: Request): IProvider => {
     const params = (Object.keys(req.body).length > 0) ? req.body : req.params;
-    const model:Provider = new ProviderModel({
+    const model:IProvider = new ProviderModel({
         _id : (!params.id) ? new Types.ObjectId() : params.id,
-        ...params,
-        dateCreate : new Date()
+        ...params
     });
     return model;
 }
 
-const ProviderModel = model<Provider>(collectioneName.PROVIDER, schProvider);
+const ProviderModel = model<IProvider>(collectioneName.PROVIDER, schProvider);
 export default ProviderModel;

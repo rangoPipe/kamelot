@@ -17,7 +17,7 @@ export default class MainController {
     if(item){
         return await model.updateOne({_id:item._id}, entity);
     }
-    else {
+    else {      
         return await model.create(entity);
     }
   }
@@ -28,9 +28,7 @@ export default class MainController {
   }
 
   public async disable(model: Model<any, {}>, entity:any) {
-      entity.active = false;
-      console.log(entity._id);
-      
+      entity.active = false;      
       return await model.updateOne({_id:entity._id}, { active: false });
   }
 }
