@@ -1,8 +1,9 @@
-import { IDatepicker } from "../../redux/reducer/general/datepicker/IDatepicker";
+import { IDatePickerProps as IDatePicker } from "../../redux/reducers/general/datePicker/IDatePicker";
 
-export interface IDatepickerState extends IDatepicker {
-    datepicker:IDatepicker
+export interface IDatePickerState extends IDatePicker {
+    datePicker:IDatePicker;
 }
 
-export interface IDatepickerProps extends IDatepickerState {
+export interface IDatePickerProps extends IDatePickerState {
+    
 }

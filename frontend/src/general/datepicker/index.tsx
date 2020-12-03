@@ -1,24 +1,24 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { IDatepickerProps, IDatepickerState } from "./IDatepicker";
-import { MainStore } from "../../redux/namespace";
+import { IDatePickerProps, IDatePickerState } from "./IDatePicker";
+import { IStore } from "../../redux/namespace";
 import Page from "./page";
 
-export class DatepickerClass extends React.Component<IDatepickerProps, IDatepickerState> {
+export class DatePickerClass extends React.Component<IDatePickerProps, IDatePickerState> {
   
-    render():JSX.Element {      
-      const { datepicker } = this.props;
-        return ( <Page datepicker = { datepicker } />);
+    public render():JSX.Element {
+      const { datePicker } = this.props;
+        return ( <Page datePicker = { datePicker } />);
     }
 }
 
-const mapStateToProps = (state: MainStore) => {  
+const mapStateToProps = (state: IStore) => {  
     return {
-      datepicker: state.datepicker
+      datePicker: state.datePicker
     };
   };
   
 const mapDispatchToProps = {};
   
-export default connect(mapStateToProps, mapDispatchToProps)(DatepickerClass);
+export default connect(mapStateToProps, mapDispatchToProps)(DatePickerClass);
   

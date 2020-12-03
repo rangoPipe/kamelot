@@ -1,24 +1,28 @@
 import * as React from "react";
-import { DatePicker } from 'antd';
-import { IDatepickerProps } from "./IDatepicker";
+import { IDatePickerProps } from "./IDatePicker";
+import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+import DateFnsUtils from '@date-io/date-fns';
+import 'date-fns';
 
-export default function Page(props:IDatepickerProps) {
-    const { datepicker } = props;
+export default function Page(props: IDatePickerProps) {
+    const { datePicker } = props;
+
     return (
-        <div>
-            { 
-                datepicker.label != null 
-                ? <label>{ datepicker.label }</label>
-                : null 
-            }
-            <DatePicker 
-                style = { { width: "100%" } }
-                value = { datepicker.value } 
-                format = { datepicker.format }
-                allowClear
-                onChange = { datepicker.onChange }
+        (datePicker.hidden)
+        ? null
+        : 
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <KeyboardDatePicker
+                margin="dense"
+                id= {datePicker.id}
+                label={ datePicker.label }
+                format= { datePicker.format }
+                value={ datePicker.value }
+                onChange={ datePicker.onChange }
+                KeyboardButtonProps={{
+                    'aria-label': 'change date',
+                }}
                 />
-        </div>
-        
-        );
+        </MuiPickersUtilsProvider>
+    );
 }

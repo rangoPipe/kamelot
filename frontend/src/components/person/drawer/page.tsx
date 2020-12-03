@@ -5,61 +5,61 @@ import { SubspaceProvider } from "react-redux-subspace";
 import { ButtonClass as Button } from "../../../general/button";
 import { IPersonProps } from "../IPerson";
 
-import Input from "../../../general/input";
-import Datepicker from "../../../general/datepicker";
-import { MainStore } from "../../../redux/namespace";
+import TextField from "../../../general/textField";
+import Datepicker from "../../../general/datePicker";
+import { IStore } from "../../../redux/namespace";
 
 export default function Page(props:IPersonProps) {
     return (
         <div>
             <Row gutter = {[16, { xs: 8, sm: 16, md: 24, lg: 32 }]}>
                 <Col span = { 24 } sm = {24} md = {24}>
-                    <SubspaceProvider mapState={(state: MainStore) => { return { input: state.idInputPerson };  }} >
-                        <Input />
+                    <SubspaceProvider mapState={(state: IStore) => { return { textField: state.idInputPerson };  }} >
+                        <TextField />
                     </SubspaceProvider>
                 </Col>
                 <Col span = { 24 } sm = {24} md = {12}>
-                    <SubspaceProvider mapState={(state: MainStore) => { return { input: state.typeDocumentInputPerson };  }} >
-                        <Input />
+                    <SubspaceProvider mapState={(state: IStore) => { return { textField: state.typeDocumentInputPerson };  }} >
+                        <TextField />
                     </SubspaceProvider>
                 </Col>
                 <Col span = { 24 } sm = {24} md = {12}>
-                    <SubspaceProvider mapState={(state: MainStore) => {  return { input: state.numberDocumentInputPerson };  }} >
-                        <Input />
+                    <SubspaceProvider mapState={(state: IStore) => {  return { textField: state.numberDocumentInputPerson };  }} >
+                        <TextField />
                     </SubspaceProvider>
                 </Col>
                 <Col span = { 24 } sm = {24} md = {12}>
-                    <SubspaceProvider mapState={(state: MainStore) => {  return { input: state.firstNameInputPerson };  }} >
-                        <Input />
+                    <SubspaceProvider mapState={(state: IStore) => {  return { textField: state.firstNameInputPerson };  }} >
+                        <TextField />
                     </SubspaceProvider>
                 </Col>
                 <Col span = { 24 } sm = {24} md = {12}>
-                    <SubspaceProvider mapState={(state: MainStore) => {  return { input: state.secondNameInputPerson };  }} >
-                        <Input />
+                    <SubspaceProvider mapState={(state: IStore) => {  return { textField: state.secondNameInputPerson };  }} >
+                        <TextField />
                     </SubspaceProvider>
                 </Col>
                 <Col span = { 24 } sm = {24} md = {12}>
-                    <SubspaceProvider mapState={(state: MainStore) => {  return { input: state.firstLastnameInputPerson };  }} >
-                        <Input />
+                    <SubspaceProvider mapState={(state: IStore) => {  return { textField: state.firstLastnameInputPerson };  }} >
+                        <TextField />
                     </SubspaceProvider>
                 </Col>
                 <Col span = { 24 } sm = {24} md = {12}>
-                    <SubspaceProvider mapState={(state: MainStore) => {  return { input: state.secondLastnameInputPerson };  }} >
-                        <Input />
+                    <SubspaceProvider mapState={(state: IStore) => {  return { textField: state.secondLastnameInputPerson };  }} >
+                        <TextField />
                     </SubspaceProvider>
                 </Col>
                 <Col span = { 24 } sm = {24} md = {12}>
-                    <SubspaceProvider mapState={(state: MainStore) => {  return { input: state.emailInputPerson };  }} >
-                        <Input />
+                    <SubspaceProvider mapState={(state: IStore) => {  return { textField: state.emailInputPerson };  }} >
+                        <TextField />
                     </SubspaceProvider>
                 </Col>
                 <Col span = { 24 } sm = {24} md = {12}>
-                    <SubspaceProvider mapState={(state: MainStore) => {  return { input: state.telephoneInputPerson };  }} >
-                        <Input />
+                    <SubspaceProvider mapState={(state: IStore) => {  return { textField: state.telephoneInputPerson };  }} >
+                        <TextField />
                     </SubspaceProvider>
                 </Col>
                 <Col span = { 24 } sm = {24} md = {12}>
-                    <SubspaceProvider mapState={(state: MainStore) => {  return { datepicker: state.birthdayDatepickerPerson };  }} >
+                    <SubspaceProvider mapState={(state: IStore) => {  return { datepicker: state.birthdayDatepickerPerson };  }} >
                         <Datepicker />
                     </SubspaceProvider>
                 </Col>

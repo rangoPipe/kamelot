@@ -1,58 +1,54 @@
 import * as React from 'react';
-import { Menu, Icon } from 'antd';
-import { collectioneName } from '../../common/enum/collectionName';
+import { collectionName } from '../../common/enum/collectionName';
 import { IMenuProps } from './IMenu';
+import { Divider, List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 
+import InboxIcon from '@material-ui/icons/MoveToInbox';
 
 export default function Page(props:IMenuProps) {
     const { onChange } = props;
     return <div>
-        <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
-        <Menu.Item key={collectioneName.EMPLOYEE } onClick = {(e) => { onChange(e.key);
-             }}>
-                <Icon type="user" />
-                <span className="nav-text">{collectioneName.EMPLOYEE}</span>
-            </Menu.Item>
-            <Menu.Item key={collectioneName.PRODUCT } onClick = {(e) => { onChange(e.key);
-             }}>
-                <Icon type="user" />
-                <span className="nav-text">{collectioneName.PRODUCT}</span>
-            </Menu.Item>
-            <Menu.Item key={collectioneName.PERSON } onClick = {(e) => { onChange(e.key);
-             }}>
-                <Icon type="video-camera" />
-                <span className="nav-text">{collectioneName.PERSON}</span>
-            </Menu.Item>
-            <Menu.Item key={collectioneName.PROVIDER } onClick = {(e) => { onChange(e.key);
-             }}>
-                <Icon type="upload" />
-                <span className="nav-text">{collectioneName.PROVIDER}</span>
-            </Menu.Item>
-            <Menu.Item key={collectioneName.PURCHASE } onClick = {(e) => { onChange(e.key);
-             }}>
-                <Icon type="bar-chart" />
-                <span className="nav-text">{collectioneName.PURCHASE}</span>
-            </Menu.Item>
-            <Menu.Item key={collectioneName.SALE } onClick = {(e) => { onChange(e.key);
-             }}>
-                <Icon type="cloud-o" />
-                <span className="nav-text">{collectioneName.SALE}</span>
-            </Menu.Item>
-            <Menu.Item key={collectioneName.TABLE } onClick = {(e) => { onChange(e.key);
-             }}>
-                <Icon type="appstore-o" />
-                <span className="nav-text">{collectioneName.TABLE} </span>
-            </Menu.Item>
-            <Menu.Item key={collectioneName.WORKSHIFT } onClick = {(e) => { onChange(e.key);
-             }}>
-                <Icon type="team" />
-                <span className="nav-text">{collectioneName.WORKSHIFT}</span>
-            </Menu.Item>
-            <Menu.Item key={collectioneName.BILL } onClick = {(e) => { onChange(e.key);
-             }}>
-                <Icon type="team" />
-                <span className="nav-text">{collectioneName.BILL}</span>
-            </Menu.Item>
-        </Menu>
+        <Divider />
+        <List>
+            <ListItem button key={collectionName.EMPLOYEE} onClick = {(e) => onChange(collectionName.EMPLOYEE) }>
+              <ListItemIcon> <InboxIcon /> </ListItemIcon>
+              <ListItemText primary={collectionName.EMPLOYEE} />
+            </ListItem>
+            <ListItem button key={collectionName.PRODUCT} onClick = {(e) => onChange(collectionName.PRODUCT) }>
+              <ListItemIcon> <InboxIcon /> </ListItemIcon>
+              <ListItemText primary={collectionName.PRODUCT} />
+            </ListItem>
+            <ListItem button key={collectionName.PERSON} onClick = {(e) => onChange(collectionName.PERSON) }>
+              <ListItemIcon> <InboxIcon /> </ListItemIcon>
+              <ListItemText primary={collectionName.PERSON} />
+            </ListItem>
+            <ListItem button key={collectionName.PROVIDER} onClick = {(e) => onChange(collectionName.PROVIDER) }>
+              <ListItemIcon> <InboxIcon /> </ListItemIcon>
+              <ListItemText primary={collectionName.PROVIDER} />
+            </ListItem>
+            <ListItem button key={collectionName.PURCHASE} onClick = {(e) => onChange(collectionName.PURCHASE) }>
+              <ListItemIcon> <InboxIcon /> </ListItemIcon>
+              <ListItemText primary={collectionName.PURCHASE} />
+            </ListItem>
+            <ListItem button key={collectionName.SALE} onClick = {(e) => onChange(collectionName.SALE) }>
+              <ListItemIcon> <InboxIcon /> </ListItemIcon>
+              <ListItemText primary={collectionName.SALE} />
+            </ListItem>
+        </List>
+        <Divider />
+        <List>
+            <ListItem button key={collectionName.TABLE} onClick = {(e) => onChange(collectionName.TABLE) }>
+              <ListItemIcon> <InboxIcon /> </ListItemIcon>
+              <ListItemText primary={collectionName.TABLE} />
+            </ListItem>
+            <ListItem button key={collectionName.WORKSHIFT} onClick = {(e) => onChange(collectionName.WORKSHIFT) }>
+              <ListItemIcon> <InboxIcon /> </ListItemIcon>
+              <ListItemText primary={collectionName.WORKSHIFT} />
+            </ListItem>            
+            <ListItem button key={collectionName.BILL} onClick = {(e) => onChange(collectionName.BILL) }>
+              <ListItemIcon> <InboxIcon /> </ListItemIcon>
+              <ListItemText primary={collectionName.BILL} />
+            </ListItem>
+        </List>
     </div>
 }

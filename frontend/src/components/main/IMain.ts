@@ -1,7 +1,7 @@
-import { collectioneName } from "../../common/enum/collectionName";
+import { collectionName } from "../../common/enum/collectionName";
 
 export interface IMainState {
-    content?:collectioneName | null | undefined;
+    content?:collectionName | null | undefined;
 }
 
 export interface IMainProps extends IMainState {

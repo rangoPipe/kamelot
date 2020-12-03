@@ -1,122 +1,87 @@
-import { IButton } from "./reducer/general/button/IButton";
-import { IInput } from "./reducer/general/input/IInput";
-import { ISelect } from "./reducer/general/select/ISelect";
-import { ITable } from "./reducer/general/table/ITable";
-import { IMessage } from "./reducer/general/message/IMessage";
-import { ICard } from "./reducer/general/card/ICard";
-import { IDrawer } from "./reducer/general/drawer/IDrawer";
-import { IDatepicker } from "./reducer/general/datepicker/IDatepicker";
+import { ITreeViewProps } from "./reducers/general/treeView/ITreeView";
+import { IButtonProps } from "./reducers/general/button/IButton";
+import { ICardProps } from "./reducers/general/card/ICard";
+import { IControlProps } from "./reducers/general/control/IControl";
+import { ISelectProps } from "./reducers/general/select/ISelect";
+import { ICheckProps } from "./reducers/general/check/ICheck";
+import { ITextFieldProps } from "./reducers/general/textField/ITextField";
+import { IDatePickerProps } from "./reducers/general/datePicker/IDatePicker";
+import { IGridProps } from "./reducers/general/grid/IGrid";
+import { IViewerProps } from "./reducers/general/viewer/IViewer";
+import { ISnackbarProps } from "./reducers/general/snackbar/ISnackbar";
+import { IDrawerProps } from "./reducers/general/drawer/IDrawer";
+import { ITableProps } from "../redux/reducers/general/table/ITable";
 
-export interface StoreGeneral {
-    /**
-     * Almacena las propiedades nativas y genericas para el componente general de button
-     */
-    button:IButton;
-
-    /**
-     * Almacena las propiedades nativas y genericas para el componente general de input
-     */
-    input:IInput;
-
-    /**
-     * Almacena las propiedades nativas y genericas para el componente general de select
-     */
-    select:ISelect;
-
-    /**
-     * Almacena las propiedades nativas y genericas para el componente general de table
-     */
-    table:ITable;
-
-    /**
-     * Almacena las propiedades nativas y genericas para el componente general de message
-     */
-    message:IMessage;
-
-    /**
-     * Almacena las propiedades nativas y genericas para el componente general de card
-     */
-    card:ICard;
-
-    /**
-     * Almacena las propiedades nativas y genericas para el componente general de drawer
-     */
-    drawer:IDrawer;
-
-    /**
-     * Almacena las propiedades nativas y genericas para el componente general de datepicker
-     */
-    datepicker:IDatepicker;
+export interface IStoreGeneral {
+    button: IButtonProps;
+    treeView: ITreeViewProps;
+    card: ICardProps;
+    control: IControlProps;
+    textField: ITextFieldProps;
+    select: ISelectProps;
+    check: ICheckProps;
+    datePicker: IDatePickerProps;
+    grid: IGridProps;
+    viewer: IViewerProps;
+    snackbar: ISnackbarProps;   
+    drawer:IDrawerProps;
+    table: ITableProps
 }
 
-export interface MainStore extends StoreGeneral {
-
+export interface IStore extends IStoreGeneral {
     //Product
-    tableProduct: ITable;
-    drawerProduct: IDrawer;
-    idInputProduct: IInput;
-    nameInputProduct: IInput;
-    eanInputProduct: IInput;
-    purchaseInputProduct: IInput;
-    saleInputProduct: IInput;
-    typeMaterialInputProduct: IInput;
-    providerSelectProduct: ISelect;
+    tableProduct: ITableProps;
+    drawerProduct: IDrawerProps;
+    idInputProduct: ITextFieldProps;
+    nameInputProduct: ITextFieldProps;
+    eanInputProduct: ITextFieldProps;
+    purchaseInputProduct: ITextFieldProps;
+    saleInputProduct: ITextFieldProps;
+    typeMaterialInputProduct: ITextFieldProps;
+    providerSelectProduct: ISelectProps;
 
     //Person
-    tablePerson: ITable;
-    drawerPerson: IDrawer;
-    idInputPerson: IInput;
-    typeDocumentInputPerson: IInput;
-    numberDocumentInputPerson: IInput;
-    firstNameInputPerson: IInput;
-    secondNameInputPerson: IInput;
-    firstLastnameInputPerson: IInput;
-    secondLastnameInputPerson: IInput;
-    telephoneInputPerson: IInput;
-    emailInputPerson: IInput;
-    birthdayDatepickerPerson: IDatepicker;
-    clientInputPerson: IInput;
-    empleoyeeInputPerson: IInput;
+    tablePerson: ITableProps;
+    drawerPerson: IDrawerProps;
+    idInputPerson: ITextFieldProps;
+    typeDocumentInputPerson: ITextFieldProps;
+    numberDocumentInputPerson: ITextFieldProps;
+    firstNameInputPerson: ITextFieldProps;
+    secondNameInputPerson: ITextFieldProps;
+    firstLastnameInputPerson: ITextFieldProps;
+    secondLastnameInputPerson: ITextFieldProps;
+    telephoneInputPerson: ITextFieldProps;
+    emailInputPerson: ITextFieldProps;
+    birthdayDatepickerPerson: IDatePickerProps;
+    clientInputPerson: ITextFieldProps;
+    empleoyeeInputPerson: ITextFieldProps;
 
     //Provider
-    tableProvider: ITable;
-    drawerProvider: IDrawer;
-    idInputProvider: IInput;
-    nameInputProvider: IInput;
-    dateContractDatepickerProvider: IDatepicker;
+    tableProvider: ITableProps;
+    drawerProvider: IDrawerProps;
+    idInputProvider: ITextFieldProps;
+    nameInputProvider: ITextFieldProps;
+    dateContractDatepickerProvider: IDatePickerProps;
 
     //Purchase
-    tablePurchase: ITable;
-    drawerPurchase: IDrawer;
-    idInputPurchase: IInput;
-    costbuyInputPurchase: IInput;
-    costsaleInputPurchase: IInput;
-    quantityInputPurchase: IInput;
-    productSelectPurchase: ISelect;
+    tablePurchase: ITableProps;
+    drawerPurchase: IDrawerProps;
+    idInputPurchase: ITextFieldProps;
+    costbuyInputPurchase: ITextFieldProps;
+    costsaleInputPurchase: ITextFieldProps;
+    quantityInputPurchase: ITextFieldProps;
+    productSelectPurchase: ISelectProps;
 
     //Table
-    tableTable: ITable;
-    drawerTable: IDrawer;
-    idInputTable: IInput;
-    nameInputTable: IInput;
-    capacityInputTable: IInput;
+    tableTable: ITableProps;
+    drawerTable: IDrawerProps;
+    idInputTable: ITextFieldProps;
+    nameInputTable: ITextFieldProps;
+    capacityInputTable: ITextFieldProps;
 
     //Employee
-    tableEmployee: ITable;
-    drawerEmployee: IDrawer;
-    hierarchyInputEmployee: IInput;
-    salaryInputEmployee: IInput;
-    
-}
-
-export interface IAction {
-    /**
-     * Almacena el nombre de la accion
-     */
-    type:string;
-
-    /**
-     * Suministra el valor a tratar por el reducer
-     */
-    payload:any;
+    tableEmployee: ITableProps;
+    drawerEmployee: IDrawerProps;
+    hierarchyInputEmployee: ITextFieldProps;
+    salaryInputEmployee: ITextFieldProps;
 }

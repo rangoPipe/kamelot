@@ -2,7 +2,7 @@ import * as React from "react";
 import { IEmployeeProps } from "./IEmployee";
 import { Row, Col, PageHeader, Button, Icon } from "antd";
 import { SubspaceProvider } from "react-redux-subspace";
-import { MainStore } from "../../redux/namespace";
+import { IStore } from "../../redux/namespace";
 
 import Table from "../../general/table";
 import Drawer from "../../general/drawer";
@@ -27,12 +27,12 @@ export default function Page(props:IEmployeeProps) {
             </Row>
             <Row>
                 <Col span = { 24 }>
-                    <SubspaceProvider mapState={(state: MainStore) => {  return { table: state.tableEmployee };  }} >
+                    <SubspaceProvider mapState={(state: IStore) => {  return { table: state.tableEmployee };  }} >
                         <Table />
                     </SubspaceProvider>
                 </Col>
             </Row>
-            <SubspaceProvider mapState={(state: MainStore) => {  return { drawer: state.drawerEmployee, salaryInputEmployee: state.salaryInputEmployee, hierarchyInputEmployee : state.hierarchyInputEmployee };  }} >
+            <SubspaceProvider mapState={(state: IStore) => {  return { drawer: state.drawerEmployee, salaryInputEmployee: state.salaryInputEmployee, hierarchyInputEmployee : state.hierarchyInputEmployee };  }} >
                 <Drawer />
             </SubspaceProvider>
 

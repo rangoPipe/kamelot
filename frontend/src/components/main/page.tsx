@@ -1,10 +1,8 @@
 import * as React from "react";
-import { Layout } from "antd";
 import { IMainProps } from "./IMain";
 import Menu from "../menu";
-import Header from "../header";
 import './style.css';
-import { collectioneName } from "../../common/enum/collectionName";
+import { collectionName } from "../../common/enum/collectionName";
 
 
 import Product from "../product";
@@ -13,49 +11,71 @@ import Provider from "../provider";
 import Person from "../person";
 import Table from "../table";
 import Purchase from "../purchase";
+import { AppBar, Drawer, IconButton, Toolbar } from "@material-ui/core";
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import MenuIcon from '@material-ui/icons/Menu';
 
-const { Content, Footer, Sider } = Layout;
-
-function getContent(content:collectioneName | null | undefined) {
+function getContent(content:collectionName | null | undefined) {
     switch(content) {
-        case collectioneName.EMPLOYEE:
+        case collectionName.EMPLOYEE:
             return <Employee />;
-        case collectioneName.PRODUCT:
+        case collectionName.PRODUCT:
             return <Product />;
-        case collectioneName.PROVIDER:
+        case collectionName.PROVIDER:
             return <Provider />;
-        case collectioneName.PERSON:
+        case collectionName.PERSON:
             return <Person />;
-        case collectioneName.TABLE:
+        case collectionName.TABLE:
             return <Table />;
-        case collectioneName.PURCHASE:
+        case collectionName.PURCHASE:
             return <Purchase />;
         default:
             return <div></div>;
     }
 }
 
+
 export default function Page(props:IMainProps) {
-
     const { onChange, content } = props;
+    const [open, setOpen] = React.useState(false);
 
-    const styleSiderMenu:React.CSSProperties = {
-        height: '100vh',
-        left: 0,
-    }
+    const handleDrawerOpen = () => {
+        setOpen(true);
+      };
+    
+      const handleDrawerClose = () => {
+        setOpen(false);
+      };
 
     return (
-        <Layout>
-            <Sider style = { styleSiderMenu } >
-                <Menu onChange = {onChange } />
-            </Sider>
-            <Layout>
-                <Header />
-                <Content style={{ margin: '24px 16px 0' }}>
-                    { getContent(content)}
-                </Content>
-                <Footer style={{ textAlign: 'center' }}>Kamelot Bar ©{new Date().getFullYear()} Created by Cepilloman</Footer>
-            </Layout>
-        </Layout>
+        <div >
+      <AppBar position="fixed">
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            edge="start"
+          >
+            <MenuIcon />
+          </IconButton>
+        </Toolbar>
+      </AppBar>
+      <Drawer
+        variant="persistent"
+        anchor="left"
+        open={open}
+      >
+        <div>
+          <IconButton onClick={handleDrawerClose}>
+            <ChevronLeftIcon />
+          </IconButton>
+        </div>        
+        <Menu onChange = { onChange } />
+      </Drawer>
+      <main style={{ padding:"60pt 10pt 60pt 10pt" }}>
+        { getContent(content)}
+      </main>
+    </div>
     );
 }

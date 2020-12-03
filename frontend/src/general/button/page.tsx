@@ -1,10 +1,22 @@
 import * as React from "react";
-import { Button } from 'antd';
 import { IButtonProps } from "./IButton";
+import { Button } from "@material-ui/core";
 
-export default function Page(props:IButtonProps) {
+export default function Page(props: IButtonProps) {
     const { button } = props;
     return (
-        <Button type = { button.type } onClick = { button.onClick }> { button.text } </Button>
-        );
+        (button.hidden)
+        ? null
+        :   <Button
+                startIcon={button.startIcon}
+                endIcon={button.endIcon}
+                onClick={button.onClick}
+                variant={button.variant}
+                className={button.className }
+                disabled = {button.disabled}
+                color={button.color}
+                >
+                {button.text}
+            </Button>
+    );
 }

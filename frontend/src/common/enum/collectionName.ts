@@ -1,4 +1,4 @@
-export enum collectioneName {
+export enum collectionName {
     EMPLOYEE = 'employee',
     WORKSHIFT = 'workshift',
     SCHEDULE = 'schedule',

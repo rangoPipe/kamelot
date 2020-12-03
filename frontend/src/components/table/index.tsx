@@ -4,63 +4,61 @@ import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 
 import { ITableProps, ITableState } from "./ITable";
 
-import { MainStore } from "../../redux/namespace";
+import { IStore } from "../../redux/namespace";
+import { ActionNameEnum } from "../../redux/action";
 
 import Page from "./page";
 import DrawerPage from "./drawer/page";
-import { showDrawer, createDrawer } from "../../redux/action/general/drawer/_actionName";
-import { createTable, loadDataTable } from "../../redux/action/general/table/_actionName";
 import { ColumnProps } from "antd/lib/table";
 import { subspace } from "redux-subspace";
 import { TableNamespace } from "../../common/enum/table/enumTable";
 
 import store from "../../redux/store";
-import { createInput, changeValue } from "../../redux/action/general/input/_actionName";
 import { Table } from "../../../../backend/src/model/core/Table";
 import { BaseService, IBaseService } from "../../common/baseService";
 import { Button } from "antd";
 
 export class TableClass extends React.Component<ITableProps, ITableState> {
 
-  private _tableController = subspace( (state: MainStore) => state.tableTable, TableNamespace.table )(store);
-  private _drawerController = subspace( (state: MainStore) => state.drawerTable, TableNamespace.drawer )(store);
-  private _idTableController = subspace( (state: MainStore) => state.idInputTable, TableNamespace.id )(store);
-  private _nameController = subspace( (state: MainStore) => state.nameInputTable, TableNamespace.name )(store);
-  private _capacityController = subspace( (state: MainStore) => state.capacityInputTable, TableNamespace.capacity )(store);
+  private _tableController = subspace( (state: IStore) => state.tableTable, TableNamespace.table )(store);
+  private _drawerController = subspace( (state: IStore) => state.drawerTable, TableNamespace.drawer )(store);
+  private _idTableController = subspace( (state: IStore) => state.idInputTable, TableNamespace.id )(store);
+  private _nameController = subspace( (state: IStore) => state.nameInputTable, TableNamespace.name )(store);
+  private _capacityController = subspace( (state: IStore) => state.capacityInputTable, TableNamespace.capacity )(store);
 
   private _httpController:string = "mesa";
 
     constructor(props:ITableProps) {
         super(props);
 
-        this._tableController.dispatch({ type: createTable, payload: {
+        this._tableController.dispatch({ type: ActionNameEnum.createElemet, payload: {
             columns: this._createColumns()
         }});
 
-        this._drawerController.dispatch({ type: createDrawer, payload: {
+        this._drawerController.dispatch({ type: ActionNameEnum.createElemet, payload: {
           title: "Mesa",
           onClose: () => this._hideDrawer(),
           width: '700px',
           body: <DrawerPage onAccept = { this._SaveTable } hideDrawer = { this._hideDrawer } />
         }});
 
-        this._idTableController.dispatch({ type: createInput, payload: {
+        this._idTableController.dispatch({ type: ActionNameEnum.createElemet, payload: {
           type: "hidden",
           value: null
         }});
 
-        this._nameController.dispatch({ type: createInput, payload: {
+        this._nameController.dispatch({ type: ActionNameEnum.createElemet, payload: {
           type: "text",
           placeholder: "Nombre",
           label: "Nombre de la mesa",
-          onChange: (e:React.ChangeEvent<HTMLInputElement>) =>  this._nameController.dispatch({ type: changeValue, payload: e.target.value })
+          onChange: (e:React.ChangeEvent<HTMLInputElement>) =>  this._nameController.dispatch({ type: ActionNameEnum.changeValue, payload: e.target.value })
         }});
 
-        this._capacityController.dispatch({ type: createInput, payload: {
+        this._capacityController.dispatch({ type: ActionNameEnum.createElemet, payload: {
           type: "number",
           placeholder: "Capacidad",
           label: "Capacidad de personas",
-            onChange: (e:React.ChangeEvent<HTMLInputElement>) =>  this._capacityController.dispatch({ type: changeValue, payload: e.target.value })
+            onChange: (e:React.ChangeEvent<HTMLInputElement>) =>  this._capacityController.dispatch({ type: ActionNameEnum.changeValue, payload: e.target.value })
             
         }});
 
@@ -94,12 +92,12 @@ export class TableClass extends React.Component<ITableProps, ITableState> {
 
     private _showDrawer = () => {
       this._ClearInputs();
-      this._drawerController.dispatch({ type: showDrawer, payload: true });
+      this._drawerController.dispatch({ type: ActionNameEnum.hideElement, payload: true });
     }
 
     private _hideDrawer = () => {
-      this._drawerController.dispatch({ type: showDrawer, payload: false });
-      this._idTableController.dispatch({ type: changeValue, payload: null });
+      this._drawerController.dispatch({ type: ActionNameEnum.hideElement, payload: false });
+      this._idTableController.dispatch({ type: ActionNameEnum.changeValue, payload: null });
     }
 
     private _LoadAllTable = async() => {
@@ -111,7 +109,7 @@ export class TableClass extends React.Component<ITableProps, ITableState> {
           x.key = x._id;
         });
         
-        this._tableController.dispatch({ type: loadDataTable, payload: response.data });
+        this._tableController.dispatch({ type: ActionNameEnum.loadItems, payload: response.data });
       }
     }
 
@@ -133,9 +131,9 @@ export class TableClass extends React.Component<ITableProps, ITableState> {
 
     private _LoadTable = async (item:Table) => {
       this._showDrawer();
-      this._idTableController.dispatch({ type: changeValue, payload: item._id });
-      this._nameController.dispatch({ type: changeValue, payload: item.name });
-      this._capacityController.dispatch({ type: changeValue, payload: item.capacity });
+      this._idTableController.dispatch({ type: ActionNameEnum.changeValue, payload: item._id });
+      this._nameController.dispatch({ type: ActionNameEnum.changeValue, payload: item.name });
+      this._capacityController.dispatch({ type: ActionNameEnum.changeValue, payload: item.capacity });
     }
 
     private _DeleteTable = async (item:Table) => {
@@ -152,9 +150,9 @@ export class TableClass extends React.Component<ITableProps, ITableState> {
     }
 
     private _ClearInputs = () => {
-      this._idTableController.dispatch({ type: changeValue, payload: null });
-      this._nameController.dispatch({ type: changeValue, payload: null });
-      this._capacityController.dispatch({ type: changeValue, payload: null });
+      this._idTableController.dispatch({ type: ActionNameEnum.changeValue, payload: null });
+      this._nameController.dispatch({ type: ActionNameEnum.changeValue, payload: null });
+      this._capacityController.dispatch({ type: ActionNameEnum.changeValue, payload: null });
     }
 
     public render(){
@@ -162,7 +160,7 @@ export class TableClass extends React.Component<ITableProps, ITableState> {
     }
 }
 
-const mapStateToProps = (state: MainStore) => {  
+const mapStateToProps = (state: IStore) => {  
     return {
     };
   };

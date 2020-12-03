@@ -1,12 +1,23 @@
 import * as React from "react";
-import { Card } from 'antd';
+import { Card } from 'react-bootstrap';
 import { ICardProps } from "./ICard";
 
-export default function Page(props:ICardProps) {
+export default function Page(props: ICardProps) {
     const { card } = props;
     return (
-        <Card size = { card.size }  title = { card.title } style = { card.style } extra = { card.extra } loading = { card.loading }>
-            { card.body }
+        <Card>
+            { (card.contentHeader) 
+                ? <Card.Header>
+                    { card.contentHeader }
+                </Card.Header>
+                : null
+            }
+            { (card.contentBody) 
+                ? <Card.Body>
+                    { card.contentBody }
+                </Card.Body>
+                : null
+            }
         </Card>
-        );
+    );
 }

@@ -5,19 +5,16 @@ import moment from "moment";
 
 import { IPersonProps, IPersonState } from "./IPerson";
 
-import { MainStore } from "../../redux/namespace";
+import { IStore } from "../../redux/namespace";
+import { ActionNameEnum } from "../../redux/action";
 
 import Page from "./page";
 import DrawerPage from "./drawer/page";
-import { showDrawer, createDrawer } from "../../redux/action/general/drawer/_actionName";
-import { createTable, loadDataTable } from "../../redux/action/general/table/_actionName";
 import { ColumnProps } from "antd/lib/table";
 import { subspace } from "redux-subspace";
 import { PersonNamespace } from "../../common/enum/person/enumPerson";
 
 import store from "../../redux/store";
-import { createInput, changeValue } from "../../redux/action/general/input/_actionName";
-import { createDatepicker, changeValue as changeDatepicker } from "../../redux/action/general/datepicker/_actionName";
 
 import { Person } from "../../../../backend/src/model/core/person";
 import { BaseService, IBaseService } from "../../common/baseService";
@@ -25,18 +22,18 @@ import { Button } from "antd";
 
 export class PersonClass extends React.Component<IPersonProps, IPersonState> {
 
-  private _tableController = subspace( (state: MainStore) => state.tablePerson, PersonNamespace.table )(store);
-  private _drawerController = subspace( (state: MainStore) => state.drawerPerson, PersonNamespace.drawer )(store);
-  private _idPersonController = subspace( (state: MainStore) => state.idInputPerson, PersonNamespace.id )(store);
-  private _typeDocumentController = subspace( (state: MainStore) => state.typeDocumentInputPerson, PersonNamespace.typeDocument )(store);
-  private _numberDocumentController = subspace( (state: MainStore) => state.numberDocumentInputPerson, PersonNamespace.numberDocument )(store);
-  private _firstNameController = subspace( (state: MainStore) => state.firstNameInputPerson, PersonNamespace.firstName )(store);
-  private _secondNameController = subspace( (state: MainStore) => state.secondNameInputPerson, PersonNamespace.secondName )(store);
-  private _firstLastnameController = subspace( (state: MainStore) => state.firstLastnameInputPerson, PersonNamespace.firstLastname )(store);
-  private _secondLastnameController = subspace( (state: MainStore) => state.secondLastnameInputPerson, PersonNamespace.secondLastname )(store);
-  private _birthdayController = subspace( (state: MainStore) => state.birthdayDatepickerPerson, PersonNamespace.birthday )(store);
-  private _emailController = subspace( (state: MainStore) => state.emailInputPerson, PersonNamespace.email )(store);
-  private _telephoneController = subspace( (state: MainStore) => state.telephoneInputPerson, PersonNamespace.telephone )(store);
+  private _tableController = subspace( (state: IStore) => state.tablePerson, PersonNamespace.table )(store);
+  private _drawerController = subspace( (state: IStore) => state.drawerPerson, PersonNamespace.drawer )(store);
+  private _idPersonController = subspace( (state: IStore) => state.idInputPerson, PersonNamespace.id )(store);
+  private _typeDocumentController = subspace( (state: IStore) => state.typeDocumentInputPerson, PersonNamespace.typeDocument )(store);
+  private _numberDocumentController = subspace( (state: IStore) => state.numberDocumentInputPerson, PersonNamespace.numberDocument )(store);
+  private _firstNameController = subspace( (state: IStore) => state.firstNameInputPerson, PersonNamespace.firstName )(store);
+  private _secondNameController = subspace( (state: IStore) => state.secondNameInputPerson, PersonNamespace.secondName )(store);
+  private _firstLastnameController = subspace( (state: IStore) => state.firstLastnameInputPerson, PersonNamespace.firstLastname )(store);
+  private _secondLastnameController = subspace( (state: IStore) => state.secondLastnameInputPerson, PersonNamespace.secondLastname )(store);
+  private _birthdayController = subspace( (state: IStore) => state.birthdayDatepickerPerson, PersonNamespace.birthday )(store);
+  private _emailController = subspace( (state: IStore) => state.emailInputPerson, PersonNamespace.email )(store);
+  private _telephoneController = subspace( (state: IStore) => state.telephoneInputPerson, PersonNamespace.telephone )(store);
 
   private _httpController:string = "persona";
   private _formateDate: string = "DD/MM/YYYY";
@@ -44,83 +41,83 @@ export class PersonClass extends React.Component<IPersonProps, IPersonState> {
     constructor(props:IPersonProps) {
         super(props);
 
-        this._tableController.dispatch({ type: createTable, payload: {
+        this._tableController.dispatch({ type: ActionNameEnum.createElemet, payload: {
             columns: this._createColumns()
         }});
 
-        this._drawerController.dispatch({ type: createDrawer, payload: {
+        this._drawerController.dispatch({ type: ActionNameEnum.createElemet, payload: {
           title: "Persona",
           onClose: () => this._hideDrawer(),
           width: '700px',
           body: <DrawerPage onAccept = { this._SavePerson } hideDrawer = { this._hideDrawer } />
         }});
 
-        this._idPersonController.dispatch({ type: createInput, payload: {
+        this._idPersonController.dispatch({ type: ActionNameEnum.createElemet, payload: {
           type: "hidden",
           value: null
         }});
 
-        this._typeDocumentController.dispatch({ type: createInput, payload: {
+        this._typeDocumentController.dispatch({ type: ActionNameEnum.createElemet, payload: {
           type: "text",
           placeholder: "Tipo de documento",
           label: "Tipo de documento",
           value: "CC",
-          onChange: (e:React.ChangeEvent<HTMLInputElement>) =>  this._typeDocumentController.dispatch({ type: changeValue, payload: e.target.value })
+          onChange: (e:React.ChangeEvent<HTMLInputElement>) =>  this._typeDocumentController.dispatch({ type: ActionNameEnum.changeValue, payload: e.target.value })
         }});
 
-        this._numberDocumentController.dispatch({ type: createInput, payload: {
+        this._numberDocumentController.dispatch({ type: ActionNameEnum.createElemet, payload: {
             type: "text",
             placeholder: "Número de documento",
             label: "Número de documento",
-            onChange: (e:React.ChangeEvent<HTMLInputElement>) =>  this._numberDocumentController.dispatch({ type: changeValue, payload: e.target.value })
+            onChange: (e:React.ChangeEvent<HTMLInputElement>) =>  this._numberDocumentController.dispatch({ type: ActionNameEnum.changeValue, payload: e.target.value })
         }});
 
-        this._firstNameController.dispatch({ type: createInput, payload: {
+        this._firstNameController.dispatch({ type: ActionNameEnum.createElemet, payload: {
             type: "text",
             placeholder: "Primer nombre",
             label: "Primer nombre",
-            onChange: (e:React.ChangeEvent<HTMLInputElement>) =>  this._firstNameController.dispatch({ type: changeValue, payload: e.target.value })
+            onChange: (e:React.ChangeEvent<HTMLInputElement>) =>  this._firstNameController.dispatch({ type: ActionNameEnum.changeValue, payload: e.target.value })
         }});
 
-        this._secondNameController.dispatch({ type: createInput, payload: {
+        this._secondNameController.dispatch({ type: ActionNameEnum.createElemet, payload: {
             type: "text",
             placeholder: "Segundo nombre",
             label: "Segundo nombre",
-            onChange: (e:React.ChangeEvent<HTMLInputElement>) =>  this._secondNameController.dispatch({ type: changeValue, payload: e.target.value })
+            onChange: (e:React.ChangeEvent<HTMLInputElement>) =>  this._secondNameController.dispatch({ type: ActionNameEnum.changeValue, payload: e.target.value })
         }});
 
-        this._firstLastnameController.dispatch({ type: createInput, payload: {
+        this._firstLastnameController.dispatch({ type: ActionNameEnum.createElemet, payload: {
             type: "text",
             placeholder: "Primer apellido",
             label: "Primer apellido",
-            onChange: (e:React.ChangeEvent<HTMLInputElement>) =>  this._firstLastnameController.dispatch({ type: changeValue, payload: e.target.value })
+            onChange: (e:React.ChangeEvent<HTMLInputElement>) =>  this._firstLastnameController.dispatch({ type: ActionNameEnum.changeValue, payload: e.target.value })
         }});
 
-        this._secondLastnameController.dispatch({ type: createInput, payload: {
+        this._secondLastnameController.dispatch({ type: ActionNameEnum.createElemet, payload: {
             type: "text",
             placeholder: "Segundo apellido",
             label: "Segundo apellido",
-            onChange: (e:React.ChangeEvent<HTMLInputElement>) =>  this._secondLastnameController.dispatch({ type: changeValue, payload: e.target.value })
+            onChange: (e:React.ChangeEvent<HTMLInputElement>) =>  this._secondLastnameController.dispatch({ type: ActionNameEnum.changeValue, payload: e.target.value })
         }});
 
-        this._telephoneController.dispatch({ type: createInput, payload: {
+        this._telephoneController.dispatch({ type: ActionNameEnum.createElemet, payload: {
             type: "text",
             placeholder: "Teléfono",
             label: "Teléfono",
-            onChange: (e:React.ChangeEvent<HTMLInputElement>) =>  this._telephoneController.dispatch({ type: changeValue, payload: e.target.value })
+            onChange: (e:React.ChangeEvent<HTMLInputElement>) =>  this._telephoneController.dispatch({ type: ActionNameEnum.changeValue, payload: e.target.value })
         }});
 
-        this._emailController.dispatch({ type: createInput, payload: {
+        this._emailController.dispatch({ type: ActionNameEnum.createElemet, payload: {
             type: "text",
             placeholder: "Email",
             label: "Email",
-            onChange: (e:React.ChangeEvent<HTMLInputElement>) =>  this._emailController.dispatch({ type: changeValue, payload: e.target.value })
+            onChange: (e:React.ChangeEvent<HTMLInputElement>) =>  this._emailController.dispatch({ type: ActionNameEnum.changeValue, payload: e.target.value })
         }});
 
-        this._birthdayController.dispatch({ type: createDatepicker, payload: {
+        this._birthdayController.dispatch({ type: ActionNameEnum.createElemet, payload: {
             label: "Fecha cumpleaños",
             format: this._formateDate,
-            onChange: (e:React.ChangeEvent<HTMLInputElement>) =>  this._birthdayController.dispatch({ type: changeDatepicker, payload: e })
+            onChange: (e:React.ChangeEvent<HTMLInputElement>) =>  this._birthdayController.dispatch({ type: ActionNameEnum.changeValue, payload: e })
         }});
 
         this._LoadAllPerson()
@@ -179,12 +176,12 @@ export class PersonClass extends React.Component<IPersonProps, IPersonState> {
 
     private _showDrawer = () => {
       this._ClearInputs();
-      this._drawerController.dispatch({ type: showDrawer, payload: true });
+      this._drawerController.dispatch({ type: ActionNameEnum.hideElement, payload: true });
     }
 
     private _hideDrawer = () => {
-      this._drawerController.dispatch({ type: showDrawer, payload: false });
-      this._idPersonController.dispatch({ type: changeValue, payload: null });
+      this._drawerController.dispatch({ type: ActionNameEnum.hideElement, payload: false });
+      this._idPersonController.dispatch({ type: ActionNameEnum.changeValue, payload: null });
     }
 
     private _LoadAllPerson = async() => {
@@ -196,7 +193,7 @@ export class PersonClass extends React.Component<IPersonProps, IPersonState> {
           x.key = x._id;
         });
         
-        this._tableController.dispatch({ type: loadDataTable, payload: response.data });
+        this._tableController.dispatch({ type: ActionNameEnum.loadItems, payload: response.data });
       }
     }
 
@@ -225,16 +222,16 @@ export class PersonClass extends React.Component<IPersonProps, IPersonState> {
 
     private _Loadperson = async (item:Person) => {
       this._showDrawer();
-      this._idPersonController.dispatch({ type: changeValue, payload: item._id });
-      this._typeDocumentController.dispatch({ type: changeValue, payload: item.typeDocument });
-      this._numberDocumentController.dispatch({ type: changeValue, payload: item.number_document});
-      this._firstNameController.dispatch({ type: changeValue, payload: item.first_name });
-      this._secondNameController.dispatch({ type: changeValue, payload: item.second_name });
-      this._firstLastnameController.dispatch({ type: changeValue, payload: item.first_lastname });
-      this._secondLastnameController.dispatch({ type: changeValue, payload: item.second_lastname });
-      this._telephoneController.dispatch({ type: changeValue, payload: item.telephone });
-      this._emailController.dispatch({ type: changeValue, payload: item.email });
-      this._birthdayController.dispatch({ type: changeDatepicker, payload: moment(item.birthdate) });
+      this._idPersonController.dispatch({ type: ActionNameEnum.changeValue, payload: item._id });
+      this._typeDocumentController.dispatch({ type: ActionNameEnum.changeValue, payload: item.typeDocument });
+      this._numberDocumentController.dispatch({ type: ActionNameEnum.changeValue, payload: item.number_document});
+      this._firstNameController.dispatch({ type: ActionNameEnum.changeValue, payload: item.first_name });
+      this._secondNameController.dispatch({ type: ActionNameEnum.changeValue, payload: item.second_name });
+      this._firstLastnameController.dispatch({ type: ActionNameEnum.changeValue, payload: item.first_lastname });
+      this._secondLastnameController.dispatch({ type: ActionNameEnum.changeValue, payload: item.second_lastname });
+      this._telephoneController.dispatch({ type: ActionNameEnum.changeValue, payload: item.telephone });
+      this._emailController.dispatch({ type: ActionNameEnum.changeValue, payload: item.email });
+      this._birthdayController.dispatch({ type: ActionNameEnum.changeValue, payload: moment(item.birthdate) });
       
     }
 
@@ -252,16 +249,16 @@ export class PersonClass extends React.Component<IPersonProps, IPersonState> {
     }
 
     private _ClearInputs = () => {
-      this._idPersonController.dispatch({ type: changeValue, payload: null });
-      this._typeDocumentController.dispatch({ type: changeValue, payload: "CC" });
-      this._numberDocumentController.dispatch({ type: changeValue, payload: null });
-      this._firstNameController.dispatch({ type: changeValue, payload: null });
-      this._secondNameController.dispatch({ type: changeValue, payload: null });
-      this._firstLastnameController.dispatch({ type: changeValue, payload: null });
-      this._secondLastnameController.dispatch({ type: changeValue, payload: null });
-      this._telephoneController.dispatch({ type: changeValue, payload: null });
-      this._emailController.dispatch({ type: changeValue, payload: null });
-      this._birthdayController.dispatch({ type: changeDatepicker, payload: null });
+      this._idPersonController.dispatch({ type: ActionNameEnum.changeValue, payload: null });
+      this._typeDocumentController.dispatch({ type: ActionNameEnum.changeValue, payload: "CC" });
+      this._numberDocumentController.dispatch({ type: ActionNameEnum.changeValue, payload: null });
+      this._firstNameController.dispatch({ type: ActionNameEnum.changeValue, payload: null });
+      this._secondNameController.dispatch({ type: ActionNameEnum.changeValue, payload: null });
+      this._firstLastnameController.dispatch({ type: ActionNameEnum.changeValue, payload: null });
+      this._secondLastnameController.dispatch({ type: ActionNameEnum.changeValue, payload: null });
+      this._telephoneController.dispatch({ type: ActionNameEnum.changeValue, payload: null });
+      this._emailController.dispatch({ type: ActionNameEnum.changeValue, payload: null });
+      this._birthdayController.dispatch({ type: ActionNameEnum.changeValue, payload: null });
     }
 
     public render(){
@@ -269,7 +266,7 @@ export class PersonClass extends React.Component<IPersonProps, IPersonState> {
     }
 }
 
-const mapStateToProps = (state: MainStore) => {  
+const mapStateToProps = (state: IStore) => {  
     return {
     };
   };

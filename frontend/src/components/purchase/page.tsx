@@ -1,11 +1,13 @@
 import * as React from "react";
 import { IPurchaseProps } from "./IPurchase";
-import { Row, Col, PageHeader, Button, Icon } from "antd";
+import { Row, Col, PageHeader } from "antd";
 import { SubspaceProvider } from "react-redux-subspace";
-import { MainStore } from "../../redux/namespace";
+import { IStore } from "../../redux/namespace";
 
 import Table from "../../general/table";
 import Drawer from "../../general/drawer";
+import { Button } from "@material-ui/core";
+import { Add } from "@material-ui/icons";
 
 
 export default function Page(props:IPurchaseProps) {
@@ -19,7 +21,7 @@ export default function Page(props:IPurchaseProps) {
                     ghost={false}
                     title="Compras"
                     extra={[
-                        <Button key="1" type="primary" onClick = { showDrawer }><Icon type="plus" /> Agregar </Button>,
+                        <Button key="1" variant="contained" color="primary" startIcon={<Add />} onClick={ showDrawer }> Agregar</Button>
                     ]}
                 >
                 </PageHeader>
@@ -27,12 +29,12 @@ export default function Page(props:IPurchaseProps) {
             </Row>
             <Row>
                 <Col span = { 24 }>
-                    <SubspaceProvider mapState={(state: MainStore) => {  return { table: state.tableProvider };  }} >
+                    <SubspaceProvider mapState={(state: IStore) => {  return { table: state.tableProvider };  }} >
                         <Table />
                     </SubspaceProvider>
                 </Col>
             </Row>
-            <SubspaceProvider mapState={(state: MainStore) => {
+            <SubspaceProvider mapState={(state: IStore) => {
              return { 
                 drawer: state.drawerProvider,
                 idInputPurchase: state.idInputPurchase,

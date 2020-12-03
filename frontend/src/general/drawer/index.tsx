@@ -1,7 +1,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { IDrawerProps, IDrawerState } from "./IDrawer";
-import { MainStore } from "../../redux/namespace";
+import { IStore } from "../../redux/namespace";
 import Page from "./page";
 
 export class DrawerClass extends React.Component<IDrawerProps, IDrawerState> {
@@ -12,7 +12,7 @@ export class DrawerClass extends React.Component<IDrawerProps, IDrawerState> {
     }
 }
 
-const mapStateToProps = (state: MainStore) => {  
+const mapStateToProps = (state: IStore) => {  
     return {
       drawer: state.drawer
     };

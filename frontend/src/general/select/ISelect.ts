@@ -1,8 +1,9 @@
-import { ISelect } from "../../redux/reducer/general/select/ISelect";
+import { ISelectProps as ISelect } from "../../redux/reducers/general/select/ISelect";
 
 export interface ISelectState extends ISelect {
-    select:ISelect
+    select:ISelect;
 }
 
 export interface ISelectProps extends ISelectState {
+    
 }

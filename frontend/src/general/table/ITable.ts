@@ -1,4 +1,4 @@
-import { ITable } from "../../redux/reducer/general/table/ITable";
+import { ITableProps as ITable } from "../../redux/reducers/general/table/ITable";
 
 export interface ITableState extends ITable {
     table:ITable

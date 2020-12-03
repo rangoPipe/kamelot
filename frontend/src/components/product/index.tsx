@@ -4,99 +4,98 @@ import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 
 import { IProductProps, IProductState } from "./IProduct";
 
-import { MainStore } from "../../redux/namespace";
+import { IStore } from "../../redux/namespace";
+import { ActionNameEnum } from "../../redux/action";
+import store from "../../redux/store";
 
 import Page from "./page";
 import DrawerPage from "./drawer/page";
-import { showDrawer, createDrawer } from "../../redux/action/general/drawer/_actionName";
-import { createTable, loadDataTable } from "../../redux/action/general/table/_actionName";
 import { ColumnProps } from "antd/lib/table";
 import { subspace } from "redux-subspace";
 
-import store from "../../redux/store";
-import { createInput, changeValue } from "../../redux/action/general/input/_actionName";
+
 import { BaseService, IBaseService } from "../../common/baseService";
-import { Button } from "antd";
 import { ProductNamespace } from "../../common/enum/product/enumProduct";
 import { Product } from "../../../../backend/src/model/core/product";
-import { createSelect, loadItems, changeValue as changeSelect, changeDefaultValue } from "../../redux/action/general/select/_actionName";
 import { Provider } from "../../../../backend/src/model/core/provider";
-import { IOption } from "../../redux/reducer/general/select/ISelect";
+import { Button } from "@material-ui/core";
+import { ISelectItemProps } from "../../redux/reducers/general/select/ISelect";
 
 export class ProductClass extends React.Component<IProductProps, IProductState> {
 
-  private _tableController = subspace( (state: MainStore) => state.tableProduct, ProductNamespace.table )(store);
-  private _drawerController = subspace( (state: MainStore) => state.drawerProduct, ProductNamespace.drawer )(store);
-  private _idProductController = subspace( (state: MainStore) => state.idInputProduct, ProductNamespace.id )(store);
-  private _nameController = subspace( (state: MainStore) => state.nameInputProduct, ProductNamespace.name )(store);
-  private _eanController = subspace( (state: MainStore) => state.eanInputProduct, ProductNamespace.ean )(store);
-  private _purchaseController = subspace( (state: MainStore) => state.purchaseInputProduct, ProductNamespace.purchase )(store);
-  private _saleController = subspace( (state: MainStore) => state.saleInputProduct, ProductNamespace.sale )(store);
-  private _typematerialController = subspace( (state: MainStore) => state.typeMaterialInputProduct, ProductNamespace.typeMaterial )(store);
-  private _providerController = subspace( (state: MainStore) => state.providerSelectProduct, ProductNamespace.provider )(store);
+  private _tableController = subspace( (state: IStore) => state.tableProduct, ProductNamespace.table )(store);
+  private _drawerController = subspace( (state: IStore) => state.drawerProduct, ProductNamespace.drawer )(store);
+  private _idProductController = subspace( (state: IStore) => state.idInputProduct, ProductNamespace.id )(store);
+  private _nameController = subspace( (state: IStore) => state.nameInputProduct, ProductNamespace.name )(store);
+  private _eanController = subspace( (state: IStore) => state.eanInputProduct, ProductNamespace.ean )(store);
+  private _purchaseController = subspace( (state: IStore) => state.purchaseInputProduct, ProductNamespace.purchase )(store);
+  private _saleController = subspace( (state: IStore) => state.saleInputProduct, ProductNamespace.sale )(store);
+  private _typematerialController = subspace( (state: IStore) => state.typeMaterialInputProduct, ProductNamespace.typeMaterial )(store);
+  private _providerController = subspace( (state: IStore) => state.providerSelectProduct, ProductNamespace.provider )(store);
 
   private _httpController:string = "producto";
   private _formateDate:string = "DD/MM/YYYY";
-  private _providerOptions:IOption;
+  private _providerOptions:ISelectItemProps;
 
     constructor(props:IProductProps) {
         super(props);
 
-        this._tableController.dispatch({ type: createTable, payload: {
+        this._tableController.dispatch({ type: ActionNameEnum.createElemet, payload: {
             columns: this._createColumns()
         }});
 
-        this._drawerController.dispatch({ type: createDrawer, payload: {
+        this._drawerController.dispatch({ type: ActionNameEnum.createElemet, payload: {
           title: "Producto",
           onClose: () => this._hideDrawer(),
           width: '700px',
           body: <DrawerPage onAccept = { this._SaveProduct } hideDrawer = { this._hideDrawer } />
         }});
 
-        this._idProductController.dispatch({ type: createInput, payload: {
+        this._idProductController.dispatch({ type: ActionNameEnum.createElemet, payload: {
           type: "hidden",
-          value: null
+          value: null,
+          hidden: true,
         }});
 
-        this._nameController.dispatch({ type: createInput, payload: {
+        this._nameController.dispatch({ type: ActionNameEnum.createElemet, payload: {
           type: "text",
           placeholder: "Nombre",
           label: "Nombre del producto",
-          onChange: (e:React.ChangeEvent<HTMLInputElement>) =>  this._nameController.dispatch({ type: changeValue, payload: e.target.value })
+          onChange: (e:React.ChangeEvent<HTMLInputElement>) =>  this._nameController.dispatch({ type: ActionNameEnum.changeValue, payload: e.target.value })
         }});
 
-        this._eanController.dispatch({ type: createInput, payload: {
+        this._eanController.dispatch({ type: ActionNameEnum.createElemet, payload: {
             type: "number",
             placeholder: "Código EAN",
             label: "Código EAN",
-            onChange: (e:React.ChangeEvent<HTMLInputElement>) =>  this._eanController.dispatch({ type: changeValue, payload: e.target.value })
+            onChange: (e:React.ChangeEvent<HTMLInputElement>) =>  this._eanController.dispatch({ type: ActionNameEnum.changeValue, payload: e.target.value })
         }});
 
-        this._purchaseController.dispatch({ type: createInput, payload: {
+        this._purchaseController.dispatch({ type: ActionNameEnum.createElemet, payload: {
             type: "number",
             placeholder: "Precio compra",
             label: "Precio de compra",
-            onChange: (e:React.ChangeEvent<HTMLInputElement>) =>  this._purchaseController.dispatch({ type: changeValue, payload: e.target.value })
+            onChange: (e:React.ChangeEvent<HTMLInputElement>) =>  this._purchaseController.dispatch({ type: ActionNameEnum.changeValue, payload: e.target.value })
         }});
 
-        this._saleController.dispatch({ type: createInput, payload: {
+        this._saleController.dispatch({ type: ActionNameEnum.createElemet, payload: {
             type: "number",
             placeholder: "Precio venta",
             label: "Precio de venta",
-            onChange: (e:React.ChangeEvent<HTMLInputElement>) =>  this._saleController.dispatch({ type: changeValue, payload: e.target.value })
+            onChange: (e:React.ChangeEvent<HTMLInputElement>) =>  this._saleController.dispatch({ type: ActionNameEnum.changeValue, payload: e.target.value })
         }});
 
-        this._typematerialController.dispatch({ type: createInput, payload: {
+        this._typematerialController.dispatch({ type: ActionNameEnum.createElemet, payload: {
             type: "text",
             placeholder: "Tipo producto",
             label: "Tipo",
-            onChange: (e:React.ChangeEvent<HTMLInputElement>) =>  this._typematerialController.dispatch({ type: changeValue, payload: e.target.value })
+            onChange: (e:React.ChangeEvent<HTMLInputElement>) =>  this._typematerialController.dispatch({ type: ActionNameEnum.changeValue, payload: e.target.value })
         }});
 
-        this._providerController.dispatch({ type: createSelect, payload: {
+        this._providerController.dispatch({ type: ActionNameEnum.createElemet, payload: {
             placeholder: "Seleccione Proveedor",
             label: "Proveedor",
-            onChange: (value:string) =>  this._providerController.dispatch({ type: changeSelect, payload: value })
+            onChange: (e: React.ChangeEvent<HTMLSelectElement>, payload:ISelectItemProps) => this._providerController.dispatch({ type:ActionNameEnum.changeValue, payload })
         }});
 
         this._LoadAllProducts();
@@ -143,16 +142,17 @@ export class ProductClass extends React.Component<IProductProps, IProductState> 
         ];
     }
 
-    private _showDrawer = (edit:boolean) => {
-      this._drawerController.dispatch({ type: showDrawer, payload: true });
+    private _showDrawer = (edit:boolean = false) => {
+      if(!edit){
+        this._ClearInputs();
+      }
+      this._drawerController.dispatch({ type: ActionNameEnum.showElement, payload: true });      
     }
 
     private _hideDrawer = () => {
-      this._drawerController.dispatch({ type: showDrawer, payload: false });
-      this._idProductController.dispatch({ type: changeValue, payload: null });
-      this._ClearInputs();
-      console.log(this._providerOptions);
-      
+      this._drawerController.dispatch({ type: ActionNameEnum.showElement, payload: false });
+      this._idProductController.dispatch({ type: ActionNameEnum.changeValue, payload: null });
+      this._ClearInputs();      
     }
 
     private _LoadAllProducts = async() => {
@@ -164,7 +164,7 @@ export class ProductClass extends React.Component<IProductProps, IProductState> 
           x.key = x._id;
         });
         
-        this._tableController.dispatch({ type: loadDataTable, payload: response.data });
+        this._tableController.dispatch({ type: ActionNameEnum.loadItems, payload: response.data });
       }
     }
 
@@ -174,10 +174,10 @@ export class ProductClass extends React.Component<IProductProps, IProductState> 
       
       if(response.success){
        this._providerOptions = response.data.map((x:Provider) => {
-          return { value: x._id, label: x.name, key: x._id };
+          return { ...x, value: x._id, text: x.name, key: x._id };
         });
         
-        this._providerController.dispatch({ type: loadItems, payload: this._providerOptions });
+        this._providerController.dispatch({ type: ActionNameEnum.loadItems, payload: this._providerOptions });
       }
     }
 
@@ -203,13 +203,13 @@ export class ProductClass extends React.Component<IProductProps, IProductState> 
 
     private _LoadProduct = async (item:Product) => {
       
-      this._idProductController.dispatch({ type: changeValue, payload: item._id });
-      this._nameController.dispatch({ type: changeValue, payload: item.name });
-      this._eanController.dispatch({ type: changeValue, payload: item.ean });
-      this._typematerialController.dispatch({ type: changeValue, payload: item.typeMaterial });
-      this._saleController.dispatch({ type: changeValue, payload: item.sale });
-      this._purchaseController.dispatch({ type: changeValue, payload: item.purchase });
-      this._providerController.dispatch({ type: changeDefaultValue, payload: item.provider._id });
+      this._idProductController.dispatch({ type: ActionNameEnum.changeValue, payload: item._id });
+      this._nameController.dispatch({ type: ActionNameEnum.changeValue, payload: item.name });
+      this._eanController.dispatch({ type: ActionNameEnum.changeValue, payload: item.ean });
+      this._typematerialController.dispatch({ type: ActionNameEnum.changeValue, payload: item.typeMaterial });
+      this._saleController.dispatch({ type: ActionNameEnum.changeValue, payload: item.sale });
+      this._purchaseController.dispatch({ type: ActionNameEnum.changeValue, payload: item.purchase });
+      this._providerController.dispatch({ type: ActionNameEnum.changeValue, payload: {...item.provider, text: item.provider.name } });
       this._showDrawer(true);
     }
 
@@ -227,14 +227,13 @@ export class ProductClass extends React.Component<IProductProps, IProductState> 
     }
 
     private _ClearInputs = () => {
-      this._idProductController.dispatch({ type: changeValue, payload: null });
-      this._nameController.dispatch({ type: changeValue, payload: null });
-      this._eanController.dispatch({ type: changeValue, payload: null });
-      this._saleController.dispatch({ type: changeValue, payload: null });
-      this._purchaseController.dispatch({ type: changeValue, payload: null });
-      this._typematerialController.dispatch({ type: changeValue, payload: null });
-      this._providerController.dispatch({ type: changeDefaultValue, payload: undefined });
-      
+      this._idProductController.dispatch({ type: ActionNameEnum.changeValue, payload: "" });
+      this._nameController.dispatch({ type: ActionNameEnum.changeValue, payload: "" });
+      this._eanController.dispatch({ type: ActionNameEnum.changeValue, payload: "" });
+      this._saleController.dispatch({ type: ActionNameEnum.changeValue, payload: "" });
+      this._purchaseController.dispatch({ type: ActionNameEnum.changeValue, payload: "" });
+      this._typematerialController.dispatch({ type: ActionNameEnum.changeValue, payload: "" });
+      this._providerController.dispatch({ type: ActionNameEnum.changeValue, payload: undefined });    
     }
 
     public render(){
@@ -242,7 +241,7 @@ export class ProductClass extends React.Component<IProductProps, IProductState> 
     }
 }
 
-const mapStateToProps = (state: MainStore) => {  
+const mapStateToProps = (state: IStore) => {  
     return {
     };
   };

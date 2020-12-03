@@ -1,52 +1,49 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import { subspace } from "redux-subspace";
+
+import { Button } from "@material-ui/core";
+import { ColumnProps } from "antd/lib/table";
 
 import { IPurchaseProps, IPurchaseState } from "./IPurchase";
 
-import { MainStore } from "../../redux/namespace";
+import { IStore } from "../../redux/namespace";
+import { ActionNameEnum } from "../../redux/action";
 
 import Page from "./page";
 import DrawerPage from "./drawer/page";
-import { showDrawer, createDrawer } from "../../redux/action/general/drawer/_actionName";
-import { createTable, loadDataTable } from "../../redux/action/general/table/_actionName";
-import { ColumnProps } from "antd/lib/table";
-import { subspace } from "redux-subspace";
 import { PurchaseNamespace } from "../../common/enum/purchase/enumPurchase";
 
 import store from "../../redux/store";
-import { createInput, changeValue } from "../../redux/action/general/input/_actionName";
 import { Purchase } from "../../../../backend/src/model/purchase";
 import { BaseService, IBaseService } from "../../common/baseService";
-import { Button } from "antd";
-import { IOption } from "../../redux/reducer/general/select/ISelect";
+import { ISelectItemProps } from "../../redux/reducers/general/select/ISelect";
 import { Product } from "../../../../backend/src/model/core/product";
-import { loadItems, createSelect, changeValue as changeSelect} from "../../redux/action/general/select/_actionName";
 
 export class PurchaseClass extends React.Component<IPurchaseProps, IPurchaseState> {
 
-  private _tableController = subspace((state: MainStore) => state.tablePurchase, PurchaseNamespace.table)(store);
-  private _drawerController = subspace((state: MainStore) => state.drawerPurchase, PurchaseNamespace.drawer)(store);
-  private _idPurchaseController = subspace((state: MainStore) => state.idInputPurchase, PurchaseNamespace.id)(store);
-  private _costbuyController = subspace((state: MainStore) => state.costbuyInputPurchase, PurchaseNamespace.costBuy)(store);
-  private _costsaleController = subspace((state: MainStore) => state.costsaleInputPurchase, PurchaseNamespace.costSale)(store);
-  private _quantityController = subspace((state: MainStore) => state.quantityInputPurchase, PurchaseNamespace.quantity)(store);
-  private _productController = subspace((state: MainStore) => state.productSelectPurchase, PurchaseNamespace.product)(store);
+  private _tableController = subspace((state: IStore) => state.tablePurchase, PurchaseNamespace.table)(store);
+  private _drawerController = subspace((state: IStore) => state.drawerPurchase, PurchaseNamespace.drawer)(store);
+  private _idPurchaseController = subspace((state: IStore) => state.idInputPurchase, PurchaseNamespace.id)(store);
+  private _costbuyController = subspace((state: IStore) => state.costbuyInputPurchase, PurchaseNamespace.costBuy)(store);
+  private _costsaleController = subspace((state: IStore) => state.costsaleInputPurchase, PurchaseNamespace.costSale)(store);
+  private _quantityController = subspace((state: IStore) => state.quantityInputPurchase, PurchaseNamespace.quantity)(store);
+  private _productController = subspace((state: IStore) => state.productSelectPurchase, PurchaseNamespace.product)(store);
   
-  private _productOptions: IOption[];
+  private _productOptions: ISelectItemProps[];
   private _httpController: string = "compra";
 
   constructor(props: IPurchaseProps) {
     super(props);
 
     this._tableController.dispatch({
-      type: createTable, payload: {
+      type: ActionNameEnum.createElemet, payload: {
         columns: this._createColumns()
       }
     });
 
     this._drawerController.dispatch({
-      type: createDrawer, payload: {
+      type: ActionNameEnum.createElemet, payload: {
         title: "Compra",
         onClose: () => this._hideDrawer(),
         width: '700px',
@@ -54,44 +51,44 @@ export class PurchaseClass extends React.Component<IPurchaseProps, IPurchaseStat
       }
     });
 
-    this._idPurchaseController.dispatch({
-      type: createInput, payload: {
-        type: "hidden",
-        value: null
-      }
-    });
+    this._idPurchaseController.dispatch({ type: ActionNameEnum.createElemet, payload: {
+      type: "hidden",
+      value: null,
+      hidden: true,
+    }});
 
     this._costbuyController.dispatch({
-      type: createInput, payload: {
+      type: ActionNameEnum.createElemet, payload: {
         type: "number",
         placeholder: "Precio costo",
         label: "Precio costo",
-        onChange: (e: React.ChangeEvent<HTMLInputElement>) => this._costbuyController.dispatch({ type: changeValue, payload: e.target.value })
+        value: "para nada",
+        onChange: (e: React.ChangeEvent<HTMLInputElement>) => this._costbuyController.dispatch({ type: ActionNameEnum.changeValue, payload: e.target.value })
       }
     });
 
     this._costsaleController.dispatch({
-      type: createInput, payload: {
+      type: ActionNameEnum.createElemet, payload: {
         type: "number",
         placeholder: "Precio venta",
         label: "Precio venta",
-        onChange: (e: React.ChangeEvent<HTMLInputElement>) => this._costsaleController.dispatch({ type: changeValue, payload: e.target.value })
+        onChange: (e: React.ChangeEvent<HTMLInputElement>) => this._costsaleController.dispatch({ type: ActionNameEnum.changeValue, payload: e.target.value })
       }
     });
 
     this._quantityController.dispatch({
-      type: createInput, payload: {
+      type: ActionNameEnum.createElemet, payload: {
         type: "number",
         placeholder: "Cantidad",
         label: "Cantidad",
-        onChange: (e: React.ChangeEvent<HTMLInputElement>) => this._quantityController.dispatch({ type: changeValue, payload: e.target.value })
+        onChange: (e: React.ChangeEvent<HTMLInputElement>) => this._quantityController.dispatch({ type: ActionNameEnum.changeValue, payload: e.target.value })
       }
     });
 
-    this._productController.dispatch({ type: createSelect, payload : {
+    this._productController.dispatch({ type: ActionNameEnum.createElemet, payload : {
       placeholder: "Seleccione producto",
       label: "Producto",
-      onChange: (value:string) =>  this._productController.dispatch({ type: changeSelect, payload: value })
+      onChange: (e: React.ChangeEvent<HTMLSelectElement>, payload:ISelectItemProps) => this._productController.dispatch({ type:ActionNameEnum.changeValue, payload })
     }})
 
     this._LoadAllPurchase();
@@ -126,8 +123,8 @@ export class PurchaseClass extends React.Component<IPurchaseProps, IPurchaseStat
         fixed: 'right',
         width: 100,
         render: (text, item) => <div>
-          <Button onClick={() => { this._LoadPurchase(item); }}><EditOutlined /></Button>
-          <Button onClick={() => { this._DeletePurchase(item); }}><DeleteOutlined /></Button>
+          <Button onClick={() => { this._LoadPurchase(item); }}>E</Button>
+          <Button onClick={() => { this._DeletePurchase(item); }}>D</Button>
         </div>
       },
     ];
@@ -135,12 +132,12 @@ export class PurchaseClass extends React.Component<IPurchaseProps, IPurchaseStat
 
   private _showDrawer = () => {
     this._ClearInputs();
-    this._drawerController.dispatch({ type: showDrawer, payload: true });
+    this._drawerController.dispatch({ type: ActionNameEnum.showElement, payload: true });
   }
 
   private _hideDrawer = () => {
-    this._drawerController.dispatch({ type: showDrawer, payload: false });
-    this._idPurchaseController.dispatch({ type: changeValue, payload: null });
+    this._drawerController.dispatch({ type: ActionNameEnum.showElement, payload: false });
+    this._idPurchaseController.dispatch({ type: ActionNameEnum.changeValue, payload: null });
   }
 
   private _LoadAllPurchase = async () => {
@@ -152,7 +149,7 @@ export class PurchaseClass extends React.Component<IPurchaseProps, IPurchaseStat
         x.key = x._id;
       });
 
-      this._tableController.dispatch({ type: loadDataTable, payload: response.data });
+      this._tableController.dispatch({ type: ActionNameEnum.loadItems, payload: response.data });
     }
   }
   
@@ -162,10 +159,10 @@ export class PurchaseClass extends React.Component<IPurchaseProps, IPurchaseStat
     
     if(response.success){
      this._productOptions = response.data.map((x:Product) => {
-        return { value: x._id, label: x.name, key: x._id };
+        return {...x, value: x._id, text: x.name, key: x._id };
       });
       
-      this._productController.dispatch({ type: loadItems, payload: this._productOptions });
+      this._productController.dispatch({ type: ActionNameEnum.loadItems, payload: this._productOptions });
     }
   }
 
@@ -180,6 +177,8 @@ export class PurchaseClass extends React.Component<IPurchaseProps, IPurchaseStat
       product: this._productController.getState().value,
     };
 
+    console.log(this._productController.getState());    
+
     const response = await (new BaseService().HttpRequest(parameters));
     if (response.success) {
       this._LoadAllPurchase();
@@ -188,11 +187,12 @@ export class PurchaseClass extends React.Component<IPurchaseProps, IPurchaseStat
   }
 
   private _LoadPurchase = async (item: Purchase) => {
+    this._idPurchaseController.dispatch({ type: ActionNameEnum.changeValue, payload: item._id });
+    this._costbuyController.dispatch({ type: ActionNameEnum.changeValue, payload: item.costBuy });
+    this._costsaleController.dispatch({ type: ActionNameEnum.changeValue, payload: item.costSale });
+    this._quantityController.dispatch({ type: ActionNameEnum.changeValue, payload: item.quantity });
+    this._productController.dispatch({ type: ActionNameEnum.changeValue, payload: {...item.product, text: item.product.name } });
     this._showDrawer();
-    this._idPurchaseController.dispatch({ type: changeValue, payload: item._id });
-    this._costbuyController.dispatch({ type: changeValue, payload: item.costBuy });
-    this._costsaleController.dispatch({ type: changeValue, payload: item.costSale });
-    this._quantityController.dispatch({ type: changeValue, payload: item.quantity });
   }
 
   private _DeletePurchase = async (item: Purchase) => {
@@ -209,10 +209,11 @@ export class PurchaseClass extends React.Component<IPurchaseProps, IPurchaseStat
   }
 
   private _ClearInputs = () => {
-    this._idPurchaseController.dispatch({ type: changeValue, payload: null });
-    this._costbuyController.dispatch({ type: changeValue, payload: null });
-    this._costsaleController.dispatch({ type: changeValue, payload: null });
-    this._quantityController.dispatch({ type: changeValue, payload: null });
+    this._idPurchaseController.dispatch({ type: ActionNameEnum.changeValue, payload: "" });
+    this._costbuyController.dispatch({ type: ActionNameEnum.changeValue, payload: "" });
+    this._costsaleController.dispatch({ type: ActionNameEnum.changeValue, payload: "" });
+    this._quantityController.dispatch({ type: ActionNameEnum.changeValue, payload: "" });
+    this._productController.dispatch({type: ActionNameEnum.changeValue, payload: undefined})
   }
 
   public render() {
@@ -220,7 +221,7 @@ export class PurchaseClass extends React.Component<IPurchaseProps, IPurchaseStat
   }
 }
 
-const mapStateToProps = (state: MainStore) => {
+const mapStateToProps = (state: IStore) => {
   return {
   };
 };

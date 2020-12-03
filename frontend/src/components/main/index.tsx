@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { MainStore } from '../../redux/namespace';
 import { IMainProps, IMainState } from './IMain';
 import Page from "./page";
-import { collectioneName } from '../../common/enum/collectionName';
+import { collectionName } from '../../common/enum/collectionName';
 
 export class MainClass extends React.Component<IMainProps, IMainState> {
 
@@ -15,7 +15,7 @@ export class MainClass extends React.Component<IMainProps, IMainState> {
         }
     }
 
-    private _changeContent = (content:collectioneName) => {
+    private _changeContent = (content:collectionName) => {
         this.setState({...this.state, content})
     }
 

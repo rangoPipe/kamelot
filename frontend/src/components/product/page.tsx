@@ -2,7 +2,7 @@ import * as React from "react";
 import { IProductProps } from "./IProduct";
 import { Row, Col, PageHeader, Button, Icon } from "antd";
 import { SubspaceProvider } from "react-redux-subspace";
-import { MainStore } from "../../redux/namespace";
+import { IStore } from "../../redux/namespace";
 
 import Table from "../../general/table";
 import Drawer from "../../general/drawer";
@@ -18,7 +18,7 @@ export default function Page(props:IProductProps) {
                     ghost={false}
                     title="Productos"
                     extra={[
-                        <Button key="1" type="primary" onClick = { showDrawer }><Icon type="plus" /> Agregar </Button>,
+                        <Button key="1" type="primary" onClick = { () => showDrawer() }><Icon type="plus" /> Agregar </Button>,
                     ]}
                 >
                 </PageHeader>
@@ -26,12 +26,12 @@ export default function Page(props:IProductProps) {
             </Row>
             <Row>
                 <Col span = { 24 }>
-                    <SubspaceProvider mapState={(state: MainStore) => {  return { table: state.tableProduct };  }} >
+                    <SubspaceProvider mapState={(state: IStore) => {  return { table: state.tableProduct };  }} >
                         <Table />
                     </SubspaceProvider>
                 </Col>
             </Row>
-            <SubspaceProvider mapState={(state: MainStore) => {
+            <SubspaceProvider mapState={(state: IStore) => {
             
              return { 
                 drawer: state.drawerProduct,
